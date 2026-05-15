@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { CheckCircle2 } from 'lucide-react';
 import PillarLayout from '@/components/PillarLayout';
 
 export const metadata: Metadata = {
