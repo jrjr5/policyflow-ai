@@ -10,6 +10,7 @@ import { ArrowLeft, BookOpen, Download, FileText, Share2 } from 'lucide-react';
 
 import WhyUs from '@/components/WhyUs';
 import WhoItsFor from '@/components/WhoItsFor';
+import RelatedPages from '@/components/RelatedPages';
 
 interface ExamplePolicyLayoutProps {
   title: string;
@@ -117,6 +118,10 @@ export default function ExamplePolicyLayout({
       <WhyUs />
 
       <WhoItsFor />
+
+      <RelatedPages title="Related Healthcare Policy Generators" category="generators" />
+      <RelatedPages title="Related Clinic SOP Templates" category="templates" />
+      <RelatedPages title="Explore More Healthcare Workflows" category="examples" />
 
       <Pricing />
 

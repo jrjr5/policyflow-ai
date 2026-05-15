@@ -12,6 +12,7 @@ import Link from 'next/link';
 import WhyUs from '@/components/WhyUs';
 import WhoItsFor from '@/components/WhoItsFor';
 import Benefits from '@/components/Benefits';
+import RelatedPages from '@/components/RelatedPages';
 
 interface PillarSection {
   id: string;
@@ -251,51 +252,11 @@ export default function PillarLayout({
 
       <Benefits />
 
-      <Pricing />
+      <RelatedPages title="Related Healthcare Policy Generators" category="generators" />
+      <RelatedPages title="Related Clinic SOP Templates" category="templates" />
+      <RelatedPages title="Popular Compliance Resources" category="pillars" />
 
-      {/* Cross-linking Section */}
-      <section className="py-24 px-6 bg-slate-900 text-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-12">
-            <div>
-              <h5 className="font-bold text-blue-400 mb-6 uppercase tracking-widest text-xs">SOP Generators</h5>
-              <ul className="space-y-4 text-sm text-slate-400">
-                <li><Link href="/policies/hipaa-privacy-policy" className="hover:text-white transition-colors">HIPAA Privacy Policy</Link></li>
-                <li><Link href="/policies/telehealth-consent-policy" className="hover:text-white transition-colors">Telehealth Consent SOP</Link></li>
-                <li><Link href="/policies/medication-refill-policy" className="hover:text-white transition-colors">Medication Refill SOP</Link></li>
-                <li><Link href="/policies/patient-intake-sop" className="hover:text-white transition-colors">Patient Intake Workflow</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-bold text-blue-400 mb-6 uppercase tracking-widest text-xs">Specialty Compliance</h5>
-              <ul className="space-y-4 text-sm text-slate-400">
-                <li><Link href="/specialties/med-spas" className="hover:text-white transition-colors">Med Spa Compliance</Link></li>
-                <li><Link href="/specialties/telehealth-clinics" className="hover:text-white transition-colors">Telehealth Operations</Link></li>
-                <li><Link href="/specialties/weight-loss-clinics" className="hover:text-white transition-colors">Weight Loss SOPs</Link></li>
-                <li><Link href="/specialties/iv-therapy-clinics" className="hover:text-white transition-colors">IV Therapy Protocols</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-bold text-blue-400 mb-6 uppercase tracking-widest text-xs">State Specific</h5>
-              <ul className="space-y-4 text-sm text-slate-400">
-                <li><Link href="/states/texas-telehealth-policies" className="hover:text-white transition-colors">Texas Telehealth SOPs</Link></li>
-                <li><Link href="/states/california-medspa-sop-generator" className="hover:text-white transition-colors">California Med Spa Rules</Link></li>
-                <li><Link href="/states/florida-clinic-compliance" className="hover:text-white transition-colors">Florida Clinic Compliance</Link></li>
-                <li><Link href="/states/new-york-hipaa-policy-generator" className="hover:text-white transition-colors">NY HIPAA Templates</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-bold text-blue-400 mb-6 uppercase tracking-widest text-xs">Free Resources</h5>
-              <ul className="space-y-4 text-sm text-slate-400">
-                <li><Link href="/free-hipaa-policy-template" className="hover:text-white transition-colors">Free HIPAA Template</Link></li>
-                <li><Link href="/free-telehealth-sop-template" className="hover:text-white transition-colors">Free Telehealth SOP</Link></li>
-                <li><Link href="/free-clinic-compliance-checklist" className="hover:text-white transition-colors">Compliance Checklist</Link></li>
-                <li><Link href="/launch" className="hover:text-white transition-colors">Product Launch Pack</Link></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Pricing />
 
       <Footer />
     </main>

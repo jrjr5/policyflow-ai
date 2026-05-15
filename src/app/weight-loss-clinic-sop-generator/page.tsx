@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
 import FAQ from '@/components/FAQ';
+import RelatedPages from '@/components/RelatedPages';
 import { Scale, HeartPulse, FileText, ArrowRight, FlaskConical, Beaker } from 'lucide-react';
 import Link from 'next/link';
 
@@ -197,6 +198,10 @@ export default function WeightLossLandingPage() {
       <WhoItsFor />
 
       <Benefits />
+
+      <RelatedPages title="Related Healthcare Policy Generators" category="generators" />
+      <RelatedPages title="Related Clinic SOP Templates" category="templates" />
+      <RelatedPages title="Explore More Healthcare Workflows" category="examples" />
 
       <Pricing />
 

@@ -31,6 +31,7 @@ import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
 import FAQ from '@/components/FAQ';
 import EmailCapture from '@/components/EmailCapture';
+import RelatedPages from '@/components/RelatedPages';
 
 import WhyUs from '@/components/WhyUs';
 import WhoItsFor from '@/components/WhoItsFor';
@@ -189,32 +190,90 @@ export default function HomeClient() {
       {step === 'landing' && (
         <div className="animate-in fade-in duration-500">
           {/* HERO SECTION */}
-          <section className="py-24 md:py-32 px-6 text-center bg-white border-b border-slate-100 overflow-hidden relative">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-96 bg-blue-50/50 blur-3xl rounded-full -translate-y-48"></div>
+          <section className="pt-20 pb-32 md:pt-32 md:pb-48 px-6 text-center bg-white border-b border-slate-100 overflow-hidden relative">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-blue-50/30 blur-[120px] rounded-full -translate-y-96"></div>
             <div className="max-w-6xl mx-auto relative z-10">
-              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-xs font-black mb-8 uppercase tracking-widest">
+              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-xs font-black mb-8 uppercase tracking-widest border border-blue-100">
                 <Star className="w-4 h-4 fill-blue-600" />
-                <span>The #1 AI Clinic Documentation Software</span>
+                <span>The #1 AI Healthcare Documentation Engine</span>
               </div>
-              <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-8 tracking-tight leading-[1.05]">
-                Generate HIPAA Policies, Telehealth SOPs, and Clinic Compliance Templates in Minutes Using AI
+              <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-8 tracking-tight leading-[1.02]">
+                Generate HIPAA Policies, Telehealth SOPs, and Healthcare Compliance Templates in Minutes Using AI
               </h1>
-              <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-4xl mx-auto leading-relaxed font-medium">
                 Built for telehealth clinics, med spas, wellness clinics, weight loss clinics, and healthcare businesses that need professional operational documentation fast.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button onClick={handleStart} className="w-full sm:w-auto bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-2xl hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-blue-200">
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+                <button onClick={handleStart} className="w-full sm:w-auto bg-blue-600 text-white px-12 py-6 rounded-2xl font-black text-2xl hover:bg-blue-700 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 shadow-2xl shadow-blue-500/25">
                   Generate 1 Free Policy <ArrowRight className="w-6 h-6" />
                 </button>
-                <a href="#samples" className="w-full sm:w-auto bg-white text-slate-700 border border-slate-200 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-slate-50 transition-all text-center">
-                  View Real Policy Examples
+                <a href="#samples" className="w-full sm:w-auto bg-white text-slate-700 border border-slate-200 px-12 py-6 rounded-2xl font-bold text-xl hover:bg-slate-50 transition-all text-center">
+                  View Sample Policies
                 </a>
               </div>
-              <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm font-bold text-slate-400">
-                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> No setup required</div>
-                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Professional healthcare templates</div>
-                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Built for healthcare operations</div>
-                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Save hours of manual documentation work</div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left max-w-5xl mx-auto mb-20">
+                 {[
+                   { title: "Instant SOPs", desc: "Generate professional healthcare SOPs instantly", icon: Zap },
+                   { title: "Save Hours", desc: "Save hours of manual documentation work", icon: Clock },
+                   { title: "Clinic Built", desc: "Built for healthcare businesses and clinic operations", icon: Activity },
+                   { title: "All-in-One", desc: "Create HIPAA policies, handbooks, and compliance templates", icon: Shield }
+                 ].map((item, i) => (
+                   <div key={i} className="flex gap-4 p-4 rounded-2xl border border-slate-50 bg-slate-50/50">
+                      <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
+                        <item.icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-slate-900 text-sm">{item.title}</p>
+                        <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
+                      </div>
+                   </div>
+                 ))}
+              </div>
+
+              <div className="space-y-12">
+                <div>
+                  <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-8">Designed for Specialized Clinical Verticals</p>
+                  <div className="flex flex-wrap items-center justify-center gap-4">
+                    {["Telehealth Clinics", "Med Spas", "Wellness Clinics", "Weight Loss Clinics", "Psychiatry Clinics", "IV Therapy Clinics"].map((name, i) => (
+                      <div key={i} className="bg-white border border-slate-200 px-6 py-3 rounded-2xl font-bold text-slate-700 shadow-sm flex items-center gap-2 hover:border-blue-300 transition-colors cursor-default">
+                        <CheckCircle2 className="w-4 h-4 text-green-500" />
+                        <span>{name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-8">High-Value Documentation Use Cases</p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    {["HIPAA Privacy Policy", "No-Show SOP", "Employee Handbook", "Telehealth Consent Workflow", "Med Spa Intake SOP"].map((tag, i) => (
+                      <span key={i} className="bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider border border-blue-100">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-24 pt-12 border-t border-slate-100 grid grid-cols-2 md:grid-cols-4 gap-8">
+                 <div>
+                   <p className="text-3xl font-black text-slate-900 mb-1">90%</p>
+                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Reduce Admin Workload</p>
+                 </div>
+                 <div>
+                   <p className="text-3xl font-black text-slate-900 mb-1">100%</p>
+                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Standardize Documentation</p>
+                 </div>
+                 <div>
+                   <p className="text-3xl font-black text-slate-900 mb-1">60s</p>
+                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Generate Workflows</p>
+                 </div>
+                 <div>
+                   <p className="text-3xl font-black text-slate-900 mb-1">Ready</p>
+                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Audit-Ready SOPs</p>
+                 </div>
               </div>
             </div>
           </section>
@@ -319,6 +378,8 @@ export default function HomeClient() {
 
           <WhyUs />
 
+          <RelatedPages title="Popular Compliance Generators" category="generators" />
+
           <div className="py-16 bg-white text-center">
             <button onClick={handleStart} className="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200 inline-flex items-center gap-3">
               Generate Compliance Workflow <ArrowRight className="w-5 h-5" />
@@ -334,6 +395,9 @@ export default function HomeClient() {
           </div>
 
           <Benefits />
+
+          <RelatedPages title="Free Healthcare Policy Templates" category="templates" />
+          <RelatedPages title="Authoritative Compliance Resources" category="pillars" />
 
           <FAQ items={faqs} title="PolicyFlow AI FAQs" />
 

@@ -12,6 +12,7 @@ import Link from 'next/link';
 import WhyUs from '@/components/WhyUs';
 import WhoItsFor from '@/components/WhoItsFor';
 import Benefits from '@/components/Benefits';
+import RelatedPages from '@/components/RelatedPages';
 
 interface UseCaseLayoutProps {
   title: string;
@@ -306,60 +307,11 @@ export default function UseCaseLayout({
 
       <Benefits />
 
-      <Pricing />
+      <RelatedPages title="Related Healthcare Policy Generators" category="generators" />
+      <RelatedPages title="Related Clinic SOP Templates" category="templates" />
+      <RelatedPages title="Explore More Healthcare Workflows" category="examples" />
 
-      <section className="py-24 px-6 bg-white border-t border-slate-100">
-         <div className="max-w-6xl mx-auto">
-            <h4 className="text-sm font-black text-blue-600 uppercase tracking-widest mb-12">Related Clinical Documentation</h4>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-               <div className="space-y-4">
-                  <h5 className="font-bold text-slate-900">Popular SOPs</h5>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                     <li><Link href="/policies/hipaa-privacy-policy" className="hover:text-blue-600 transition-colors">HIPAA Privacy Policy</Link></li>
-                     <li><Link href="/policies/telehealth-consent-policy" className="hover:text-blue-600 transition-colors">Telehealth Consent</Link></li>
-                     <li><Link href="/policies/medication-refill-policy" className="hover:text-blue-600 transition-colors">Medication Refills</Link></li>
-                     <li><Link href="/policies/osha-clinic-policy" className="hover:text-blue-600 transition-colors">OSHA Compliance</Link></li>
-                  </ul>
-               </div>
-               <div className="space-y-4">
-                  <h5 className="font-bold text-slate-900">Industry Solutions</h5>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                     <li><Link href="/dentistry-policies" className="hover:text-blue-600 transition-colors">Dentistry SOPs</Link></li>
-                     <li><Link href="/psychiatry-clinic-policies" className="hover:text-blue-600 transition-colors">Psychiatry SOPs</Link></li>
-                     <li><Link href="/chiropractic-compliance" className="hover:text-blue-600 transition-colors">Chiropractic SOPs</Link></li>
-                     <li><Link href="/urgent-care-workflows" className="hover:text-blue-600 transition-colors">Urgent Care SOPs</Link></li>
-                  </ul>
-               </div>
-               <div className="space-y-4">
-                  <h5 className="font-bold text-slate-900">Niche Engines</h5>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                     <li><Link href="/specialties/med-spas" className="hover:text-blue-600 transition-colors">Med Spa SOPs</Link></li>
-                     <li><Link href="/specialties/weight-loss-clinics" className="hover:text-blue-600 transition-colors">Weight Loss SOPs</Link></li>
-                     <li><Link href="/specialties/iv-therapy-clinics" className="hover:text-blue-600 transition-colors">IV Therapy Protocols</Link></li>
-                     <li><Link href="/specialties/psychiatry-clinics" className="hover:text-blue-600 transition-colors">Mental Health SOPs</Link></li>
-                  </ul>
-               </div>
-               <div className="space-y-4">
-                  <h5 className="font-bold text-slate-900">Free Templates</h5>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                     <li><Link href="/free-hipaa-policy-template" className="hover:text-blue-600 transition-colors">HIPAA Template</Link></li>
-                     <li><Link href="/free-telehealth-sop-template" className="hover:text-blue-600 transition-colors">Telehealth SOP</Link></li>
-                     <li><Link href="/free-clinic-compliance-checklist" className="hover:text-blue-600 transition-colors">Compliance Checklist</Link></li>
-                     <li><Link href="/launch" className="hover:text-blue-600 transition-colors">Launch Resource</Link></li>
-                  </ul>
-               </div>
-               <div className="space-y-4">
-                  <h5 className="font-bold text-slate-900">State Directory</h5>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                     <li><Link href="/states" className="hover:text-blue-600 transition-colors">All 50 States</Link></li>
-                     <li><Link href="/states/texas-telehealth-policies" className="hover:text-blue-600 transition-colors">Texas Compliance</Link></li>
-                     <li><Link href="/states/california-medspa-sop-generator" className="hover:text-blue-600 transition-colors">California Compliance</Link></li>
-                     <li><Link href="/states/florida-clinic-compliance" className="hover:text-blue-600 transition-colors">Florida Compliance</Link></li>
-                  </ul>
-               </div>
-            </div>
-         </div>
-      </section>
+      <Pricing />
 
       <Footer />
     </main>

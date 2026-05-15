@@ -4,7 +4,8 @@ import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
 import FAQ from '@/components/FAQ';
-import { Shield, Lock, FileCheck, ArrowRight, CheckCircle, Info } from 'lucide-react';
+import RelatedPages from '@/components/RelatedPages';
+import { Shield, Lock, FileCheck, ArrowRight, CheckCircle, Info, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -166,21 +167,6 @@ export default function HIPAALandingPage() {
         </div>
       </section>
 
-      {/* Internal Links Section */}
-      <section className="py-12 px-6 bg-blue-600 text-white">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>
-            <h2 className="text-2xl font-bold mb-2">Need more than just HIPAA?</h2>
-            <p className="text-blue-100">Explore our specialized generators for every clinical workflow.</p>
-          </div>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/telehealth-policy-generator" className="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Telehealth SOPs</Link>
-            <Link href="/medspa-sop-generator" className="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Med Spa Protocols</Link>
-            <Link href="/clinic-policy-generator" className="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-lg text-sm font-semibold transition-colors">General Clinic SOPs</Link>
-          </div>
-        </div>
-      </section>
-
       {/* Sample Preview */}
       <section className="py-24 px-6 bg-white overflow-hidden">
         <div className="max-w-4xl mx-auto">
@@ -238,6 +224,10 @@ export default function HIPAALandingPage() {
       <WhoItsFor />
 
       <Benefits />
+
+      <RelatedPages title="Related Healthcare Policy Generators" category="generators" />
+      <RelatedPages title="Related Clinic SOP Templates" category="templates" />
+      <RelatedPages title="Explore More Healthcare Workflows" category="examples" />
 
       <Pricing />
 
