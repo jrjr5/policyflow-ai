@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   },
 };
 
+import WhyUs from '@/components/WhyUs';
+import WhoItsFor from '@/components/WhoItsFor';
+import Benefits from '@/components/Benefits';
+
 export default function TelehealthLandingPage() {
   const faqs = [
     {
@@ -115,10 +119,10 @@ export default function TelehealthLandingPage() {
             <Video className="w-4 h-4" /> Virtual Care Optimization
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
-            Launch Your Virtual Clinic with Audit-Ready Telehealth SOPs.
+            Standardize Your Virtual Care with Healthcare-Focused AI Generation.
           </h1>
           <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Stop guessing about cross-state virtual care regulations. Generate state-specific telehealth consent forms, remote prescribing protocols, and platform security SOPs in minutes.
+            Generate state-specific telehealth consent forms, remote prescribing protocols, and platform security SOPs in minutes. Professional operational templates built for modern healthcare practices.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href="#generator" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
@@ -196,6 +200,12 @@ export default function TelehealthLandingPage() {
       </section>
 
       <FAQ items={faqs} title="Telehealth Compliance FAQ" />
+
+      <WhyUs />
+
+      <WhoItsFor />
+
+      <Benefits />
 
       <Pricing />
 

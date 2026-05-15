@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   },
 };
 
+import WhyUs from '@/components/WhyUs';
+import WhoItsFor from '@/components/WhoItsFor';
+import Benefits from '@/components/Benefits';
+import Benefits from '@/components/Benefits';
+
 export default function HIPAALandingPage() {
   const faqs = [
     {
@@ -116,10 +121,10 @@ export default function HIPAALandingPage() {
             <Shield className="w-4 h-4" /> HIPAA Compliance Simplified
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
-            The #1 HIPAA Policy Generator for Modern Clinics.
+            Professional HIPAA Documentation Built for Healthcare Operations.
           </h1>
           <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Generate state-specific, audit-ready HIPAA Privacy and Security policies in under 60 seconds. Trusted by telehealth providers, med spas, and wellness clinics across the USA.
+            Generate state-specific, audit-ready HIPAA Privacy and Security policies in under 60 seconds. Professional clinic documentation powered by AI.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href="#generator" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
@@ -228,6 +233,14 @@ export default function HIPAALandingPage() {
       </section>
 
       <FAQ items={faqs} title="HIPAA Compliance FAQ" />
+
+      <WhyUs />
+
+      <WhoItsFor />
+
+      <Benefits />
+
+      <Benefits />
 
       <Pricing />
 

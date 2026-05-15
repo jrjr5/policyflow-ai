@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, ShieldCheck } from 'lucide-react';
 import RecentActivity from '@/components/RecentActivity';
 
 const MONTHLY_LINK = "https://buy.stripe.com/test_5kQ9AMaPw3toajS4M80VO00";
@@ -9,10 +9,17 @@ const PACK_LINK = "https://buy.stripe.com/test_14AfZa7Dk0hc77GemI0VO01";
 export default function Pricing() {
   return (
     <>
-    <section id="pricing" className="py-24 px-6">
+    <section id="pricing" className="py-24 px-6 bg-white border-t border-slate-100">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">Simple, transparent pricing.</h2>
-        <p className="text-xl text-slate-600 mb-16 max-w-2xl mx-auto">Choose the plan that fits your clinical documentation needs. No hidden fees, cancel any time.</p>
+        <h2 className="text-sm font-black text-blue-600 uppercase tracking-widest mb-4">Pricing Plans</h2>
+        <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">Built for Healthcare Businesses of All Sizes.</h3>
+        <p className="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+          Standardize your clinic operations with professional operational templates and healthcare-focused AI generation.
+        </p>
+        
+        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-6 py-3 rounded-full text-sm font-bold mb-16 shadow-sm border border-blue-100">
+          <ShieldCheck className="w-5 h-5" /> Trusted by 500+ Healthcare Clinics Nationwide
+        </div>
         
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* 10 Policy Pack */}

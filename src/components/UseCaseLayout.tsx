@@ -9,6 +9,10 @@ import EmailCapture from '@/components/EmailCapture';
 import { CheckCircle2, ArrowRight, ShieldCheck, Zap, Clock, Home, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
+import WhyUs from '@/components/WhyUs';
+import WhoItsFor from '@/components/WhoItsFor';
+import Benefits from '@/components/Benefits';
+
 interface UseCaseLayoutProps {
   title: string;
   headline: string;
@@ -167,18 +171,21 @@ export default function UseCaseLayout({
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-700 text-sm font-black rounded-full mb-6 uppercase tracking-widest">{industry} Compliance</span>
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tight leading-none">{headline}</h1>
-          <p className="text-xl md:text-2xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto">{subheadline}</p>
+          <p className="text-xl md:text-2xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto">
+            {subheadline} Operational documentation built for modern healthcare practices.
+          </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
              <a href="#generator" className="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200 flex items-center justify-center gap-2">
-                Generate Free Policy <ArrowRight className="w-6 h-6" />
+                Generate 1 Free Policy <ArrowRight className="w-6 h-6" />
              </a>
              <Link href="/#samples" className="bg-white text-slate-700 border border-slate-200 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-slate-50 transition-all">
-                View Samples
+                View Sample Policies
              </Link>
           </div>
-          <div className="mt-10 flex items-center justify-center gap-6 text-sm font-bold text-slate-400">
-             <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Audit-Ready</div>
-             <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> State-Specific</div>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm font-bold text-slate-400">
+             <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Built for Healthcare Businesses</div>
+             <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Professional Operational Templates</div>
+             <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Audit-Ready Drafts</div>
           </div>
         </div>
       </section>
@@ -292,6 +299,12 @@ export default function UseCaseLayout({
       </section>
 
       <FAQ items={faqs} title={`${industry} FAQ`} />
+
+      <WhyUs />
+
+      <WhoItsFor />
+
+      <Benefits />
 
       <Pricing />
 

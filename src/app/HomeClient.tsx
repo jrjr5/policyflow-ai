@@ -32,6 +32,10 @@ import PolicyGenerator from '@/components/PolicyGenerator';
 import FAQ from '@/components/FAQ';
 import EmailCapture from '@/components/EmailCapture';
 
+import WhyUs from '@/components/WhyUs';
+import WhoItsFor from '@/components/WhoItsFor';
+import Benefits from '@/components/Benefits';
+
 export default function HomeClient() {
   const [step, setStep] = useState<'landing' | 'generator'>('landing');
 
@@ -193,10 +197,10 @@ export default function HomeClient() {
                 <span>The #1 AI Clinic Documentation Software</span>
               </div>
               <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-8 tracking-tight leading-[1.05]">
-                Generate HIPAA Policies, Telehealth SOPs, and Healthcare Compliance Templates Using AI
+                Professional Clinic Documentation Powered by AI.
               </h1>
               <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-4xl mx-auto leading-relaxed">
-                PolicyFlow AI helps telehealth clinics, wellness clinics, med spas, weight loss clinics, and healthcare businesses generate professional healthcare operational documentation in minutes instead of hours.
+                PolicyFlow AI helps healthcare businesses generate professional operational templates and compliance workflows in minutes. Designed for telehealth, med spa, and wellness clinics.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button onClick={handleStart} className="w-full sm:w-auto bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-2xl hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-blue-200">
@@ -306,6 +310,12 @@ export default function HomeClient() {
           </section>
 
           <RecentActivity />
+
+          <WhyUs />
+
+          <WhoItsFor />
+
+          <Benefits />
 
           <FAQ items={faqs} title="PolicyFlow AI FAQs" />
 

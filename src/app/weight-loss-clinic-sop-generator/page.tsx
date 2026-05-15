@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   },
 };
 
+import WhyUs from '@/components/WhyUs';
+import WhoItsFor from '@/components/WhoItsFor';
+import Benefits from '@/components/Benefits';
+
 export default function WeightLossLandingPage() {
   const faqs = [
     {
@@ -115,10 +119,10 @@ export default function WeightLossLandingPage() {
             <Scale className="w-4 h-4" /> Medical Weight Loss Compliance
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
-            Compliance Protocols for GLP-1 and Medical Weight Loss.
+            Professional Weight Loss SOPs Designed for Healthcare Businesses.
           </h1>
           <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Operating a weight loss clinic requires strict clinical protocols. PolicyFlow AI helps you generate robust SOPs for GLP-1 titration, patient screening, and lab monitoring in minutes.
+            Operating a weight loss clinic requires strict operational documentation. PolicyFlow AI helps you generate professional healthcare SOPs and compliance workflows in minutes.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href="#generator" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
@@ -187,6 +191,12 @@ export default function WeightLossLandingPage() {
       </section>
 
       <FAQ items={faqs} title="Weight Loss Clinic Compliance FAQ" />
+
+      <WhyUs />
+
+      <WhoItsFor />
+
+      <Benefits />
 
       <Pricing />
 

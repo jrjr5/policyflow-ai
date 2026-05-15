@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   },
 };
 
+import WhyUs from '@/components/WhyUs';
+import WhoItsFor from '@/components/WhoItsFor';
+import Benefits from '@/components/Benefits';
+
 export default function GeneralClinicLandingPage() {
   const faqs = [
     {
@@ -115,10 +119,10 @@ export default function GeneralClinicLandingPage() {
             <Layout className="w-4 h-4" /> Comprehensive Clinic Operations
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
-            Audit-Ready Policy Documentation for Your Entire Practice.
+            Professional Operational Documentation Built for Modern Healthcare Practices.
           </h1>
           <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Operational excellence starts with clear documentation. PolicyFlow AI generates customized SOPs for billing, patient intake, emergency response, and clinical workflows in seconds.
+            Operational excellence starts with clear documentation. PolicyFlow AI generates healthcare SOPs and compliance workflows in minutes. Designed for telehealth, med spa, and wellness clinics.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href="#generator" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
@@ -199,6 +203,12 @@ export default function GeneralClinicLandingPage() {
       </section>
 
       <FAQ items={faqs} title="Clinic Documentation FAQ" />
+
+      <WhyUs />
+
+      <WhoItsFor />
+
+      <Benefits />
 
       <Pricing />
 

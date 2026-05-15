@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   },
 };
 
+import WhyUs from '@/components/WhyUs';
+import WhoItsFor from '@/components/WhoItsFor';
+import Benefits from '@/components/Benefits';
+
 export default function MedSpaLandingPage() {
   const faqs = [
     {
@@ -116,10 +120,10 @@ export default function MedSpaLandingPage() {
             <Sparkles className="w-4 h-4" /> Aesthetic Excellence
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
-            Professional Clinical SOPs for Your Aesthetic Medical Practice.
+            Professional Med Spa SOPs Built Specifically for Healthcare Operations.
           </h1>
           <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            From Botox administration to medical director oversight, Med Spas face unique regulatory scrutiny. PolicyFlow AI generates precise clinical protocols that protect your license and your patients.
+            From Botox administration to medical director oversight, Med Spas face unique regulatory scrutiny. PolicyFlow AI generates professional clinic documentation to standardize your workflows faster.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a href="#generator" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
@@ -208,6 +212,12 @@ export default function MedSpaLandingPage() {
       </section>
 
       <FAQ items={faqs} title="Med Spa Compliance FAQ" />
+
+      <WhyUs />
+
+      <WhoItsFor />
+
+      <Benefits />
 
       <Pricing />
 

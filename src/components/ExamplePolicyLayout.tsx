@@ -8,6 +8,9 @@ import EmailCapture from '@/components/EmailCapture';
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, Download, FileText, Share2 } from 'lucide-react';
 
+import WhyUs from '@/components/WhyUs';
+import WhoItsFor from '@/components/WhoItsFor';
+
 interface ExamplePolicyLayoutProps {
   title: string;
   subtitle: string;
@@ -40,7 +43,7 @@ export default function ExamplePolicyLayout({
             <div>
               <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full mb-4 uppercase tracking-widest">{category}</span>
               <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">{title}</h1>
-              <p className="text-xl text-slate-600 leading-relaxed max-w-2xl">{subtitle}</p>
+              <p className="text-xl text-slate-600 leading-relaxed max-w-2xl">{subtitle} Professional operational templates built for healthcare businesses.</p>
             </div>
             <div className="flex gap-3 pb-2">
                <button className="p-3 rounded-xl border border-slate-200 text-slate-400 hover:text-blue-600 hover:border-blue-200 transition-all"><Share2 className="w-5 h-5" /></button>
@@ -110,6 +113,10 @@ export default function ExamplePolicyLayout({
       </section>
 
       <FAQ items={faqs} title="Frequently Asked Questions" />
+
+      <WhyUs />
+
+      <WhoItsFor />
 
       <Pricing />
 
