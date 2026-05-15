@@ -15,10 +15,11 @@ export default function Footer() {
     ],
     specialties: [
       { name: "Telehealth Clinics", href: "/specialties/telehealth-clinics" },
-      { name: "Medical Spas", href: "/specialties/med-spas" },
-      { name: "Wellness Clinics", href: "/specialties/wellness-clinics" },
-      { name: "IV Therapy", href: "/specialties/iv-therapy-clinics" },
-      { name: "Urgent Care", href: "/specialties/urgent-care-clinics" },
+      { name: "Psychiatry SOPs", href: "/psychiatry-clinic-policies" },
+      { name: "Dentistry SOPs", href: "/dentistry-policies" },
+      { name: "Chiropractic SOPs", href: "/chiropractic-compliance" },
+      { name: "Urgent Care SOPs", href: "/urgent-care-workflows" },
+      { name: "IV Therapy SOPs", href: "/iv-therapy-sop-generator" },
     ],
     resources: [
       { name: "HIPAA Guide", href: "/hipaa-compliance" },

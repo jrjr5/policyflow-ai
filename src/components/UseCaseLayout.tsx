@@ -263,6 +263,15 @@ export default function UseCaseLayout({
                   </ul>
                </div>
                <div className="space-y-4">
+                  <h5 className="font-bold text-slate-900">Industry Solutions</h5>
+                  <ul className="space-y-2 text-sm text-slate-500">
+                     <li><Link href="/dentistry-policies" className="hover:text-blue-600 transition-colors">Dentistry SOPs</Link></li>
+                     <li><Link href="/psychiatry-clinic-policies" className="hover:text-blue-600 transition-colors">Psychiatry SOPs</Link></li>
+                     <li><Link href="/chiropractic-compliance" className="hover:text-blue-600 transition-colors">Chiropractic SOPs</Link></li>
+                     <li><Link href="/urgent-care-workflows" className="hover:text-blue-600 transition-colors">Urgent Care SOPs</Link></li>
+                  </ul>
+               </div>
+               <div className="space-y-4">
                   <h5 className="font-bold text-slate-900">Niche Engines</h5>
                   <ul className="space-y-2 text-sm text-slate-500">
                      <li><Link href="/specialties/med-spas" className="hover:text-blue-600 transition-colors">Med Spa SOPs</Link></li>
