@@ -267,14 +267,14 @@ export default function HomeClient() {
                    <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Standardize Documentation</p>
                  </div>
                  <div>
-                   <p className="text-3xl font-black text-slate-900 mb-1">60s</p>
-                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Generate Workflows</p>
+                   <p className="text-3xl font-black text-slate-900 mb-1">Minutes</p>
+                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Generate Policies</p>
                  </div>
                  <div>
-                   <p className="text-3xl font-black text-slate-900 mb-1">Ready</p>
-                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Audit-Ready SOPs</p>
+                   <p className="text-3xl font-black text-slate-900 mb-1">AI-Powered</p>
+                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Healthcare Documentation</p>
                  </div>
-              </div>
+
             </div>
           </section>
 
