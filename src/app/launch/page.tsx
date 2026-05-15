@@ -133,8 +133,8 @@ export default function LaunchPage() {
 
       <Pricing />
 
-      <RelatedPages title="Explore Healthcare Policy Generators" category="generators" />
-      <RelatedPages title="Free Clinic SOP Templates" category="templates" />
+      <RelatedPages />
+      <RelatedPages />
 
       <section className="py-24 px-6 bg-blue-600 text-white text-center">
         <div className="max-w-4xl mx-auto">

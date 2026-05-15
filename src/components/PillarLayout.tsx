@@ -252,9 +252,9 @@ export default function PillarLayout({
 
       <Benefits />
 
-      <RelatedPages title="Related Healthcare Policy Generators" category="generators" />
-      <RelatedPages title="Related Clinic SOP Templates" category="templates" />
-      <RelatedPages title="Popular Compliance Resources" category="pillars" />
+      <RelatedPages />
+      <RelatedPages />
+      <RelatedPages />
 
       <Pricing />
 
