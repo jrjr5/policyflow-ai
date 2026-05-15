@@ -167,7 +167,7 @@ export default function PolicyGenerator() {
           <div className="space-y-2">
             <label className="text-sm font-semibold text-slate-700">Business / Clinic Name (Optional)</label>
             <input 
-              placeholder="Example: VidaSalud Medical Wellness" 
+              placeholder="Your Business Name" 
               className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
               value={formData.businessName} 
               onChange={(e) => setFormData({...formData, businessName: e.target.value})} 
