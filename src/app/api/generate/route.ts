@@ -27,19 +27,16 @@ export async function POST(req: Request) {
       
       Example:
       {
-        "policy": "# CLINIC POLICY... [Full Content]"
+        "policy": "1. PURPOSE\\nThis policy establishes..."
       }
     `;
 
-    // Using gpt-4o-mini as it's the most reliable "mini" model currently.
-    // If you specifically need 4.1 (which may be a typo for 4o-mini), 
-    // this is the correct choice for current OpenAI API.
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
-          content: 'You are a healthcare compliance expert. You always respond in valid JSON.',
+          content: 'You are a healthcare compliance expert. You always respond with a JSON object containing a "policy" string.',
         },
         {
           role: 'user',
@@ -56,13 +53,14 @@ export async function POST(req: Request) {
 
     const parsed = JSON.parse(content);
     
-    // Ensure the response has the 'policy' field
-    if (!parsed.policy) {
-      // Fallback if AI didn't use the 'policy' key but returned structured data
+    // Normalize response to ensure { "policy": "..." }
+    if (parsed.policy) {
+      return NextResponse.json({ policy: parsed.policy });
+    } else {
+      // Fallback if AI returned different fields
       return NextResponse.json({ policy: JSON.stringify(parsed, null, 2) });
     }
 
-    return NextResponse.json(parsed);
   } catch (error: any) {
     console.error('Error generating policy:', error);
     
