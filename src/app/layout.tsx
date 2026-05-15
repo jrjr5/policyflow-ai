@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "PolicyFlow AI - Audit-Ready Clinic Policies in Minutes",
   description: "Generate professional policies and SOPs for telehealth, wellness, and med spa clinics using AI.",
+  verification: {
+    google: "_jDX6j00NZ_asZYUFd835etHvdpYEvQ6k8Cd4w4f_zo",
+  },
 };
 
 export default function RootLayout({
