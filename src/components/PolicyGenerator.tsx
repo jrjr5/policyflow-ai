@@ -7,12 +7,17 @@ import {
   Download, 
   Copy, 
   Lock,
-  Activity
+  Activity,
+  X,
+  Zap,
+  ShieldCheck,
+  CheckCircle
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import { US_STATES } from '@/lib/states-data';
 
-const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_5kQ9AMaPw3toajS4M80VO00";
+const UNLIMITED_LINK = "https://buy.stripe.com/test_5kQ9AMaPw3toajS4M80VO00";
+const STARTER_LINK = "https://buy.stripe.com/test_14AfZa7Dk0hc77GemI0VO01";
 
 export default function PolicyGenerator() {
   const [formData, setFormData] = useState({
@@ -26,14 +31,23 @@ export default function PolicyGenerator() {
   const [policyText, setPolicyText] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [hasGenerated, setHasGenerated] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  
+  // Usage tracking
+  const [usage, setUsage] = useState({
+    plan: 'free', // 'free' | 'starter' | 'unlimited'
+    generationsUsed: 0,
+    maxGenerations: 1,
+    hasPaid: false
+  });
+
   const resultRef = useRef<HTMLDivElement>(null);
 
-  // Load generation status from localStorage
+  // Load usage from localStorage
   useEffect(() => {
-    const status = localStorage.getItem('hasGeneratedFreePolicy');
-    if (status === 'true') {
-      setHasGenerated(true);
+    const savedUsage = localStorage.getItem('policyflow_usage');
+    if (savedUsage) {
+      setUsage(JSON.parse(savedUsage));
     }
     const savedEmail = localStorage.getItem('userEmail');
     if (savedEmail) {
@@ -41,27 +55,28 @@ export default function PolicyGenerator() {
     }
   }, []);
 
-  const markAsGenerated = () => {
-    setHasGenerated(true);
-    localStorage.setItem('hasGeneratedFreePolicy', 'true');
-    localStorage.setItem('generatedAt', new Date().toISOString());
+  const updateUsage = (newUsage: any) => {
+    setUsage(newUsage);
+    localStorage.setItem('policyflow_usage', JSON.stringify(newUsage));
     localStorage.setItem('userEmail', formData.email);
   };
 
-  const hasReachedLimit = hasGenerated;
-
-  // Auto-scroll when policyText is updated
-  useEffect(() => {
-    if (policyText && resultRef.current) {
-      setTimeout(() => {
-        resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
-  }, [policyText]);
+  const isLimitReached = usage.plan === 'free' && usage.generationsUsed >= usage.maxGenerations;
+  const isStarterLimitReached = usage.plan === 'starter' && usage.generationsUsed >= 10;
+  const canExport = usage.plan !== 'free';
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (hasReachedLimit && !policyText) return;
+    
+    // Check limits
+    if (isLimitReached && !policyText) {
+      setShowUpgradeModal(true);
+      return;
+    }
+    if (isStarterLimitReached && !policyText) {
+      setShowUpgradeModal(true);
+      return;
+    }
 
     setIsGenerating(true);
     setError(null);
@@ -82,12 +97,19 @@ export default function PolicyGenerator() {
         throw new Error(data.error || 'Failed to generate policy');
       }
 
-      if (!data.policy) {
-        throw new Error('API returned successfully but no "policy" field was found in the response.');
-      }
-
       setPolicyText(data.policy);
-      markAsGenerated();
+      
+      // Update usage
+      const newCount = usage.generationsUsed + 1;
+      updateUsage({
+        ...usage,
+        generationsUsed: newCount
+      });
+
+      // Show upgrade modal after first free generation
+      if (usage.plan === 'free' && newCount === 1) {
+        setTimeout(() => setShowUpgradeModal(true), 2000);
+      }
     } catch (err: any) {
       console.error('Frontend Error:', err);
       setError(err.message || 'An unexpected error occurred.');
@@ -103,22 +125,21 @@ export default function PolicyGenerator() {
   };
 
   const downloadPDF = () => {
-    if (!policyText) return;
+    if (!policyText || !canExport) {
+      setShowUpgradeModal(true);
+      return;
+    }
     const doc = new jsPDF();
     
-    // Header
     doc.setFontSize(22);
-    doc.setTextColor(15, 23, 42); // slate-900
+    doc.setTextColor(15, 23, 42); 
     doc.text("PolicyFlow AI", 20, 20);
     
     doc.setFontSize(10);
-    doc.setTextColor(100, 116, 139); // slate-500
+    doc.setTextColor(100, 116, 139); 
     doc.text(`Generated on ${new Date().toLocaleDateString()}`, 20, 27);
-    
-    doc.setDrawColor(226, 232, 240); // slate-200
     doc.line(20, 32, 190, 32);
     
-    // Title & Info
     doc.setFontSize(18);
     doc.setTextColor(15, 23, 42);
     doc.text(formData.policyType || "Clinic Policy", 20, 45);
@@ -131,18 +152,16 @@ export default function PolicyGenerator() {
     }
     doc.text(`${formData.clinicType} - ${formData.state}`, 20, currentY);
     
-    // Body Text
     doc.setFontSize(10);
-    doc.setTextColor(30, 41, 59); // slate-800
+    doc.setTextColor(30, 41, 59); 
     const splitText = doc.splitTextToSize(policyText, 170);
     doc.text(splitText, 20, currentY + 13);
     
-    // Footer
     const pageCount = (doc as any).internal.getNumberOfPages();
     for(let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
       doc.setFontSize(8);
-      doc.setTextColor(148, 163, 184); // slate-400
+      doc.setTextColor(148, 163, 184); 
       doc.text("CONFIDENTIAL - Generated by PolicyFlow AI. This document should be reviewed by legal counsel.", 20, 285);
     }
 
@@ -151,18 +170,77 @@ export default function PolicyGenerator() {
 
   return (
     <div className="w-full">
-      <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-100 mb-8">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
-            <Activity className="w-6 h-6" />
+      {/* Upgrade Modal */}
+      {showUpgradeModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white w-full max-w-2xl rounded-[40px] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
+            <div className="relative p-8 md:p-12 text-center">
+              <button 
+                onClick={() => setShowUpgradeModal(false)}
+                className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-sm">
+                <Zap className="w-10 h-10 fill-blue-600" />
+              </div>
+
+              <h3 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">Unlock Full Healthcare Policy Access</h3>
+              <p className="text-lg text-slate-600 mb-10 max-w-md mx-auto">
+                You've experienced our clinical engine. Upgrade now to unlock professional PDF exports and additional policy generations.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-4 mb-8">
+                <div className="bg-slate-50 border border-slate-100 p-6 rounded-3xl text-left hover:border-blue-200 transition-all group">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="bg-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-500 border border-slate-100">Starter</span>
+                    <span className="text-2xl font-black text-slate-900">$39</span>
+                  </div>
+                  <h4 className="font-bold text-slate-900 mb-2">Starter Pack</h4>
+                  <p className="text-xs text-slate-500 mb-6">10 Editable PDF Exports. One-time payment.</p>
+                  <a href={STARTER_LINK} className="block w-full py-3 bg-white border border-slate-200 text-slate-900 rounded-xl font-bold text-center hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all">Get 10 Policies</a>
+                </div>
+
+                <div className="bg-blue-600 border border-blue-500 p-6 rounded-3xl text-left shadow-xl shadow-blue-100 hover:scale-[1.02] transition-all">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="bg-blue-500/30 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">Best Value</span>
+                    <span className="text-2xl font-black text-white">$149<span className="text-xs font-medium text-blue-100">/mo</span></span>
+                  </div>
+                  <h4 className="font-bold text-white mb-2">Unlimited Access</h4>
+                  <p className="text-xs text-blue-100 mb-6">Unlimited generations & exports. Priority support.</p>
+                  <a href={UNLIMITED_LINK} className="block w-full py-3 bg-white text-blue-600 rounded-xl font-bold text-center hover:bg-blue-50 transition-all">Go Unlimited</a>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap justify-center gap-6 text-slate-400 text-xs font-semibold">
+                <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-blue-500" /> HIPAA Ready</span>
+                <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-blue-500" /> State Compliant</span>
+                <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-blue-500" /> Clinical Quality</span>
+              </div>
+            </div>
           </div>
-          <h2 className="text-3xl font-bold text-slate-900">Start Your Free Policy Draft</h2>
         </div>
-        <form onSubmit={handleGenerate} className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-slate-700">Clinic Type</label>
-              <select required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 transition-all" value={formData.clinicType} onChange={(e) => setFormData({...formData, clinicType: e.target.value})}>
+      )}
+
+      <div className="bg-white rounded-[40px] p-8 md:p-12 shadow-2xl border border-slate-100 mb-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50 -mr-32 -mt-32"></div>
+        
+        <div className="flex items-center gap-4 mb-10 relative">
+          <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-100">
+            <Activity className="w-8 h-8" />
+          </div>
+          <div>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Clinical Policy Engine</h2>
+            <p className="text-slate-500 font-medium">Generate state-specific healthcare documentation in seconds.</p>
+          </div>
+        </div>
+
+        <form onSubmit={handleGenerate} className="space-y-8 relative">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-700 ml-1 uppercase tracking-wider">Facility / Clinic Type</label>
+              <select required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all appearance-none font-medium text-slate-900" value={formData.clinicType} onChange={(e) => setFormData({...formData, clinicType: e.target.value})}>
                 <option value="">Select facility type...</option>
                 <option value="Telehealth">Telehealth</option>
                 <option value="Wellness Clinic">Wellness Clinic</option>
@@ -172,11 +250,13 @@ export default function PolicyGenerator() {
                 <option value="Psychiatry">Psychiatry</option>
                 <option value="Urgent Care">Urgent Care</option>
                 <option value="Chiropractic">Chiropractic</option>
+                <option value="Physical Therapy">Physical Therapy</option>
+                <option value="Dental Practice">Dental Practice</option>
               </select>
             </div>
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-slate-700">State</label>
-              <select required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 transition-all" value={formData.state} onChange={(e) => setFormData({...formData, state: e.target.value})}>
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-700 ml-1 uppercase tracking-wider">Practice State</label>
+              <select required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all appearance-none font-medium text-slate-900" value={formData.state} onChange={(e) => setFormData({...formData, state: e.target.value})}>
                 <option value="">Select state...</option>
                 {US_STATES.map((state) => (
                   <option key={state} value={state}>{state}</option>
@@ -185,132 +265,175 @@ export default function PolicyGenerator() {
               </select>
             </div>
           </div>
-          <div className="space-y-2">
-            <label className="text-sm font-semibold text-slate-700">Policy / SOP Type</label>
-            <input required placeholder="e.g. HIPAA Privacy Policy, Telehealth Consent SOP" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 transition-all" value={formData.policyType} onChange={(e) => setFormData({...formData, policyType: e.target.value})} />
+          
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-slate-700 ml-1 uppercase tracking-wider">Policy / SOP Objective</label>
+            <input required placeholder="e.g. HIPAA Data Security, Remote Patient Monitoring Consent" className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all font-medium text-slate-900 placeholder:text-slate-400" value={formData.policyType} onChange={(e) => setFormData({...formData, policyType: e.target.value})} />
           </div>
           
-          <div className="pt-4 border-t border-slate-50">
+          <div className="pt-2">
             <button 
               type="button" 
-              className="text-sm font-bold text-blue-600 flex items-center gap-2 hover:text-blue-700 transition-colors"
+              className="text-sm font-black text-blue-600 flex items-center gap-2 hover:bg-blue-50 px-4 py-2 rounded-xl transition-all"
               onClick={() => {
                 const el = document.getElementById('extra-fields');
                 if (el) el.classList.toggle('hidden');
               }}
             >
-              <Plus className="w-4 h-4" /> Add Clinic Name & Custom Notes (Optional)
+              <Plus className="w-4 h-4" /> Add Clinic Details & Custom Notes
             </button>
-            <div id="extra-fields" className="hidden mt-6 space-y-6 animate-in fade-in slide-in-from-top-2 duration-300">
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700">Business / Clinic Name</label>
-                <input 
-                  placeholder="Your Business Name" 
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
-                  value={formData.businessName} 
-                  onChange={(e) => setFormData({...formData, businessName: e.target.value})} 
-                />
+            <div id="extra-fields" className="hidden mt-8 space-y-8 animate-in fade-in slide-in-from-top-4 duration-500">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="text-sm font-bold text-slate-700 ml-1 uppercase tracking-wider">Clinic Name</label>
+                  <input 
+                    placeholder="Your Business Name" 
+                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-medium" 
+                    value={formData.businessName} 
+                    onChange={(e) => setFormData({...formData, businessName: e.target.value})} 
+                  />
+                </div>
+                <div className="space-y-3">
+                  <label className="text-sm font-bold text-slate-700 ml-1 uppercase tracking-wider">Work Email</label>
+                  <input 
+                    type="email"
+                    placeholder="name@clinic.com" 
+                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-medium" 
+                    value={formData.email} 
+                    onChange={(e) => setFormData({...formData, email: e.target.value})} 
+                  />
+                </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700">Work Email</label>
-                <input 
-                  type="email"
-                  placeholder="name@clinic.com" 
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
-                  value={formData.email} 
-                  onChange={(e) => setFormData({...formData, email: e.target.value})} 
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700">Additional Instructions</label>
-                <textarea placeholder="e.g. Include specific cross-state rules or platform names..." className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 min-h-[100px]" value={formData.notes} onChange={(e) => setFormData({...formData, notes: e.target.value})}></textarea>
+              <div className="space-y-3">
+                <label className="text-sm font-bold text-slate-700 ml-1 uppercase tracking-wider">Clinical Context / Specific Instructions</label>
+                <textarea placeholder="e.g. Include multi-state rules for CA and NY, or mention specialized IV protocols..." className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 min-h-[120px] font-medium" value={formData.notes} onChange={(e) => setFormData({...formData, notes: e.target.value})}></textarea>
               </div>
             </div>
           </div>
 
-          {error && <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm font-bold">Error: {error}</div>}
+          {error && <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-red-600 text-sm font-bold flex items-center gap-2 animate-pulse"><X className="w-4 h-4" /> {error}</div>}
           
-          {hasReachedLimit && !policyText ? (
-            <div className="space-y-4">
-              <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl text-center">
-                <p className="text-amber-800 font-bold mb-1">Free policy preview limit reached.</p>
-                <p className="text-amber-700 text-sm">Upgrade to PolicyFlow AI Professional to continue generating unlimited policies.</p>
-              </div>
-              <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" className="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-blue-200">
-                Upgrade to Professional <ArrowRight className="w-6 h-6" />
-              </a>
-            </div>
-          ) : (
-            <button type="submit" disabled={isGenerating} className="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-blue-100 group transition-all">
-              {isGenerating ? <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" /> : <><Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" /> Generate Policy Now</>}
-            </button>
+          <button 
+            type="submit" 
+            disabled={isGenerating} 
+            className={`w-full py-6 rounded-[24px] font-black text-2xl flex items-center justify-center gap-4 shadow-2xl transition-all group relative overflow-hidden ${
+              isGenerating ? 'bg-slate-100 text-slate-400' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-200'
+            }`}
+          >
+            {isGenerating ? (
+              <div className="w-8 h-8 border-4 border-slate-300 border-t-blue-600 rounded-full animate-spin" />
+            ) : (
+              <>
+                <Zap className="w-7 h-7 group-hover:scale-110 transition-transform fill-white" /> 
+                {usage.plan === 'free' && usage.generationsUsed === 0 ? 'Generate Free Policy Preview' : 'Generate Clinical Policy'}
+              </>
+            )}
+          </button>
+
+          {usage.plan === 'free' && (
+            <p className="text-center text-slate-400 text-sm font-medium">
+              Free plan: {usage.generationsUsed}/{usage.maxGenerations} generations used
+            </p>
           )}
         </form>
       </div>
 
-      <div className="max-w-2xl mx-auto text-center mb-12">
-        <p className="text-xs md:text-sm text-slate-500 leading-relaxed italic">
-          “PolicyFlow AI generates operational policy drafts for business use. It does not provide legal advice. Users should review and customize outputs for their specific practice, state, and compliance requirements.”
+      <div className="max-w-2xl mx-auto text-center mb-16">
+        <p className="text-xs md:text-sm text-slate-400 leading-relaxed italic px-8">
+          “PolicyFlow AI generates clinical operational drafts. It does not constitute legal or medical advice. Documentation should be reviewed by a medical director or compliance officer.”
         </p>
       </div>
 
       {policyText && (
-        <div ref={resultRef} className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-            <h3 className="text-2xl font-bold text-slate-900">Generated Policy</h3>
-            <div className="flex gap-3">
-              <button onClick={copyToClipboard} className="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-semibold hover:bg-slate-50 flex items-center gap-2 text-sm"><Copy className="w-4 h-4" /> Copy</button>
+        <div ref={resultRef} className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
+            <div>
+              <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Clinical Output</h3>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <p className="text-slate-500 text-sm font-bold uppercase tracking-widest">Generation Complete</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <button onClick={copyToClipboard} className="bg-white text-slate-900 border border-slate-200 px-6 py-3 rounded-2xl font-bold hover:bg-slate-50 transition-all flex items-center gap-2 shadow-sm"><Copy className="w-5 h-5" /> Copy</button>
               
-              <div className="relative group">
-                <button 
-                  disabled={hasReachedLimit}
-                  onClick={downloadPDF} 
-                  className={`bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-semibold flex items-center gap-2 text-sm transition-all ${hasReachedLimit ? 'opacity-50 grayscale cursor-not-allowed' : 'hover:bg-slate-50'}`}
-                >
-                  <Download className="w-4 h-4" /> PDF
-                </button>
-                {hasReachedLimit && (
-                  <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-center">
-                    Available with PolicyFlow AI Professional
-                  </div>
-                )}
-              </div>
-
-              <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2 text-sm">Upgrade</a>
-            </div>
-          </div>
-          <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-slate-100 font-serif leading-relaxed text-slate-800 whitespace-pre-wrap">
-            {policyText}
-          </div>
-
-          <div className="mt-8 flex justify-center">
-            <div className="relative group">
               <button 
-                disabled={hasReachedLimit}
-                onClick={downloadPDF}
-                className={`px-10 py-4 rounded-xl font-bold text-lg transition-all flex items-center gap-3 shadow-lg ${hasReachedLimit ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100'}`}
+                onClick={downloadPDF} 
+                className={`px-6 py-3 rounded-2xl font-black flex items-center gap-2 transition-all shadow-sm ${
+                  canExport 
+                  ? 'bg-white text-slate-900 border border-slate-200 hover:bg-slate-50' 
+                  : 'bg-slate-100 text-slate-400 border border-slate-100 cursor-not-allowed'
+                }`}
               >
-                {hasReachedLimit && <Lock className="w-5 h-5 text-slate-400" />}
-                <Download className="w-5 h-5" /> Download as PDF
+                {canExport ? <Download className="w-5 h-5" /> : <Lock className="w-5 h-5" />}
+                PDF Export
               </button>
-              {hasReachedLimit && (
-                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-64 p-3 bg-slate-900 text-white text-xs rounded-lg shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-center z-10">
-                  <p className="font-bold mb-1">Premium Feature</p>
-                  <p className="text-slate-400">PDF exports are available with PolicyFlow AI Professional.</p>
-                </div>
-              )}
+
+              <button 
+                onClick={() => setShowUpgradeModal(true)}
+                className="bg-blue-600 text-white px-8 py-3 rounded-2xl font-black hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 flex items-center gap-2"
+              >
+                <Zap className="w-5 h-5 fill-white" /> Upgrade
+              </button>
             </div>
           </div>
-          
-          <div className="mt-8 text-center">
-            {hasReachedLimit ? (
-              <div className="flex flex-col items-center gap-2">
-                <p className="text-slate-500 text-sm font-medium">Free preview limit reached.</p>
-                <a href={STRIPE_PAYMENT_LINK} className="text-blue-600 font-bold hover:underline flex items-center gap-1">Upgrade to generate unlimited policies <ArrowRight className="w-4 h-4" /></a>
+
+          <div className="relative group">
+            {!canExport && (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 bg-white/40 backdrop-blur-[6px] rounded-[40px] text-center border-2 border-dashed border-blue-200 animate-in fade-in duration-700">
+                <div className="w-20 h-20 bg-blue-600 text-white rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-blue-200 scale-110">
+                  <Lock className="w-10 h-10" />
+                </div>
+                <h4 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Full Policy Locked</h4>
+                <p className="text-lg text-slate-700 mb-8 max-w-md font-medium leading-relaxed">
+                  Upgrade to PolicyFlow AI Starter to unlock the full editable policy and PDF download.
+                </p>
+                <div className="flex flex-col md:flex-row gap-4">
+                  <button onClick={() => setShowUpgradeModal(true)} className="bg-blue-600 text-white px-10 py-4 rounded-2xl font-black text-xl hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all">Unlock Now — $39</button>
+                  <a href="#pricing" className="bg-white text-slate-900 px-10 py-4 rounded-2xl font-bold text-xl border border-slate-200 hover:bg-slate-50 transition-all">View All Plans</a>
+                </div>
               </div>
-            ) : (
-              <button onClick={() => { setPolicyText(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-slate-500 hover:text-slate-700 font-medium text-sm text-center">Clear and Generate Another</button>
             )}
+            
+            <div className={`bg-white rounded-[40px] p-8 md:p-16 shadow-2xl border border-slate-100 font-serif leading-relaxed text-slate-800 whitespace-pre-wrap text-lg transition-all duration-1000 ${!canExport ? 'blur-md select-none pointer-events-none' : ''}`}>
+              <div className="max-w-3xl mx-auto">
+                <div className="mb-12 pb-8 border-b border-slate-100 flex justify-between items-end">
+                   <div>
+                     <h4 className="text-3xl font-bold text-slate-900 mb-2">{formData.policyType}</h4>
+                     <p className="text-blue-600 font-bold uppercase tracking-widest text-sm">{formData.clinicType} • {formData.state}</p>
+                   </div>
+                   <div className="text-right text-slate-400 text-xs font-mono uppercase tracking-tighter">
+                     ID: PF-{Math.random().toString(36).substr(2, 9).toUpperCase()}
+                   </div>
+                </div>
+                {policyText}
+                <div className="mt-16 pt-8 border-t border-slate-100 text-slate-400 text-sm text-center italic">
+                   This document was generated by PolicyFlow AI clinical documentation engine.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-col items-center gap-6">
+            <button 
+              onClick={() => { setPolicyText(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+              className="text-slate-500 hover:text-blue-600 font-black text-sm uppercase tracking-widest transition-colors flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" /> Start New Generation
+            </button>
+            
+            <div className="flex items-center gap-8 py-6 px-10 bg-slate-50 rounded-full border border-slate-100">
+               <div className="flex -space-x-3">
+                  {[1,2,3,4].map(i => (
+                    <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+                      <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="User" />
+                    </div>
+                  ))}
+               </div>
+               <div className="text-sm font-bold text-slate-600">
+                  Join <span className="text-blue-600">500+ clinics</span> using PolicyFlow AI
+               </div>
+            </div>
           </div>
         </div>
       )}
