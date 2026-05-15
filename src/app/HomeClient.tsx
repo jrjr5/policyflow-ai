@@ -15,7 +15,13 @@ import {
   Sparkles,
   Scale,
   Rocket,
-  Plus
+  Plus,
+  Stethoscope,
+  Activity,
+  HeartPulse,
+  Brain,
+  Droplets,
+  ZapOff
 } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
@@ -31,55 +37,106 @@ export default function HomeClient() {
 
   const benefits = [
     {
-      title: "Save 20+ Hours Weekly",
-      desc: "Stop manually drafting policies from scratch. Generate professional SOPs in under 60 seconds."
+      title: "Save Hours Creating Manuals",
+      desc: "Stop manually drafting healthcare policies from scratch. Generate professional SOPs in under 60 seconds."
     },
     {
-      title: "Audit-Ready Quality",
-      desc: "Built with clinical standards and state-specific logic to ensure your documentation is robust."
+      title: "Generate in Minutes",
+      desc: "PolicyFlow AI automates operational documentation so you can focus on clinical growth."
     },
     {
       title: "Improve Consistency",
-      desc: "Ensure every practitioner and staff member follows the exact same clinical protocols."
+      desc: "Ensure every practitioner and staff member follows the exact same clinical protocols across your organization."
     },
     {
-      title: "Reduce Admin Load",
-      desc: "Automate the most tedious part of clinic operations so you can focus on patient care."
+      title: "Reduce Admin Workload",
+      desc: "Standardize your clinic workflows faster with AI-powered documentation and compliance templates."
     },
     {
-      title: "HIPAA-Ready Workflows",
-      desc: "Documentation designed for modern data protection and regulatory privacy requirements."
+      title: "Audit-Ready SOP Drafts",
+      desc: "Built with clinical standards and state-specific logic to ensure your documentation is robust and defensible."
     }
   ];
 
-  const industries = [
-    { title: "Telehealth Clinics", icon: Video, href: "/telehealth-clinic-policies" },
-    { title: "Med Spas", icon: Sparkles, href: "/medspa-sop-generator" },
-    { title: "Wellness Clinics", icon: Users, href: "/clinic-policy-generator" },
-    { title: "Weight Loss Clinics", icon: Scale, href: "/weight-loss-clinic-compliance" },
-    { title: "Healthcare Startups", icon: Rocket, href: "/healthcare-sop-generator" }
+  const industryCards = [
+    { 
+      title: "Telehealth Clinics", 
+      icon: Video, 
+      href: "/telehealth-clinic-policies",
+      pain: "Complex cross-state licensure and virtual consent rules.",
+      solution: "Generate state-specific telehealth SOPs and virtual visit protocols."
+    },
+    { 
+      title: "Med Spas", 
+      icon: Sparkles, 
+      href: "/medspa-sop-generator",
+      pain: "Stringent medical oversight and good faith exam requirements.",
+      solution: "Create audit-ready injectable SOPs and laser safety manuals."
+    },
+    { 
+      title: "Wellness Clinics", 
+      icon: HeartPulse, 
+      href: "/specialties/wellness-clinics",
+      pain: "Fragmented intake workflows and lack of operational standards.",
+      solution: "Standardize membership policies and nutritional counseling SOPs."
+    },
+    { 
+      title: "Weight Loss Clinics", 
+      icon: Scale, 
+      href: "/weight-loss-clinic-compliance",
+      pain: "High regulatory scrutiny on GLP-1 titration and monitoring.",
+      solution: "Generate clinical weight loss protocols and lab follow-up SOPs."
+    },
+    { 
+      title: "Psychiatry Clinics", 
+      icon: Brain, 
+      href: "/specialties/psychiatry-clinics",
+      pain: "Managing crisis response and medication documentation.",
+      solution: "Build comprehensive telepsychiatry and intake documentation."
+    },
+    { 
+      title: "IV Therapy Clinics", 
+      icon: Droplets, 
+      href: "/specialties/iv-therapy-clinics",
+      pain: "Maintaining sterile preparation and administration standards.",
+      solution: "Generate infusion safety protocols and hydration workflows."
+    },
+    { 
+      title: "Urgent Care Clinics", 
+      icon: Activity, 
+      href: "/specialties/urgent-care-clinics",
+      pain: "Inefficient triage workflows and high patient turnover.",
+      solution: "Optimize walk-in management and triage SOPs for rapid care."
+    },
+    { 
+      title: "Chiropractic Clinics", 
+      icon: Stethoscope, 
+      href: "/specialties/chiropractic-clinics",
+      pain: "Inconsistent treatment documentation and consent gaps.",
+      solution: "Create professional chiropractic treatment and scheduling SOPs."
+    }
   ];
 
   const faqs = [
     {
-      question: "Are AI-generated policies audit-ready?",
-      answer: "Yes, our AI is trained on healthcare clinical standards and state-specific regulations. While we always recommend a final review by your medical director, the drafts provided are designed to meet rigorous clinical audit requirements."
+      question: "What healthcare policies can PolicyFlow AI generate?",
+      answer: "Our HIPAA policy generator and telehealth SOP generator can create everything from Privacy and Security rules to Medication Refills, Patient Intake Workflows, OSHA Safety Manuals, and Clinic Employee Handbooks."
     },
     {
-      question: "How long does it take to generate a policy?",
-      answer: "Most policies are generated in under 60 seconds. You simply provide your clinic type, state, and specific policy name, and the AI handles the rest."
+      question: "Can telehealth clinics use PolicyFlow AI?",
+      answer: "Absolutely. We specialize in virtual care documentation, including cross-state telehealth consent forms, remote prescribing protocols, and platform-specific security SOPs."
     },
     {
-      question: "Can I customize the generated policies?",
-      answer: "Absolutely. Once generated, you can copy the text into your own word processor or download it as a PDF for further customization and branding."
+      question: "What SOPs should med spas have?",
+      answer: "Med spas should have documented protocols for Good Faith Examinations (GFE), injectable safety, laser safety standards, patient complication management, and Medical Director oversight."
     },
     {
-      question: "What types of clinics do you support?",
-      answer: "We specialize in modern clinical practices including Telehealth, Med Spas, Wellness Clinics, IV Hydration, and Weight Loss centers."
+      question: "Can clinics customize generated policies?",
+      answer: "Yes. PolicyFlow AI provides a professional clinical draft based on your state and clinic type. You can then copy, edit, and brand the text to fit your practice's unique culture."
     },
     {
-      question: "Do I need a credit card to start?",
-      answer: "No. You can generate one full policy preview for free without entering any payment information."
+      question: "How does AI healthcare policy generation work?",
+      answer: "Our AI is trained on clinical standards, regulatory frameworks, and state-level healthcare rules. It combines your specific clinic data with this knowledge base to generate audit-ready documentation in seconds."
     }
   ];
 
@@ -107,11 +164,9 @@ export default function HomeClient() {
     "name": "How to Generate Healthcare SOPs with PolicyFlow AI",
     "description": "Create professional clinic documentation in minutes.",
     "step": [
-      { "@type": "HowToStep", "name": "Choose Clinical Niche", "text": "Select your industry (Telehealth, Med Spa, etc.)." },
-      { "@type": "HowToStep", "name": "Select State", "text": "Pick your U.S. state for compliance logic." },
-      { "@type": "HowToStep", "name": "Enter Policy Name", "text": "Specify the document you need." },
-      { "@type": "HowToStep", "name": "AI Generation", "text": "Wait 60 seconds for the draft." },
-      { "@type": "HowToStep", "name": "Download PDF", "text": "Export your audit-ready manual." }
+      { "@type": "HowToStep", "name": "Select Clinic Type and State", "text": "Choose your healthcare niche and the U.S. state where you operate." },
+      { "@type": "HowToStep", "name": "Generate AI Policy Drafts", "text": "Click generate to have the AI draft your audit-ready clinical documentation." },
+      { "@type": "HowToStep", "name": "Review, Customize, and Export", "text": "Download your document as a PDF or copy it to your clinic manual." }
     ]
   };
 
@@ -132,125 +187,117 @@ export default function HomeClient() {
           {/* HERO SECTION */}
           <section className="py-24 md:py-32 px-6 text-center bg-white border-b border-slate-100 overflow-hidden relative">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-96 bg-blue-50/50 blur-3xl rounded-full -translate-y-48"></div>
-            <div className="max-w-5xl mx-auto relative z-10">
-              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-sm font-bold mb-8">
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-xs font-black mb-8 uppercase tracking-widest">
                 <Star className="w-4 h-4 fill-blue-600" />
-                <span>The #1 Clinical Policy Engine for Modern Practices</span>
+                <span>The #1 AI Clinic Documentation Software</span>
               </div>
-              <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 mb-8 tracking-tight leading-[1.1]">
-                Generate Audit-Ready Clinic Policies and SOPs in Minutes Using AI
+              <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-8 tracking-tight leading-[1.05]">
+                Generate HIPAA Policies, Telehealth SOPs, and Healthcare Compliance Templates Using AI
               </h1>
-              <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-                PolicyFlow AI helps telehealth clinics, med spas, and healthcare businesses create professional operational documentation faster and more consistently.
+              <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+                PolicyFlow AI helps telehealth clinics, wellness clinics, med spas, weight loss clinics, and healthcare businesses generate professional healthcare operational documentation in minutes instead of hours.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button onClick={handleStart} className="w-full sm:w-auto bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-blue-200">
+                <button onClick={handleStart} className="w-full sm:w-auto bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-2xl hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-blue-200">
                   Generate 1 Free Policy <ArrowRight className="w-6 h-6" />
                 </button>
                 <a href="#samples" className="w-full sm:w-auto bg-white text-slate-700 border border-slate-200 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-slate-50 transition-all text-center">
                   View Sample Policies
                 </a>
               </div>
-              <div className="mt-10 flex items-center justify-center gap-6 text-sm font-bold text-slate-400">
-                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> No signup required</div>
-                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> 50 States supported</div>
-              </div>
-            </div>
-          </section>
-
-          {/* BENEFITS SECTION */}
-          <section className="py-24 px-6 bg-slate-50">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-20">
-                <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Built for Clinical Efficiency.</h2>
-                <p className="text-slate-600 text-lg">Stop letting administrative paperwork slow down your clinical growth.</p>
-              </div>
-              <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
-                {benefits.map((b, i) => (
-                  <div key={i} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-                    <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                      <CheckCircle className="w-6 h-6" />
-                    </div>
-                    <h3 className="font-bold text-slate-900 mb-3">{b.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">{b.desc}</p>
-                  </div>
-                ))}
+              <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm font-bold text-slate-400">
+                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> HIPAA Policy Generator</div>
+                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Telehealth SOP Generator</div>
+                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Clinic Compliance Templates</div>
               </div>
             </div>
           </section>
 
           {/* HOW IT WORKS */}
-          <section className="py-24 px-6 bg-white border-y border-slate-100">
-             <div className="max-w-6xl mx-auto">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                   <div>
-                      <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-10 leading-tight">Professional clinic SOPs are just 3 steps away.</h2>
-                      <div className="space-y-10">
-                         {[
-                           { step: "01", title: "Select Policy Type", desc: "Choose from HIPAA, Telehealth, Med Spa, or create your own custom clinical title." },
-                           { step: "02", title: "Generate AI Draft", desc: "Our engine applies clinical datasets and state-specific rules to draft your policy in seconds." },
-                           { step: "03", title: "Review & Customize", desc: "Download as a branded PDF or copy to your clinical binder for medical director approval." }
-                         ].map((s, i) => (
-                           <div key={i} className="flex gap-8">
-                              <span className="text-5xl font-black text-blue-100">{s.step}</span>
-                              <div>
-                                 <h4 className="text-xl font-bold text-slate-900 mb-2">{s.title}</h4>
-                                 <p className="text-slate-600 leading-relaxed">{s.desc}</p>
-                              </div>
-                           </div>
-                         ))}
-                      </div>
-                   </div>
-                   <div className="bg-slate-900 rounded-[40px] p-12 shadow-3xl">
-                      <div className="h-64 flex flex-col justify-center text-center">
-                         <div className="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-xl shadow-blue-900/50">
-                            <Zap className="w-10 h-10 text-white fill-white" />
-                         </div>
-                         <h3 className="text-2xl font-bold text-white mb-2">Documentation Engine Active</h3>
-                         <p className="text-slate-500 font-mono text-sm tracking-widest">STATE_LOGIC: CALIFORNIA // LOADED</p>
-                      </div>
-                   </div>
+          <section className="py-24 px-6 bg-slate-50 border-b border-slate-100">
+             <div className="max-w-6xl mx-auto text-center">
+                <h2 className="text-4xl font-black text-slate-900 mb-16 tracking-tight">Audit-ready documentation in 3 steps.</h2>
+                <div className="grid md:grid-cols-3 gap-12">
+                   {[
+                     { step: "01", title: "Select Clinic Type & State", desc: "Choose your specific healthcare facility type and operating jurisdiction to load state-specific logic." },
+                     { step: "02", title: "Generate AI Policy Drafts", desc: "Our engine uses healthcare clinical standards to draft professional operational documentation in seconds." },
+                     { step: "03", title: "Review, Customize & Export", desc: "Download as a professional PDF or copy to your clinical binder. Built for healthcare business owners." }
+                   ].map((s, i) => (
+                     <div key={i} className="relative bg-white p-10 rounded-[32px] border border-slate-100 shadow-sm text-left group hover:shadow-xl transition-all">
+                        <span className="text-6xl font-black text-blue-50 group-hover:text-blue-100 transition-colors absolute top-6 right-8">{s.step}</span>
+                        <h4 className="text-xl font-bold text-slate-900 mb-4 relative z-10">{s.title}</h4>
+                        <p className="text-slate-500 leading-relaxed relative z-10">{s.desc}</p>
+                     </div>
+                   ))}
                 </div>
              </div>
           </section>
 
-          {/* WHO IT'S FOR */}
-          <section className="py-24 px-6 bg-slate-50">
+          {/* INDUSTRY SECTIONS */}
+          <section className="py-24 px-6 bg-white">
              <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-20">
-                   <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Specialized Compliance Engines</h2>
-                   <p className="text-slate-600 text-lg">Documentation tailored to your specific clinical niche.</p>
+                   <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">Specialized Healthcare Workflow Automation</h2>
+                   <p className="text-slate-600 text-lg">Documentation tailored to your specific clinical niche and operational needs.</p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                   {industries.map((ind, i) => (
-                     <Link key={i} href={ind.href} className="bg-white p-8 rounded-3xl border border-slate-200 hover:border-blue-500 hover:shadow-xl transition-all group flex flex-col items-center text-center">
-                        <ind.icon className="w-10 h-10 text-blue-600 mb-6 group-hover:scale-110 transition-transform" />
-                        <h3 className="font-bold text-slate-900">{ind.title}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                   {industryCards.map((ind, i) => (
+                     <Link key={i} href={ind.href} className="bg-slate-50 p-8 rounded-[32px] border border-slate-100 hover:border-blue-500 hover:bg-white transition-all group flex flex-col h-full">
+                        <div className="w-12 h-12 bg-white text-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                           <ind.icon className="w-6 h-6" />
+                        </div>
+                        <h3 className="text-xl font-bold text-slate-900 mb-4">{ind.title}</h3>
+                        <p className="text-slate-500 text-xs mb-4 leading-relaxed font-bold uppercase tracking-widest text-blue-600">{ind.pain}</p>
+                        <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{ind.solution}</p>
+                        <span className="text-blue-600 font-black text-xs uppercase tracking-widest flex items-center gap-2">View Generator <ArrowRight className="w-4 h-4" /></span>
                      </Link>
                    ))}
                 </div>
              </div>
           </section>
 
+          {/* BENEFITS SECTION */}
+          <section className="py-24 px-6 bg-slate-900 text-white overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="text-center mb-20">
+                <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">Built for Clinical Efficiency.</h2>
+                <p className="text-slate-400 text-lg max-w-2xl mx-auto">Stop letting administrative paperwork slow down your medical practice's growth.</p>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {benefits.map((b, i) => (
+                  <div key={i} className="bg-white/5 backdrop-blur-sm p-10 rounded-[32px] border border-white/10 hover:border-blue-500/50 transition-all">
+                    <div className="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-xl flex items-center justify-center mb-8">
+                      <CheckCircle className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-4">{b.title}</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">{b.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* SAMPLES SECTION */}
           <section id="samples" className="py-24 px-6 bg-white border-y border-slate-100">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Realistic Sample Outputs</h2>
-                <p className="text-slate-600">See the quality of AI-generated clinical documentation.</p>
+                <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">Professional Policy Templates</h2>
+                <p className="text-slate-600">See the quality of AI-generated healthcare operational documentation.</p>
               </div>
               <div className="grid md:grid-cols-3 gap-8">
                 {[
-                  { title: "HIPAA Privacy Policy", preview: "Outlines safeguards implemented to protect PHI...", type: "Compliance", href: "/example-hipaa-policy" },
-                  { title: "Telehealth SOP", preview: "Establishes protocol for virtual visit consent...", type: "Patient Care", href: "/example-telehealth-sop" },
-                  { title: "Medication Refill SOP", preview: "Standard procedure for managing refill requests...", type: "Operations", href: "/example-medication-refill-policy" }
+                  { title: "HIPAA Privacy Policy", preview: "Outlines technical and administrative safeguards implemented to protect PHI...", type: "Compliance", href: "/example-hipaa-policy" },
+                  { title: "Telehealth Consent SOP", preview: "Establishes clinical protocol for virtual visit informed consent and emergency response...", type: "Patient Care", href: "/example-telehealth-sop" },
+                  { title: "Medication Refill SOP", preview: "Standard operating procedure for managing prescription refill requests and clinical review...", type: "Operations", href: "/example-medication-refill-policy" }
                 ].map((s, i) => (
-                  <div key={i} className="bg-slate-50 p-8 rounded-[32px] border border-slate-200 flex flex-col h-full">
-                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-xs font-black rounded-full mb-6 uppercase tracking-widest self-start">{s.type}</span>
+                  <div key={i} className="bg-slate-50 p-8 rounded-[32px] border border-slate-200 flex flex-col h-full hover:shadow-xl transition-shadow">
+                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-[10px] font-black rounded-full mb-6 uppercase tracking-widest self-start">{s.type}</span>
                     <h3 className="text-2xl font-bold text-slate-900 mb-4 leading-tight">{s.title}</h3>
-                    <p className="text-slate-600 italic mb-8 flex-1">"{s.preview}"</p>
-                    <Link href={s.href} className="text-blue-600 font-black flex items-center gap-2 hover:underline">
-                      View Long-form Example <ArrowRight className="w-4 h-4" />
+                    <p className="text-slate-600 italic mb-8 flex-1 leading-relaxed">"{s.preview}"</p>
+                    <Link href={s.href} className="text-blue-600 font-black text-sm flex items-center gap-2 hover:underline uppercase tracking-widest">
+                      Read Full Example <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
                 ))}
@@ -258,7 +305,9 @@ export default function HomeClient() {
             </div>
           </section>
 
-          <FAQ items={faqs} title="Frequently Asked Questions" />
+          <RecentActivity />
+
+          <FAQ items={faqs} title="PolicyFlow AI FAQs" />
 
           {/* AUTHORITY PILLARS */}
           <section className="py-24 px-6 bg-white">
@@ -266,15 +315,15 @@ export default function HomeClient() {
                 <h2 className="text-4xl font-black text-slate-900 mb-16 tracking-tight">Authoritative Compliance Guides</h2>
                 <div className="grid md:grid-cols-4 gap-6">
                    {[
-                     { title: "HIPAA Guide", desc: "The complete guide to clinic data protection.", href: "/hipaa-compliance" },
-                     { title: "Telehealth Guide", desc: "Operations and SOPs for virtual care.", href: "/telehealth-sops" },
-                     { title: "Med Spa Guide", desc: "Compliance for aesthetic medical practices.", href: "/medspa-compliance" },
+                     { title: "HIPAA Guide", desc: "The complete guide to healthcare data protection.", href: "/hipaa-compliance" },
+                     { title: "Telehealth Guide", desc: "Operational SOPs for modern virtual care.", href: "/telehealth-sops" },
+                     { title: "Med Spa Guide", desc: "Clinical compliance for aesthetic practices.", href: "/medspa-compliance" },
                      { title: "SOP Guide", desc: "Building your clinic operations manual.", href: "/healthcare-sop-templates" }
                    ].map((p, i) => (
                      <Link key={i} href={p.href} className="p-8 rounded-[32px] border border-slate-100 bg-slate-50 hover:border-blue-500 hover:bg-white transition-all text-left flex flex-col h-full group">
                         <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{p.title}</h3>
                         <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{p.desc}</p>
-                        <span className="text-blue-600 font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Guide <ArrowRight className="w-4 h-4" /></span>
+                        <span className="text-blue-600 font-black text-xs uppercase tracking-widest flex items-center gap-2">Read Resource <ArrowRight className="w-4 h-4" /></span>
                      </Link>
                    ))}
                 </div>
@@ -285,9 +334,9 @@ export default function HomeClient() {
              <div className="max-w-4xl mx-auto text-center">
                 <h2 className="text-4xl md:text-6xl font-black mb-10 leading-tight">Start Generating Professional Clinic Policies Today</h2>
                 <button onClick={handleStart} className="bg-blue-600 text-white px-12 py-6 rounded-2xl font-black text-2xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-900/50 flex items-center justify-center gap-4 mx-auto">
-                   Get Started for Free <Plus className="w-8 h-8" />
+                   Generate 1 Free Policy <Plus className="w-8 h-8" />
                 </button>
-                <p className="mt-8 text-slate-500 font-bold uppercase tracking-widest text-sm">No credit card required for first draft</p>
+                <p className="mt-8 text-slate-500 font-bold uppercase tracking-widest text-sm">Save hours on medical practice documentation</p>
              </div>
           </section>
 
