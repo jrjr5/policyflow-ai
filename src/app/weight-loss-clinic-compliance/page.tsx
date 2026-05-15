@@ -20,6 +20,11 @@ export default function WeightLossCompliance() {
     { title: "Safety-First Language", desc: "Built-in protocols for managing GI side effects and adverse events like pancreatitis." }
   ];
 
+  const examples = [
+    { title: "GLP-1 Titration Protocol", preview: "Semaglutide titration shall commence at 0.25mg weekly for a period of 4 weeks..." },
+    { title: "Weight Loss Lab Monitoring", preview: "Baseline CMP and TSH must be reviewed prior to first dose..." }
+  ];
+
   const faqs = [
     { question: "Does this cover Semaglutide protocols?", answer: "Yes, we have specialized datasets for medical weight loss titration and clinical monitoring." },
     { question: "How often should titration SOPs be updated?", answer: "We recommend reviewing them every 6 months or whenever new clinical guidelines are released by regulatory bodies." },
@@ -36,6 +41,7 @@ export default function WeightLossCompliance() {
       subheadline="Professionalize your medical weight loss practice with audit-ready SOPs for patient screening and dose titration."
       painPoints={painPoints}
       solutions={solutions}
+      examples={examples}
       faqs={faqs}
     />
   );

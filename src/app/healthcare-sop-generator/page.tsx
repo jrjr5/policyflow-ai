@@ -20,6 +20,11 @@ export default function HealthcareSOPGenerator() {
     { title: "Branded PDF Export", desc: "Convert any generated protocol into a professional PDF ready for your clinical binder." }
   ];
 
+  const examples = [
+    { title: "Patient Triage SOP", preview: "All incoming clinical calls must be triaged according to the severity of the reported symptoms..." },
+    { title: "Aseptic Technique Protocol", preview: "Hand hygiene must be performed before and after every patient encounter using hospital-grade..." }
+  ];
+
   const faqs = [
     { question: "What is a Standard Operating Procedure?", answer: "An SOP is a set of step-by-step instructions compiled by an organization to help workers carry out complex routine operations." },
     { question: "Why do clinics need SOPs?", answer: "SOPs ensure consistency, reduce the risk of clinical errors, and are often mandatory for insurance payers and accreditation bodies." },
@@ -36,6 +41,7 @@ export default function HealthcareSOPGenerator() {
       subheadline="Build a professional operations manual with AI-powered SOPs for every clinical and administrative workflow."
       painPoints={painPoints}
       solutions={solutions}
+      examples={examples}
       faqs={faqs}
     />
   );

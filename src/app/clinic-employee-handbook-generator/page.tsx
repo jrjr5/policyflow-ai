@@ -20,6 +20,11 @@ export default function EmployeeHandbookGenerator() {
     { title: "Rapid Customization", desc: "Adjust the tone and rules to fit a modern Med Spa or a traditional family practice." }
   ];
 
+  const examples = [
+    { title: "Clinical Conduct Code", preview: "All workforce members must maintain professional boundaries and patient confidentiality..." },
+    { title: "EMR Usage Policy", preview: "Access to the Electronic Medical Record is granted solely for the performance of clinical duties..." }
+  ];
+
   const faqs = [
     { question: "What is in a medical employee handbook?", answer: "Sections usually include HIPAA responsibilities, clinical dress code, EMR usage rules, patient confidentiality, and adverse event reporting." },
     { question: "Is this a legal document?", answer: "It serves as an operational agreement between employer and employee; we recommend a final review by an HR professional or legal counsel." },
@@ -36,6 +41,7 @@ export default function EmployeeHandbookGenerator() {
       subheadline="Streamline your staff onboarding with professional employee handbooks that prioritize patient safety and compliance."
       painPoints={painPoints}
       solutions={solutions}
+      examples={examples}
       faqs={faqs}
     />
   );

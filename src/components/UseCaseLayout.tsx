@@ -14,6 +14,7 @@ interface UseCaseLayoutProps {
   subheadline: string;
   painPoints: { title: string; desc: string }[];
   solutions: { title: string; desc: string }[];
+  examples: { title: string; preview: string }[];
   faqs: { question: string; answer: string }[];
   industry: string;
 }
@@ -24,6 +25,7 @@ export default function UseCaseLayout({
   subheadline,
   painPoints,
   solutions,
+  examples,
   faqs,
   industry
 }: UseCaseLayoutProps) {
@@ -108,6 +110,32 @@ export default function UseCaseLayout({
                      </div>
                   </div>
                </div>
+            </div>
+         </div>
+      </section>
+
+      {/* Examples */}
+      <section className="py-24 px-6 bg-slate-50 border-y border-slate-100">
+         <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+               <h2 className="text-4xl font-black text-slate-900 mb-4">What our AI generates for {industry}.</h2>
+               <p className="text-slate-600 text-lg">Professional, clinical-grade documentation tailored to your practice.</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+               {examples.map((ex, i) => (
+                 <div key={i} className="bg-white p-10 rounded-[32px] border border-slate-200 shadow-xl relative overflow-hidden group hover:border-blue-300 transition-all">
+                    <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                       <Zap className="w-12 h-12 text-blue-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-slate-900 mb-6">{ex.title}</h3>
+                    <div className="font-serif text-slate-500 italic leading-relaxed border-l-4 border-blue-100 pl-6 mb-8">
+                       "{ex.preview}"
+                    </div>
+                    <div className="flex items-center gap-2 text-blue-600 font-bold text-sm uppercase tracking-widest">
+                       <CheckCircle2 className="w-4 h-4" /> Policy Template Preview
+                    </div>
+                 </div>
+               ))}
             </div>
          </div>
       </section>

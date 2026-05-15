@@ -20,6 +20,11 @@ export default function TelehealthClinicPolicies() {
     { title: "State-Specific Logic", desc: "Our engine adjusts language based on the state jurisdiction of your telehealth practice." }
   ];
 
+  const examples = [
+    { title: "Telehealth Informed Consent", preview: "I understand that telehealth involves the use of electronic communications..." },
+    { title: "Virtual Visit Protocol", preview: "Verification of patient identity and location must be completed at the onset..." }
+  ];
+
   const faqs = [
     { question: "What policies does a telehealth clinic need?", answer: "At minimum: Telehealth Informed Consent, Virtual Visit SOP, Remote Prescribing Protocol, and a HIPAA Security Rule policy for remote data access." },
     { question: "Are these policies valid for DEA compliance?", answer: "Our generator includes language for controlled substance protocols, but you must ensure they align with the latest Ryan Haight Act and DEA emergency rules." },
@@ -36,6 +41,7 @@ export default function TelehealthClinicPolicies() {
       subheadline="Stop wrestling with generic templates. Generate professional virtual care SOPs and consent forms in minutes."
       painPoints={painPoints}
       solutions={solutions}
+      examples={examples}
       faqs={faqs}
     />
   );
