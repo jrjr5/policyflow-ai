@@ -8,7 +8,13 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Med Spa SOP Generator | Clinical Standards for Aesthetic Practices',
-  description: 'Generate customized Standard Operating Procedures for your Med Spa. Covering Botox, fillers, IV hydration, and state-specific aesthetic regulations.',
+  description: 'Generate customized Standard Operating Procedures for your Med Spa. AI-powered clinical templates for Botox, fillers, IV hydration, and aesthetic compliance.',
+  openGraph: {
+    title: 'Med Spa SOP Generator | PolicyFlow AI',
+    description: 'Custom Standard Operating Procedures for Med Spas. AI-powered clinical templates for Botox, fillers, and more.',
+    url: 'https://policyflow-ai.vercel.app/medspa-sop-generator',
+    type: 'website',
+  },
 };
 
 export default function MedSpaLandingPage() {

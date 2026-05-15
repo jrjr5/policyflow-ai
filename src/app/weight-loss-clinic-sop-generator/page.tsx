@@ -7,8 +7,14 @@ import { Scale, HeartPulse, FileText, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Weight Loss Clinic SOP Generator | Clinical Guidelines for Medical Weight Loss',
-  description: 'Generate professional Standard Operating Procedures for weight loss clinics. Compliance for GLP-1 prescribing, patient monitoring, and clinical operations.',
+  title: 'Weight Loss Clinic SOP Generator | Medical Weight Loss Compliance',
+  description: 'Generate professional Standard Operating Procedures for weight loss clinics. AI-powered templates for GLP-1 prescribing, patient monitoring, and clinical operations.',
+  openGraph: {
+    title: 'Weight Loss Clinic SOP Generator | PolicyFlow AI',
+    description: 'Professional Standard Operating Procedures for weight loss clinics. AI-powered templates for GLP-1 prescribing and more.',
+    url: 'https://policyflow-ai.vercel.app/weight-loss-clinic-sop-generator',
+    type: 'website',
+  },
 };
 
 export default function WeightLossLandingPage() {

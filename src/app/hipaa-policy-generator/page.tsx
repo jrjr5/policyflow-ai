@@ -8,7 +8,13 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'HIPAA Policy Generator | Audit-Ready Compliance for Clinics',
-  description: 'Generate comprehensive, state-specific HIPAA privacy and security policies for your clinic in minutes. Stay compliant and protect patient data with PolicyFlow AI.',
+  description: 'Generate comprehensive, state-specific HIPAA privacy and security policies for your clinic in minutes. Stay compliant and protect patient data with AI-powered templates.',
+  openGraph: {
+    title: 'HIPAA Policy Generator | PolicyFlow AI',
+    description: 'Professional, state-specific HIPAA privacy and security policies for your clinic. Audit-ready and AI-powered.',
+    url: 'https://policyflow-ai.vercel.app/hipaa-policy-generator',
+    type: 'website',
+  },
 };
 
 export default function HIPAALandingPage() {

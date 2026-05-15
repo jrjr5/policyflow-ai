@@ -1,5 +1,11 @@
 import { Activity, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms of Service | PolicyFlow AI',
+  description: 'Read the terms and conditions for using the PolicyFlow AI clinical policy generator.',
+};
 
 export default function TermsPage() {
   return (

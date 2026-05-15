@@ -9,6 +9,12 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Clinic Policy Generator | Professional SOPs for Healthcare Practices',
   description: 'Generate customized operational and compliance policies for any healthcare clinic. AI-powered SOPs for medical, wellness, and aesthetic practices.',
+  openGraph: {
+    title: 'Clinic Policy Generator | PolicyFlow AI',
+    description: 'Custom operational and compliance policies for healthcare practices. AI-powered SOPs for medical and wellness clinics.',
+    url: 'https://policyflow-ai.vercel.app/clinic-policy-generator',
+    type: 'website',
+  },
 };
 
 export default function GeneralClinicLandingPage() {

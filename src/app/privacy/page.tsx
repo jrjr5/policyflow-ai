@@ -1,5 +1,11 @@
 import { Activity, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | PolicyFlow AI',
+  description: 'Our commitment to protecting your clinical and business data. Read the PolicyFlow AI privacy policy.',
+};
 
 export default function PrivacyPage() {
   return (

@@ -8,7 +8,13 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Telehealth Policy Generator | Clinical SOPs for Virtual Care',
-  description: 'Generate professional telehealth consent forms and operational SOPs. Stay compliant with state-specific virtual care regulations using PolicyFlow AI.',
+  description: 'Generate professional telehealth consent forms and operational SOPs. Stay compliant with state-specific virtual care regulations using AI-powered clinical templates.',
+  openGraph: {
+    title: 'Telehealth Policy Generator | PolicyFlow AI',
+    description: 'Professional telehealth consent forms and operational SOPs for virtual care providers. State-specific and audit-ready.',
+    url: 'https://policyflow-ai.vercel.app/telehealth-policy-generator',
+    type: 'website',
+  },
 };
 
 export default function TelehealthLandingPage() {
