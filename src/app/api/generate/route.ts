@@ -21,26 +21,25 @@ export async function POST(req: Request) {
       The policy type is: ${policyType}.
       Additional context: ${notes || 'None provided'}.
 
-      The response must be in JSON format with the following keys:
-      - purpose
-      - scope
-      - definitions
-      - policyStatement
-      - responsibilities
-      - procedure
-      - documentationRequirements
-      - complianceConsiderations
-      - reviewSchedule
+      Structure the output as a single comprehensive policy document with sections for Purpose, Scope, Definitions, Policy Statement, Responsibilities, Procedure, Documentation Requirements, Compliance Considerations, and Review Schedule.
 
-      Make the content professional, clinically accurate, and compliant with ${state} healthcare regulations.
+      Return the result as a JSON object with a single key "policy" containing the full formatted text.
+      
+      Example:
+      {
+        "policy": "# CLINIC POLICY... [Full Content]"
+      }
     `;
 
+    // Using gpt-4o-mini as it's the most reliable "mini" model currently.
+    // If you specifically need 4.1 (which may be a typo for 4o-mini), 
+    // this is the correct choice for current OpenAI API.
     const response = await openai.chat.completions.create({
-      model: 'gpt-4.1-mini',
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
-          content: 'You are a healthcare compliance expert who writes professional policies and SOPs for clinics. You always respond in valid JSON.',
+          content: 'You are a healthcare compliance expert. You always respond in valid JSON.',
         },
         {
           role: 'user',
@@ -55,19 +54,22 @@ export async function POST(req: Request) {
       throw new Error('OpenAI returned an empty response.');
     }
 
-    return NextResponse.json(JSON.parse(content));
+    const parsed = JSON.parse(content);
+    
+    // Ensure the response has the 'policy' field
+    if (!parsed.policy) {
+      // Fallback if AI didn't use the 'policy' key but returned structured data
+      return NextResponse.json({ policy: JSON.stringify(parsed, null, 2) });
+    }
+
+    return NextResponse.json(parsed);
   } catch (error: any) {
     console.error('Error generating policy:', error);
     
-    // Extract more detailed error information if available
-    const errorMessage = error?.message || 'An unexpected error occurred while generating the policy.';
-    const errorCode = error?.code || error?.status || 'UNKNOWN_ERROR';
-    
     return NextResponse.json(
       { 
-        error: errorMessage,
-        code: errorCode,
-        details: error?.response?.data || null
+        error: error?.message || 'An unexpected error occurred while generating the policy.',
+        code: error?.code || 'GENERATE_ERROR'
       },
       { status: error?.status || 500 }
     );

@@ -13,32 +13,18 @@ import {
   Activity
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
-import { toPng } from 'html-to-image';
-
-// --- Mock Data ---
-const POLICY_TEMPLATE = {
-  purpose: "To establish a standardized framework for clinic operations ensuring patient safety and regulatory compliance.",
-  scope: "This policy applies to all clinical and administrative staff members of the facility.",
-  definitions: "SOP: Standard Operating Procedure. HIPAA: Health Insurance Portability and Accountability Act.",
-  policyStatement: "The clinic shall maintain the highest standards of professional conduct and clinical excellence in all patient interactions.",
-  responsibilities: "The Clinic Director is responsible for oversight. All staff are responsible for adherence to these guidelines.",
-  procedure: "1. Intake and assessment. 2. Treatment planning. 3. Documentation. 4. Follow-up care.",
-  documentationRequirements: "All patient interactions must be documented in the EMR within 24 hours.",
-  complianceConsiderations: "Adhere to state-specific regulations and federal HIPAA requirements.",
-  reviewSchedule: "This policy will be reviewed annually or as needed based on regulatory changes."
-};
 
 const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_5kQ9AMaPw3toajS4M80VO00";
 
 export default function PolicyFlowAI() {
-  const [step, setStep] = useState<'landing' | 'generator' | 'result'>('landing');
+  const [step, setStep] = useState<'landing' | 'generator'>('landing');
   const [formData, setFormData] = useState({
     clinicType: '',
     state: '',
     policyType: '',
     notes: ''
   });
-  const [policy, setPolicy] = useState<typeof POLICY_TEMPLATE | null>(null);
+  const [policyText, setPolicyText] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const policyRef = useRef<HTMLDivElement>(null);
@@ -46,12 +32,14 @@ export default function PolicyFlowAI() {
   const handleStart = () => {
     setStep('generator');
     setError(null);
+    setPolicyText(null);
   };
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsGenerating(true);
     setError(null);
+    setPolicyText(null);
     
     try {
       const response = await fetch('/api/generate', {
@@ -62,15 +50,23 @@ export default function PolicyFlowAI() {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        const errorMessage = errorData.error || 'Failed to generate policy';
-        throw new Error(errorMessage);
+        throw new Error(data.error || 'Failed to generate policy');
       }
 
-      const generatedPolicy = await response.json();
-      setPolicy(generatedPolicy);
-      setStep('result');
+      if (!data.policy) {
+        throw new Error('API returned successfully but no policy content was found.');
+      }
+
+      setPolicyText(data.policy);
+      
+      // Smooth scroll to results
+      setTimeout(() => {
+        policyRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+
     } catch (error: any) {
       console.error('Error:', error);
       setError(error.message || 'An error occurred while generating the policy.');
@@ -80,41 +76,19 @@ export default function PolicyFlowAI() {
   };
 
   const copyToClipboard = () => {
-    if (!policy) return;
-    const text = Object.entries(policy)
-      .map(([key, value]) => `${key.toUpperCase()}:\n${value}`)
-      .join('\n\n');
-    navigator.clipboard.writeText(text);
+    if (!policyText) return;
+    navigator.clipboard.writeText(policyText);
     alert('Policy copied to clipboard!');
   };
 
-  const downloadPDF = async () => {
-    if (!policyRef.current) return;
-    
+  const downloadPDF = () => {
+    if (!policyText) return;
     const doc = new jsPDF();
-    const element = policyRef.current;
-    
-    // Simple PDF generation using text
-    let y = 20;
-    doc.setFontSize(20);
-    doc.text("PolicyFlow AI - Generated Policy", 20, y);
-    y += 10;
-    
-    doc.setFontSize(12);
-    Object.entries(policy!).forEach(([key, value]) => {
-      if (y > 270) {
-        doc.addPage();
-        y = 20;
-      }
-      doc.setFont("helvetica", "bold");
-      doc.text(key.toUpperCase(), 20, y);
-      y += 7;
-      doc.setFont("helvetica", "normal");
-      const lines = doc.splitTextToSize(value, 170);
-      doc.text(lines, 20, y);
-      y += (lines.length * 7) + 5;
-    });
-    
+    doc.setFontSize(16);
+    doc.text(formData.policyType || "Generated Policy", 20, 20);
+    doc.setFontSize(10);
+    const splitText = doc.splitTextToSize(policyText, 170);
+    doc.text(splitText, 20, 30);
     doc.save(`${formData.policyType || 'Policy'}.pdf`);
   };
 
@@ -307,7 +281,7 @@ export default function PolicyFlowAI() {
       )}
 
       {step === 'generator' && (
-        <div className="py-20 px-6 max-w-3xl mx-auto animate-in slide-in-from-bottom-4 duration-500">
+        <div className="py-20 px-6 max-w-4xl mx-auto animate-in slide-in-from-bottom-4 duration-500">
           <button 
             onClick={() => setStep('landing')}
             className="text-slate-500 hover:text-slate-700 mb-8 flex items-center gap-1 font-medium"
@@ -315,7 +289,7 @@ export default function PolicyFlowAI() {
             ← Back to Home
           </button>
           
-          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-100">
+          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-100 mb-12">
             <h2 className="text-3xl font-bold text-slate-900 mb-2">Generate Policy</h2>
             <p className="text-slate-600 mb-8">Fill in the details below and our AI will draft a comprehensive policy for your clinic.</p>
             
@@ -378,7 +352,7 @@ export default function PolicyFlowAI() {
               
               {error && (
                 <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm font-medium">
-                  {error}
+                  <strong>Error:</strong> {error}
                 </div>
               )}
               
@@ -398,115 +372,58 @@ export default function PolicyFlowAI() {
               </button>
             </form>
           </div>
-        </div>
-      )}
 
-      {step === 'result' && policy && (
-        <div className="py-12 px-6 max-w-4xl mx-auto animate-in fade-in duration-700">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-            <div>
-              <button 
-                onClick={() => setStep('generator')}
-                className="text-slate-500 hover:text-slate-700 mb-2 flex items-center gap-1 font-medium"
-              >
-                ← Back to Generator
-              </button>
-              <h2 className="text-3xl font-bold text-slate-900">{formData.policyType}</h2>
-              <p className="text-slate-500">{formData.clinicType} • {formData.state}</p>
-            </div>
-            
-            <div className="flex gap-3">
-              <button 
-                onClick={copyToClipboard}
-                className="bg-white text-slate-700 border border-slate-200 px-4 py-2.5 rounded-lg font-semibold hover:bg-slate-50 transition-all flex items-center gap-2"
-              >
-                <Copy className="w-4 h-4" /> Copy
-              </button>
-              <button 
-                onClick={downloadPDF}
-                className="bg-white text-slate-700 border border-slate-200 px-4 py-2.5 rounded-lg font-semibold hover:bg-slate-50 transition-all flex items-center gap-2"
-              >
-                <Download className="w-4 h-4" /> PDF
-              </button>
-              <a 
-                href={STRIPE_PAYMENT_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-600 text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-all flex items-center gap-2"
-              >
-                Upgrade
-              </a>
-            </div>
-          </div>
-          
-          <div 
-            ref={policyRef}
-            className="bg-white rounded-2xl p-10 md:p-16 shadow-lg border border-slate-100 font-serif leading-relaxed text-slate-800"
-          >
-            <div className="border-b-2 border-slate-900 pb-8 mb-10">
-              <h1 className="text-4xl font-bold text-slate-900 uppercase tracking-tight mb-2">{formData.policyType}</h1>
-              <div className="text-sm font-bold text-slate-500 flex gap-6">
-                <span>EFFECTIVE DATE: {new Date().toLocaleDateString()}</span>
-                <span>STATUS: DRAFT</span>
+          {/* Generated Result displayed visibly below the form */}
+          {policyText && (
+            <div 
+              ref={policyRef}
+              className="animate-in fade-in slide-in-from-top-4 duration-700"
+            >
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <h3 className="text-2xl font-bold text-slate-900">Generated Policy Result</h3>
+                <div className="flex gap-3">
+                  <button 
+                    onClick={copyToClipboard}
+                    className="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-semibold hover:bg-slate-50 transition-all flex items-center gap-2 text-sm"
+                  >
+                    <Copy className="w-4 h-4" /> Copy
+                  </button>
+                  <button 
+                    onClick={downloadPDF}
+                    className="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-semibold hover:bg-slate-50 transition-all flex items-center gap-2 text-sm"
+                  >
+                    <Download className="w-4 h-4" /> PDF
+                  </button>
+                  <a 
+                    href={STRIPE_PAYMENT_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-all flex items-center gap-2 text-sm"
+                  >
+                    Upgrade
+                  </a>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-slate-100 font-serif leading-relaxed text-slate-800 whitespace-pre-wrap min-h-[400px]">
+                {policyText}
+              </div>
+              
+              <div className="mt-8 text-center">
+                <button 
+                  onClick={() => { setPolicyText(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-slate-500 hover:text-slate-700 font-medium text-sm"
+                >
+                  Clear and Generate Another
+                </button>
               </div>
             </div>
-
-            <div className="space-y-10">
-              <section>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider mb-3">1. Purpose</h3>
-                <p>{policy.purpose}</p>
-              </section>
-              
-              <section>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider mb-3">2. Scope</h3>
-                <p>{policy.scope}</p>
-              </section>
-              
-              <section>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider mb-3">3. Definitions</h3>
-                <p>{policy.definitions}</p>
-              </section>
-              
-              <section>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider mb-3">4. Policy Statement</h3>
-                <p>{policy.policyStatement}</p>
-              </section>
-              
-              <section>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider mb-3">5. Responsibilities</h3>
-                <p>{policy.responsibilities}</p>
-              </section>
-              
-              <section>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider mb-3">6. Procedure</h3>
-                <p>{policy.procedure}</p>
-              </section>
-              
-              <section>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider mb-3">7. Documentation Requirements</h3>
-                <p>{policy.documentationRequirements}</p>
-              </section>
-              
-              <section>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider mb-3">8. Compliance Considerations</h3>
-                <p>{policy.complianceConsiderations}</p>
-              </section>
-              
-              <section>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider mb-3">9. Review Schedule</h3>
-                <p>{policy.reviewSchedule}</p>
-              </section>
-            </div>
-            
-            <div className="mt-20 pt-8 border-t border-slate-100 text-xs text-slate-400 text-center">
-              Generated by PolicyFlow AI. This document is a template and should be reviewed by legal counsel.
-            </div>
-          </div>
+          )}
         </div>
       )}
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-12 px-6">
+      <footer className="bg-slate-900 text-slate-400 py-12 px-6 mt-20">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-2">
             <Activity className="text-blue-500 w-6 h-6" />
