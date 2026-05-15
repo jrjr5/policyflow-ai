@@ -13,7 +13,7 @@ const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
 export async function POST(req: Request) {
   try {
-    const { email, clinicType, state, policyType, notes } = await req.json();
+    const { email, businessName, clinicType, state, policyType, notes } = await req.json();
 
     // Server-side rate limiting by IP
     const headersList = await headers();
@@ -36,9 +36,15 @@ export async function POST(req: Request) {
     }
 
     const prompt = `
-      Create a professional, audit-ready clinic policy/SOP for a ${clinicType} in ${state}.
+      Create a professional, audit-ready clinic policy/SOP for "${businessName}", a ${clinicType} in ${state}.
       The policy type is: ${policyType}.
       Additional context: ${notes || 'None provided'}.
+
+      IMPORTANT: Integrate the business name "${businessName}" naturally throughout the policy document where appropriate (e.g., in the Purpose, Policy Statement, and Responsibilities sections).
+      
+      Start the policy with the following line:
+      "Policy prepared for: ${businessName}"
+      Followed by the policy title and the sections.
 
       Structure the output as a single comprehensive policy document with sections for Purpose, Scope, Definitions, Policy Statement, Responsibilities, Procedure, Documentation Requirements, Compliance Considerations, and Review Schedule.
 

@@ -17,6 +17,7 @@ const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_5kQ9AMaPw3toajS4M80VO00
 export default function PolicyGenerator() {
   const [formData, setFormData] = useState({
     email: '',
+    businessName: '',
     clinicType: '',
     state: '',
     policyType: '',
@@ -61,6 +62,11 @@ export default function PolicyGenerator() {
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (hasReachedLimit && !policyText) return;
+
+    if (!formData.businessName.trim()) {
+      setError("Please enter your business or clinic name.");
+      return;
+    }
     
     setIsGenerating(true);
     setError(null);
@@ -123,13 +129,14 @@ export default function PolicyGenerator() {
     doc.text(formData.policyType || "Clinic Policy", 20, 45);
     
     doc.setFontSize(11);
-    doc.text(`${formData.clinicType} - ${formData.state}`, 20, 52);
+    doc.text(`Policy prepared for: ${formData.businessName}`, 20, 52);
+    doc.text(`${formData.clinicType} - ${formData.state}`, 20, 59);
     
     // Body Text
     doc.setFontSize(10);
     doc.setTextColor(30, 41, 59); // slate-800
     const splitText = doc.splitTextToSize(policyText, 170);
-    doc.text(splitText, 20, 65);
+    doc.text(splitText, 20, 72);
     
     // Footer
     const pageCount = (doc as any).internal.getNumberOfPages();
@@ -157,6 +164,16 @@ export default function PolicyGenerator() {
               className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
               value={formData.email} 
               onChange={(e) => setFormData({...formData, email: e.target.value})} 
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-700">Business / Clinic Name</label>
+            <input 
+              required 
+              placeholder="Example: VidaSalud Medical Wellness" 
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
+              value={formData.businessName} 
+              onChange={(e) => setFormData({...formData, businessName: e.target.value})} 
             />
           </div>
           <div className="grid md:grid-cols-2 gap-6">
