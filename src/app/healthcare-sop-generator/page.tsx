@@ -30,6 +30,7 @@ export default function HealthcareSOPGenerator() {
 
   return (
     <UseCaseLayout
+      title="Healthcare SOP Generator"
       industry="Healthcare"
       headline="Standardize Your Clinic Operations in Seconds."
       subheadline="Build a professional operations manual with AI-powered SOPs for every clinical and administrative workflow."

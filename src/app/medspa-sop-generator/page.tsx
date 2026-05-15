@@ -4,7 +4,8 @@ import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
 import FAQ from '@/components/FAQ';
-import { Sparkles, Activity, ShieldCheck, ArrowRight, ClipboardList, Thermometer } from 'lucide-react';
+import EmailCapture from '@/components/EmailCapture';
+import { Sparkles, Activity, ShieldCheck, ArrowRight, ClipboardList, Thermometer, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -93,10 +94,23 @@ export default function MedSpaLandingPage() {
             <a href="#generator" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
               Generate 1 Free SOP <ArrowRight className="w-5 h-5" />
             </a>
-            <Link href="/hipaa-policy-generator" className="bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all">
-              HIPAA Policies
+            <Link href="/example-medspa-consent-policy" className="bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all">
+              View Sample Consent SOP
             </Link>
           </div>
+          <p className="mt-6 text-sm text-slate-500 flex items-center justify-center gap-2">
+            <CheckCircle className="w-4 h-4 text-green-500" /> No signup required for first draft
+          </p>
+        </div>
+      </section>
+
+      {/* Internal Links Navigation */}
+      <section className="py-8 px-6 bg-slate-900 text-white">
+        <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-bold uppercase tracking-widest">
+           <Link href="/hipaa-policy-generator" className="hover:text-blue-400 transition-colors">HIPAA Generator</Link>
+           <Link href="/telehealth-policy-generator" className="hover:text-blue-400 transition-colors">Telehealth SOPs</Link>
+           <Link href="/weight-loss-clinic-compliance" className="hover:text-blue-400 transition-colors">Weight Loss SOPs</Link>
+           <Link href="/clinic-policy-generator" className="hover:text-blue-400 transition-colors">General Clinic Policies</Link>
         </div>
       </section>
 
@@ -146,7 +160,13 @@ export default function MedSpaLandingPage() {
         </div>
       </section>
 
-      <section id="generator" className="py-24 px-6 bg-slate-50 border-y border-slate-200">
+      <section className="py-24 px-6 bg-slate-50">
+        <div className="max-w-4xl mx-auto">
+          <EmailCapture />
+        </div>
+      </section>
+
+      <section id="generator" className="py-24 px-6 bg-white border-y border-slate-200">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-12">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Start Your Med Spa SOP</h2>

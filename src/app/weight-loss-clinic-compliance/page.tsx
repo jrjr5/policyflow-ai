@@ -30,6 +30,7 @@ export default function WeightLossCompliance() {
 
   return (
     <UseCaseLayout
+      title="Weight Loss Clinic Compliance"
       industry="Weight Loss"
       headline="Compliance Protocols for the GLP-1 Era."
       subheadline="Professionalize your medical weight loss practice with audit-ready SOPs for patient screening and dose titration."

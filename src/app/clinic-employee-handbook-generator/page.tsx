@@ -30,6 +30,7 @@ export default function EmployeeHandbookGenerator() {
 
   return (
     <UseCaseLayout
+      title="Clinic Employee Handbook Generator"
       industry="Clinic HR"
       headline="Healthcare HR Policies Built for Clinical Excellence."
       subheadline="Streamline your staff onboarding with professional employee handbooks that prioritize patient safety and compliance."

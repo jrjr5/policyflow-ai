@@ -30,6 +30,7 @@ export default function TelehealthClinicPolicies() {
 
   return (
     <UseCaseLayout
+      title="Telehealth Clinic Policies"
       industry="Telehealth"
       headline="Telehealth Protocols Built for Virtual Scale."
       subheadline="Stop wrestling with generic templates. Generate professional virtual care SOPs and consent forms in minutes."
