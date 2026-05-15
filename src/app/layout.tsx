@@ -67,6 +67,18 @@ export default function RootLayout({
     "description": "Generate professional, audit-ready clinical policies and SOPs for telehealth, med spas, and wellness clinics using AI."
   };
 
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "PolicyFlow AI",
+    "url": "https://policyflow-ai.vercel.app",
+    "logo": "https://policyflow-ai.vercel.app/logo.png",
+    "sameAs": [
+      "https://x.com/policyflow_ai",
+      "https://linkedin.com/company/policyflow-ai"
+    ]
+  };
+
   return (
     <html
       lang="en"
@@ -76,6 +88,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
       </head>
       <body className="min-h-full flex flex-col">{children}</body>

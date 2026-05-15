@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { US_STATES, NICHES, slugify } from '@/lib/states-data';
+import { US_STATES, NICHES, POLICY_TYPES, SPECIALTIES, slugify } from '@/lib/states-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://policyflow-ai.vercel.app';
@@ -36,7 +36,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
-  const allRoutes = [...staticRoutes, ...stateRoutes];
+  const policyRoutes = POLICY_TYPES.map(p => `/policies/${p.slug}`);
+  const specialtyRoutes = SPECIALTIES.map(s => `/specialties/${s.slug}`);
+
+  const allRoutes = [...staticRoutes, ...stateRoutes, ...policyRoutes, ...specialtyRoutes];
 
   return allRoutes.map((route) => ({
     url: `${baseUrl}${route}`,

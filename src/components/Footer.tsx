@@ -11,12 +11,20 @@ export default function Footer() {
       { name: "Med Spa Protocols", href: "/medspa-sop-generator" },
       { name: "Weight Loss SOPs", href: "/weight-loss-clinic-sop-generator" },
       { name: "Clinic Policies", href: "/clinic-policy-generator" },
+      { name: "State Compliance", href: "/states" },
+    ],
+    specialties: [
+      { name: "Telehealth Clinics", href: "/specialties/telehealth-clinics" },
+      { name: "Medical Spas", href: "/specialties/med-spas" },
+      { name: "Wellness Clinics", href: "/specialties/wellness-clinics" },
+      { name: "IV Therapy", href: "/specialties/iv-therapy-clinics" },
+      { name: "Urgent Care", href: "/specialties/urgent-care-clinics" },
     ],
     resources: [
-      { name: "Example HIPAA Policy", href: "/example-hipaa-policy" },
-      { name: "Example Telehealth SOP", href: "/example-telehealth-sop" },
-      { name: "Example Med Spa Consent", href: "/example-medspa-consent-policy" },
-      { name: "Free Compliance Checklist", href: "/free-clinic-compliance-checklist" },
+      { name: "Free HIPAA Template", href: "/free-hipaa-policy-template" },
+      { name: "Free Telehealth SOP", href: "/free-telehealth-sop-template" },
+      { name: "Compliance Checklist", href: "/free-clinic-compliance-checklist" },
+      { name: "Example Policies", href: "/#samples" },
       { name: "Launch Page", href: "/launch" },
     ],
     legal: [
@@ -29,8 +37,8 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-400 py-20 px-6 mt-20 border-t border-slate-800">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          <div className="col-span-1 md:col-span-1">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-12 mb-16">
+          <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-6">
               <Activity className="text-blue-500 w-8 h-8" />
               <span className="font-bold text-2xl text-white tracking-tight">PolicyFlow AI</span>
@@ -50,6 +58,15 @@ export default function Footer() {
           </div>
 
           <div>
+            <h4 className="font-bold text-white mb-6 uppercase text-xs tracking-widest">Specialties</h4>
+            <ul className="space-y-4 text-sm">
+              {links.specialties.map((l, i) => (
+                <li key={i}><Link href={l.href} className="hover:text-blue-400 transition-colors">{l.name}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
             <h4 className="font-bold text-white mb-6 uppercase text-xs tracking-widest">Resources</h4>
             <ul className="space-y-4 text-sm">
               {links.resources.map((l, i) => (
@@ -59,7 +76,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-white mb-6 uppercase text-xs tracking-widest">Legal & Support</h4>
+            <h4 className="font-bold text-white mb-6 uppercase text-xs tracking-widest">Legal</h4>
             <ul className="space-y-4 text-sm">
               {links.legal.map((l, i) => (
                 <li key={i}><Link href={l.href} className="hover:text-blue-400 transition-colors">{l.name}</Link></li>

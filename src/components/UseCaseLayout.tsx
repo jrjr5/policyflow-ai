@@ -5,7 +5,7 @@ import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
 import FAQ from '@/components/FAQ';
 import EmailCapture from '@/components/EmailCapture';
-import { CheckCircle2, ArrowRight, ShieldCheck, Zap, Clock } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ShieldCheck, Zap, Clock, Home, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface UseCaseLayoutProps {
@@ -17,6 +17,7 @@ interface UseCaseLayoutProps {
   examples: { title: string; preview: string }[];
   faqs: { question: string; answer: string }[];
   industry: string;
+  category?: string;
 }
 
 export default function UseCaseLayout({
@@ -27,12 +28,93 @@ export default function UseCaseLayout({
   solutions,
   examples,
   faqs,
-  industry
+  industry,
+  category
 }: UseCaseLayoutProps) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.answer
+      }
+    }))
+  };
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PolicyFlow AI",
+    "operatingSystem": "Web",
+    "applicationCategory": "BusinessApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://policyflow-ai.vercel.app"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": category || "Compliance",
+        "item": `https://policyflow-ai.vercel.app/${category?.toLowerCase() || 'policies'}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": title,
+        "item": `https://policyflow-ai.vercel.app/${category?.toLowerCase() || 'policies'}/${title.toLowerCase().replace(/ /g, '-')}`
+      }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-slate-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
       
+      {/* Breadcrumbs */}
+      <nav className="bg-white border-b border-slate-100 py-4 px-6">
+        <div className="max-w-6xl mx-auto flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
+          <Link href="/" className="hover:text-blue-600 flex items-center gap-1">
+            <Home className="w-3 h-3" /> Home
+          </Link>
+          <ChevronRight className="w-3 h-3" />
+          {category && (
+            <>
+              <span className="text-slate-300">{category}</span>
+              <ChevronRight className="w-3 h-3" />
+            </>
+          )}
+          <span className="text-blue-600">{title}</span>
+        </div>
+      </nav>
+
       {/* Hero */}
       <section className="py-24 px-6 bg-white border-b border-slate-100">
         <div className="max-w-4xl mx-auto text-center">
@@ -141,8 +223,13 @@ export default function UseCaseLayout({
       </section>
 
       <section className="py-24 px-6 bg-slate-50">
-         <div className="max-w-4xl mx-auto">
-            <EmailCapture />
+         <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Need more than a template?</h2>
+            <p className="text-slate-600 mb-10">Download our free clinical compliance starter pack and get professional SOP templates delivered to your inbox.</p>
+            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl max-w-2xl mx-auto">
+               <EmailCapture />
+               <p className="mt-4 text-xs text-slate-400">Join 500+ clinic owners staying audit-ready.</p>
+            </div>
          </div>
       </section>
 
@@ -160,6 +247,50 @@ export default function UseCaseLayout({
       <FAQ items={faqs} title={`${industry} FAQ`} />
 
       <Pricing />
+
+      <section className="py-24 px-6 bg-white border-t border-slate-100">
+         <div className="max-w-6xl mx-auto">
+            <h4 className="text-sm font-black text-blue-600 uppercase tracking-widest mb-12">Related Clinical Documentation</h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+               <div className="space-y-4">
+                  <h5 className="font-bold text-slate-900">Popular SOPs</h5>
+                  <ul className="space-y-2 text-sm text-slate-500">
+                     <li><Link href="/policies/hipaa-privacy-policy" className="hover:text-blue-600 transition-colors">HIPAA Privacy Policy</Link></li>
+                     <li><Link href="/policies/telehealth-consent-policy" className="hover:text-blue-600 transition-colors">Telehealth Consent</Link></li>
+                     <li><Link href="/policies/medication-refill-policy" className="hover:text-blue-600 transition-colors">Medication Refills</Link></li>
+                     <li><Link href="/policies/osha-clinic-policy" className="hover:text-blue-600 transition-colors">OSHA Compliance</Link></li>
+                  </ul>
+               </div>
+               <div className="space-y-4">
+                  <h5 className="font-bold text-slate-900">Niche Engines</h5>
+                  <ul className="space-y-2 text-sm text-slate-500">
+                     <li><Link href="/specialties/med-spas" className="hover:text-blue-600 transition-colors">Med Spa SOPs</Link></li>
+                     <li><Link href="/specialties/weight-loss-clinics" className="hover:text-blue-600 transition-colors">Weight Loss SOPs</Link></li>
+                     <li><Link href="/specialties/iv-therapy-clinics" className="hover:text-blue-600 transition-colors">IV Therapy Protocols</Link></li>
+                     <li><Link href="/specialties/psychiatry-clinics" className="hover:text-blue-600 transition-colors">Mental Health SOPs</Link></li>
+                  </ul>
+               </div>
+               <div className="space-y-4">
+                  <h5 className="font-bold text-slate-900">Free Templates</h5>
+                  <ul className="space-y-2 text-sm text-slate-500">
+                     <li><Link href="/free-hipaa-policy-template" className="hover:text-blue-600 transition-colors">HIPAA Template</Link></li>
+                     <li><Link href="/free-telehealth-sop-template" className="hover:text-blue-600 transition-colors">Telehealth SOP</Link></li>
+                     <li><Link href="/free-clinic-compliance-checklist" className="hover:text-blue-600 transition-colors">Compliance Checklist</Link></li>
+                     <li><Link href="/launch" className="hover:text-blue-600 transition-colors">Launch Resource</Link></li>
+                  </ul>
+               </div>
+               <div className="space-y-4">
+                  <h5 className="font-bold text-slate-900">State Directory</h5>
+                  <ul className="space-y-2 text-sm text-slate-500">
+                     <li><Link href="/states" className="hover:text-blue-600 transition-colors">All 50 States</Link></li>
+                     <li><Link href="/states/texas-telehealth-policies" className="hover:text-blue-600 transition-colors">Texas Compliance</Link></li>
+                     <li><Link href="/states/california-medspa-sop-generator" className="hover:text-blue-600 transition-colors">California Compliance</Link></li>
+                     <li><Link href="/states/florida-clinic-compliance" className="hover:text-blue-600 transition-colors">Florida Compliance</Link></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </section>
 
       <Footer />
     </main>

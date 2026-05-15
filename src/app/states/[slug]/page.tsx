@@ -82,81 +82,17 @@ export default function StateNichePage({ params }: Props) {
     { question: `Can I export these for my ${state} medical board review?`, answer: "Absolutely. All policies can be exported to professional PDF format ready for clinical binders or regulatory review." }
   ];
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(f => ({
-      "@type": "Question",
-      "name": f.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": f.answer
-      }
-    }))
-  };
-
-  const softwareSchema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "PolicyFlow AI",
-    "operatingSystem": "Web",
-    "applicationCategory": "BusinessApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://policyflow-ai.vercel.app"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "States",
-        "item": "https://policyflow-ai.vercel.app/states"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": `${state} ${niche.industry}`,
-        "item": `https://policyflow-ai.vercel.app/states/${params.slug}`
-      }
-    ]
-  };
-
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <UseCaseLayout
-        title={`${state} ${niche.title}`}
-        industry={`${state} ${niche.industry}`}
-        headline={`${state} ${niche.title} and SOP Generator`}
-        subheadline={`Professional ${niche.industry} protocols and compliance documentation for clinics across ${state}.`}
-        painPoints={painPoints}
-        solutions={solutions}
-        examples={examples}
-        faqs={faqs}
-      />
-    </>
+    <UseCaseLayout
+      title={`${state} ${niche.title}`}
+      category="States"
+      industry={`${state} ${niche.industry}`}
+      headline={`${state} ${niche.title} and SOP Generator`}
+      subheadline={`Professional ${niche.industry} protocols and compliance documentation for clinics across ${state}.`}
+      painPoints={painPoints}
+      solutions={solutions}
+      examples={examples}
+      faqs={faqs}
+    />
   );
 }
