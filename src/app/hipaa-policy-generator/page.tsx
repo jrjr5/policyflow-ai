@@ -24,7 +24,6 @@ export const metadata: Metadata = {
 import WhyUs from '@/components/WhyUs';
 import WhoItsFor from '@/components/WhoItsFor';
 import Benefits from '@/components/Benefits';
-import Benefits from '@/components/Benefits';
 
 export default function HIPAALandingPage() {
   const faqs = [
@@ -237,8 +236,6 @@ export default function HIPAALandingPage() {
       <WhyUs />
 
       <WhoItsFor />
-
-      <Benefits />
 
       <Benefits />
 
