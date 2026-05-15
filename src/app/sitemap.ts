@@ -1,9 +1,12 @@
 import { MetadataRoute } from 'next';
 import { US_STATES, NICHES, POLICY_TYPES, SPECIALTIES, INDUSTRY_PAGES, slugify } from '@/lib/states-data';
+import { generatePseoSlugs } from '@/lib/p-seo';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://policyflow-ai.vercel.app';
   
+  const pseoRoutes = generatePseoSlugs().slice(0, 1000).map(slug => `/${slug}`);
+
   const staticRoutes = [
     '',
     '/privacy',
@@ -35,7 +38,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/clinic-documentation',
     '/weight-loss-clinic-policies',
     '/healthcare-sop-templates',
-    ...INDUSTRY_PAGES.map(p => `/${p.slug}`)
+    ...INDUSTRY_PAGES.map(p => `/${p.slug}`),
+    ...pseoRoutes
   ];
 
   const stateRoutes: string[] = [];

@@ -378,7 +378,7 @@ export default function HomeClient() {
 
           <WhyUs />
 
-          <RelatedPages title="Popular Compliance Generators" category="generators" />
+          <RelatedPages />
 
           <div className="py-16 bg-white text-center">
             <button onClick={handleStart} className="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200 inline-flex items-center gap-3">
@@ -396,8 +396,7 @@ export default function HomeClient() {
 
           <Benefits />
 
-          <RelatedPages title="Free Healthcare Policy Templates" category="templates" />
-          <RelatedPages title="Authoritative Compliance Resources" category="pillars" />
+          <RelatedPages />
 
           <FAQ items={faqs} title="PolicyFlow AI FAQs" />
 

@@ -24,6 +24,9 @@ interface UseCaseLayoutProps {
   faqs: { question: string; answer: string }[];
   industry: string;
   category?: string;
+  state?: string;
+  industryName?: string;
+  policyName?: string;
 }
 
 export default function UseCaseLayout({
@@ -35,7 +38,10 @@ export default function UseCaseLayout({
   examples,
   faqs,
   industry,
-  category
+  category,
+  state,
+  industryName,
+  policyName
 }: UseCaseLayoutProps) {
   const faqSchema = {
     "@context": "https://schema.org",
@@ -307,11 +313,13 @@ export default function UseCaseLayout({
 
       <Benefits />
 
-      <RelatedPages title="Related Healthcare Policy Generators" category="generators" />
-      <RelatedPages title="Related Clinic SOP Templates" category="templates" />
-      <RelatedPages title="Explore More Healthcare Workflows" category="examples" />
-
       <Pricing />
+
+      <RelatedPages 
+        currentState={state} 
+        currentIndustry={industryName} 
+        currentPolicy={policyName} 
+      />
 
       <Footer />
     </main>
