@@ -189,7 +189,7 @@ export default function PolicyFlowAI() {
       {step === 'generator' && (
         <div className="py-20 px-6 max-w-4xl mx-auto">
           <button onClick={() => setStep('landing')} className="text-slate-500 mb-8 flex items-center gap-1 font-medium">← Back to Home</button>
-          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-100 mb-12">
+          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-100 mb-8">
             <h2 className="text-3xl font-bold text-slate-900 mb-8">Generate Policy</h2>
             <form onSubmit={handleGenerate} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
@@ -229,6 +229,12 @@ export default function PolicyFlowAI() {
                 {isGenerating ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Plus className="w-5 h-5" /> Generate Policy</>}
               </button>
             </form>
+          </div>
+
+          <div className="max-w-2xl mx-auto text-center mb-12">
+            <p className="text-xs md:text-sm text-slate-500 leading-relaxed italic">
+              “PolicyFlow AI generates operational policy drafts for business use. It does not provide legal advice. Users should review and customize outputs for their specific practice, state, and compliance requirements.”
+            </p>
           </div>
 
           {policyText && (
