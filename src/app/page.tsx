@@ -155,9 +155,12 @@ export default function PolicyFlowAI() {
                 >
                   Generate Your First Policy <ArrowRight className="w-5 h-5" />
                 </button>
-                <button className="bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all">
+                <a 
+                  href="#samples"
+                  className="bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all text-center"
+                >
                   View Samples
-                </button>
+                </a>
               </div>
             </div>
           </section>
@@ -185,6 +188,52 @@ export default function PolicyFlowAI() {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900">Instant Export</h3>
                 <p className="text-slate-600 leading-relaxed">Download as PDF or copy directly to your operations manual with one click.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Samples Section */}
+          <section id="samples" className="py-24 px-6 bg-slate-50">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-slate-900 mb-4">Sample Policies</h2>
+                <p className="text-lg text-slate-600">Professional documentation tailored to your specific clinic needs.</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  {
+                    title: "HIPAA Privacy Policy",
+                    preview: "This policy outlines the administrative, physical, and technical safeguards implemented to protect Protected Health Information (PHI) within the clinic environment...",
+                    type: "Compliance"
+                  },
+                  {
+                    title: "Telehealth Consent Policy",
+                    preview: "Establishes the protocol for obtaining informed consent for virtual visits, ensuring patients understand the risks, benefits, and limitations of remote care...",
+                    type: "Patient Care"
+                  },
+                  {
+                    title: "Medication Refill SOP",
+                    preview: "A standardized procedure for managing prescription refill requests, including clinical review timelines, pharmacist coordination, and EMR documentation steps...",
+                    type: "Operations"
+                  }
+                ].map((sample, i) => (
+                  <div key={i} className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full mb-4 uppercase tracking-wider">
+                      {sample.type}
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">{sample.title}</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-6 italic">
+                      "{sample.preview}"
+                    </p>
+                    <button 
+                      onClick={handleStart}
+                      className="text-blue-600 font-bold text-sm hover:text-blue-700 flex items-center gap-1"
+                    >
+                      Generate similar policy <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
