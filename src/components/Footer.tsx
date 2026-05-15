@@ -21,11 +21,12 @@ export default function Footer() {
       { name: "Urgent Care", href: "/specialties/urgent-care-clinics" },
     ],
     resources: [
+      { name: "HIPAA Guide", href: "/hipaa-compliance" },
+      { name: "Telehealth SOPs", href: "/telehealth-sops" },
+      { name: "Med Spa Rules", href: "/medspa-compliance" },
+      { name: "Clinic SOPs", href: "/healthcare-sop-templates" },
       { name: "Free HIPAA Template", href: "/free-hipaa-policy-template" },
       { name: "Free Telehealth SOP", href: "/free-telehealth-sop-template" },
-      { name: "Compliance Checklist", href: "/free-clinic-compliance-checklist" },
-      { name: "Example Policies", href: "/#samples" },
-      { name: "Launch Page", href: "/launch" },
     ],
     legal: [
       { name: "Privacy Policy", href: "/privacy" },

@@ -19,7 +19,9 @@ export const NICHES = [
   { id: 'medication-refill', title: 'Medication Refill Policy', industry: 'Pharmacy Ops', slugSuffix: 'medication-refill-policy' },
   { id: 'patient-intake', title: 'Patient Intake SOP', industry: 'Workflow', slugSuffix: 'patient-intake-sop' },
   { id: 'osha-compliance', title: 'OSHA Clinic Compliance', industry: 'Safety', slugSuffix: 'osha-compliance' },
-  { id: 'iv-therapy', title: 'IV Therapy Protocols', industry: 'Infusion', slugSuffix: 'iv-therapy-protocols' }
+  { id: 'iv-therapy', title: 'IV Therapy Protocols', industry: 'Infusion', slugSuffix: 'iv-therapy-protocols' },
+  { id: 'psychiatry-sop', title: 'Psychiatry SOPs', industry: 'Mental Health', slugSuffix: 'psychiatry-sops' },
+  { id: 'hormone-replacement', title: 'HRT Clinical Protocols', industry: 'Endocrinology', slugSuffix: 'hrt-clinical-protocols' }
 ];
 
 export const POLICY_TYPES = [
@@ -39,7 +41,11 @@ export const POLICY_TYPES = [
   { slug: 'employee-onboarding-sop', title: 'Clinical Staff Onboarding SOP', category: 'HR' },
   { slug: 'patient-communication-policy', title: 'Patient Communication Policy', category: 'Patient Care' },
   { slug: 'charting-sop', title: 'Clinical Charting and Documentation SOP', category: 'Clinical' },
-  { slug: 'remote-monitoring-workflow', title: 'Remote Patient Monitoring Workflow', category: 'Clinical' }
+  { slug: 'remote-monitoring-workflow', title: 'Remote Patient Monitoring Workflow', category: 'Clinical' },
+  { slug: 'hipaa-staff-training', title: 'HIPAA Staff Training SOP', category: 'Compliance' },
+  { slug: 'hipaa-breach-response', title: 'HIPAA Breach Response Policy', category: 'Compliance' },
+  { slug: 'laser-safety-sop', title: 'Laser Safety SOP', category: 'Aesthetics' },
+  { slug: 'injectable-safety-sop', title: 'Injectable Treatment SOP', category: 'Aesthetics' }
 ];
 
 export const SPECIALTIES = [

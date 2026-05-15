@@ -16,8 +16,10 @@ export default function Navbar({ onStart, onHomeClick }: NavbarProps) {
           <Activity className="text-blue-600 w-8 h-8" />
           <span className="font-bold text-xl tracking-tight text-slate-900">PolicyFlow AI</span>
         </Link>
-        <div className="flex gap-6 items-center">
-          <Link href="/#pricing" className="text-slate-600 hover:text-blue-600 font-medium">Pricing</Link>
+        <div className="flex gap-6 items-center text-sm">
+          <Link href="/states" className="text-slate-600 hover:text-blue-600 font-bold uppercase tracking-widest hidden md:block">States</Link>
+          <Link href="/hipaa-compliance" className="text-slate-600 hover:text-blue-600 font-bold uppercase tracking-widest hidden md:block">HIPAA Guide</Link>
+          <Link href="/#pricing" className="text-slate-600 hover:text-blue-600 font-bold uppercase tracking-widest">Pricing</Link>
           {onStart ? (
             <button onClick={onStart} className="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
               Get Started

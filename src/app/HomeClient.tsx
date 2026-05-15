@@ -224,6 +224,27 @@ export default function HomeClient() {
 
           <FAQ items={faqs} title="Frequently Asked Questions" />
 
+          {/* AUTHORITY PILLARS */}
+          <section className="py-24 px-6 bg-white">
+             <div className="max-w-6xl mx-auto text-center">
+                <h2 className="text-4xl font-black text-slate-900 mb-16 tracking-tight">Authoritative Compliance Guides</h2>
+                <div className="grid md:grid-cols-4 gap-6">
+                   {[
+                     { title: "HIPAA Guide", desc: "The complete guide to clinic data protection.", href: "/hipaa-compliance" },
+                     { title: "Telehealth Guide", desc: "Operations and SOPs for virtual care.", href: "/telehealth-sops" },
+                     { title: "Med Spa Guide", desc: "Compliance for aesthetic medical practices.", href: "/medspa-compliance" },
+                     { title: "SOP Guide", desc: "Building your clinic operations manual.", href: "/healthcare-sop-templates" }
+                   ].map((p, i) => (
+                     <Link key={i} href={p.href} className="p-8 rounded-[32px] border border-slate-100 bg-slate-50 hover:border-blue-500 hover:bg-white transition-all text-left flex flex-col h-full group">
+                        <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{p.title}</h3>
+                        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{p.desc}</p>
+                        <span className="text-blue-600 font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Guide <ArrowRight className="w-4 h-4" /></span>
+                     </Link>
+                   ))}
+                </div>
+             </div>
+          </section>
+
           <section className="py-24 px-6 bg-slate-900 text-white">
              <div className="max-w-4xl mx-auto text-center">
                 <h2 className="text-4xl md:text-6xl font-black mb-10 leading-tight">Start Generating Professional Clinic Policies Today</h2>

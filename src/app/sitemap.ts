@@ -26,7 +26,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/telehealth-clinic-policies',
     '/weight-loss-clinic-compliance',
     '/clinic-employee-handbook-generator',
-    '/healthcare-sop-generator'
+    '/healthcare-sop-generator',
+    '/hipaa-compliance',
+    '/telehealth-sops',
+    '/medspa-compliance',
+    '/clinic-compliance-policies',
+    '/healthcare-workflows',
+    '/clinic-documentation',
+    '/weight-loss-clinic-policies',
+    '/healthcare-sop-templates'
   ];
 
   const stateRoutes: string[] = [];
