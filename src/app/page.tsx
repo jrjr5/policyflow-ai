@@ -11,7 +11,8 @@ import {
   ArrowRight, 
   Plus, 
   Star,
-  Activity
+  Activity,
+  Lock
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 
@@ -28,7 +29,24 @@ export default function PolicyFlowAI() {
   const [policyText, setPolicyText] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [generationsCount, setGenerationsCount] = useState(0);
   const resultRef = useRef<HTMLDivElement>(null);
+
+  // Load generation count from localStorage
+  useEffect(() => {
+    const savedCount = localStorage.getItem('policy_generations_count');
+    if (savedCount) {
+      setGenerationsCount(parseInt(savedCount, 10));
+    }
+  }, []);
+
+  const incrementGenerations = () => {
+    const newCount = generationsCount + 1;
+    setGenerationsCount(newCount);
+    localStorage.setItem('policy_generations_count', newCount.toString());
+  };
+
+  const hasReachedLimit = generationsCount >= 1;
 
   // Auto-scroll when policyText is updated
   useEffect(() => {
@@ -45,6 +63,8 @@ export default function PolicyFlowAI() {
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (hasReachedLimit && !policyText) return;
+    
     setIsGenerating(true);
     setError(null);
     setPolicyText(null);
@@ -69,6 +89,7 @@ export default function PolicyFlowAI() {
       }
 
       setPolicyText(data.policy);
+      incrementGenerations();
     } catch (err: any) {
       console.error('Frontend Error:', err);
       setError(err.message || 'An unexpected error occurred.');
@@ -257,9 +278,22 @@ export default function PolicyFlowAI() {
                 <textarea placeholder="Any specific requirements?" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 min-h-[120px]" value={formData.notes} onChange={(e) => setFormData({...formData, notes: e.target.value})}></textarea>
               </div>
               {error && <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm font-bold">Error: {error}</div>}
-              <button type="submit" disabled={isGenerating} className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-3">
-                {isGenerating ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Plus className="w-5 h-5" /> Generate Policy</>}
-              </button>
+              
+              {hasReachedLimit && !policyText ? (
+                <div className="space-y-4">
+                  <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl text-center">
+                    <p className="text-amber-800 font-bold mb-1">Free preview limit reached.</p>
+                    <p className="text-amber-700 text-sm">Upgrade to continue generating policies.</p>
+                  </div>
+                  <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-200">
+                    Upgrade to Professional <ArrowRight className="w-5 h-5" />
+                  </a>
+                </div>
+              ) : (
+                <button type="submit" disabled={isGenerating} className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-3">
+                  {isGenerating ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Plus className="w-5 h-5" /> Generate Policy</>}
+                </button>
+              )}
             </form>
           </div>
 
@@ -275,7 +309,22 @@ export default function PolicyFlowAI() {
                 <h3 className="text-2xl font-bold text-slate-900">Generated Policy</h3>
                 <div className="flex gap-3">
                   <button onClick={copyToClipboard} className="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-semibold hover:bg-slate-50 flex items-center gap-2 text-sm"><Copy className="w-4 h-4" /> Copy</button>
-                  <button onClick={downloadPDF} className="bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-semibold hover:bg-slate-50 flex items-center gap-2 text-sm"><Download className="w-4 h-4" /> PDF</button>
+                  
+                  <div className="relative group">
+                    <button 
+                      disabled={hasReachedLimit}
+                      onClick={downloadPDF} 
+                      className={`bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-lg font-semibold flex items-center gap-2 text-sm transition-all ${hasReachedLimit ? 'opacity-50 grayscale cursor-not-allowed' : 'hover:bg-slate-50'}`}
+                    >
+                      <Download className="w-4 h-4" /> PDF
+                    </button>
+                    {hasReachedLimit && (
+                      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-center">
+                        Available with PolicyFlow AI Professional
+                      </div>
+                    )}
+                  </div>
+
                   <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2 text-sm">Upgrade</a>
                 </div>
               </div>
@@ -284,15 +333,34 @@ export default function PolicyFlowAI() {
               </div>
 
               <div className="mt-8 flex justify-center">
-                <button 
-                  onClick={downloadPDF}
-                  className="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all flex items-center gap-3 shadow-lg shadow-blue-100"
-                >
-                  <Download className="w-5 h-5" /> Download as PDF
-                </button>
+                <div className="relative group">
+                  <button 
+                    disabled={hasReachedLimit}
+                    onClick={downloadPDF}
+                    className={`px-10 py-4 rounded-xl font-bold text-lg transition-all flex items-center gap-3 shadow-lg ${hasReachedLimit ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100'}`}
+                  >
+                    {hasReachedLimit && <Lock className="w-5 h-5 text-slate-400" />}
+                    <Download className="w-5 h-5" /> Download as PDF
+                  </button>
+                  {hasReachedLimit && (
+                    <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-64 p-3 bg-slate-900 text-white text-xs rounded-lg shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-center z-10">
+                      <p className="font-bold mb-1">Premium Feature</p>
+                      <p className="text-slate-400">PDF exports are available with PolicyFlow AI Professional.</p>
+                    </div>
+                  )}
+                </div>
               </div>
               
-              <div className="mt-8 text-center"><button onClick={() => { setPolicyText(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-slate-500 hover:text-slate-700 font-medium text-sm text-center">Clear and Generate Another</button></div>
+              <div className="mt-8 text-center">
+                {hasReachedLimit ? (
+                  <div className="flex flex-col items-center gap-2">
+                    <p className="text-slate-500 text-sm font-medium">Free preview limit reached.</p>
+                    <a href={STRIPE_PAYMENT_LINK} className="text-blue-600 font-bold hover:underline flex items-center gap-1">Upgrade to generate unlimited policies <ArrowRight className="w-4 h-4" /></a>
+                  </div>
+                ) : (
+                  <button onClick={() => { setPolicyText(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-slate-500 hover:text-slate-700 font-medium text-sm text-center">Clear and Generate Another</button>
+                )}
+              </div>
             </div>
           )}
         </div>
