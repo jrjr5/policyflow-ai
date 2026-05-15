@@ -1,9 +1,10 @@
 import { MetadataRoute } from 'next';
+import { US_STATES, NICHES, slugify } from '@/lib/states-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://policyflow-ai.vercel.app';
   
-  const routes = [
+  const staticRoutes = [
     '',
     '/privacy',
     '/terms',
@@ -17,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/free-telehealth-sop-template',
     '/free-clinic-compliance-checklist',
     '/launch',
+    '/states',
     '/example-hipaa-policy',
     '/example-telehealth-sop',
     '/example-medspa-consent-policy',
@@ -27,7 +29,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/healthcare-sop-generator'
   ];
 
-  return routes.map((route) => ({
+  const stateRoutes: string[] = [];
+  US_STATES.forEach(state => {
+    NICHES.forEach(niche => {
+      stateRoutes.push(`/states/${slugify(state)}-${niche.slugSuffix}`);
+    });
+  });
+
+  const allRoutes = [...staticRoutes, ...stateRoutes];
+
+  return allRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
