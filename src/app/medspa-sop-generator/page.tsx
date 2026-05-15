@@ -58,7 +58,7 @@ export default function MedSpaLandingPage() {
     }
   ];
 
-  const jsonLd = {
+  const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": faqs.map(f => ({
@@ -71,11 +71,42 @@ export default function MedSpaLandingPage() {
     }))
   };
 
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Generate Med Spa SOPs",
+    "description": "Create professional medical spa standard operating procedures in minutes.",
+    "step": [
+      { "@type": "HowToStep", "name": "Select Aesthetic Vertical", "text": "Choose Botox, Fillers, or Laser." },
+      { "@type": "HowToStep", "name": "Choose Location", "text": "Select your state for medical director rules." },
+      { "@type": "HowToStep", "name": "Select Policy", "text": "Pick the specific clinical SOP you need." },
+      { "@type": "HowToStep", "name": "AI Draft", "text": "AI generates your aesthetic protocol." },
+      { "@type": "HowToStep", "name": "Export", "text": "Download your branded clinical SOP." }
+    ]
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://policyflow-ai.vercel.app" },
+      { "@type": "ListItem", "position": 2, "name": "Med Spa Generator", "item": "https://policyflow-ai.vercel.app/medspa-sop-generator" }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-slate-50">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Navbar />
       

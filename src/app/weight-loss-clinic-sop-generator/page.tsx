@@ -57,7 +57,7 @@ export default function WeightLossLandingPage() {
     }
   ];
 
-  const jsonLd = {
+  const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": faqs.map(f => ({
@@ -70,11 +70,42 @@ export default function WeightLossLandingPage() {
     }))
   };
 
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Generate Weight Loss SOPs",
+    "description": "Create clinical protocols for GLP-1 and medical weight loss clinics.",
+    "step": [
+      { "@type": "HowToStep", "name": "Select Weight Loss Niche", "text": "Choose GLP-1 or traditional medical weight loss." },
+      { "@type": "HowToStep", "name": "Choose State", "text": "Pick your jurisdiction for lab monitoring rules." },
+      { "@type": "HowToStep", "name": "Select Policy", "text": "Choose titration or screening protocols." },
+      { "@type": "HowToStep", "name": "Generate Draft", "text": "AI drafts your weight loss SOP." },
+      { "@type": "HowToStep", "name": "Download PDF", "text": "Export your audit-ready clinical manual." }
+    ]
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://policyflow-ai.vercel.app" },
+      { "@type": "ListItem", "position": 2, "name": "Weight Loss Generator", "item": "https://policyflow-ai.vercel.app/weight-loss-clinic-sop-generator" }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-slate-50">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Navbar />
       

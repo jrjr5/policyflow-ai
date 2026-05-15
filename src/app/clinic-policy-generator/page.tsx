@@ -57,7 +57,7 @@ export default function GeneralClinicLandingPage() {
     }
   ];
 
-  const jsonLd = {
+  const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": faqs.map(f => ({
@@ -70,11 +70,42 @@ export default function GeneralClinicLandingPage() {
     }))
   };
 
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Generate General Clinic Policies",
+    "description": "Standardize your clinic operations with AI-powered documentation.",
+    "step": [
+      { "@type": "HowToStep", "name": "Select Clinic Type", "text": "Choose your specific medical or wellness niche." },
+      { "@type": "HowToStep", "name": "Choose State", "text": "Select your state for local operational compliance." },
+      { "@type": "HowToStep", "name": "Enter Policy Name", "text": "Specify the operational protocol you need." },
+      { "@type": "HowToStep", "name": "AI Draft", "text": "AI drafts your professional clinic policy." },
+      { "@type": "HowToStep", "name": "Finalize", "text": "Download and print for your clinic binder." }
+    ]
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://policyflow-ai.vercel.app" },
+      { "@type": "ListItem", "position": 2, "name": "Clinic Generator", "item": "https://policyflow-ai.vercel.app/clinic-policy-generator" }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-slate-50">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Navbar />
       
