@@ -51,7 +51,9 @@ export default function PolicyFlowAI() {
   // Auto-scroll when policyText is updated
   useEffect(() => {
     if (policyText && resultRef.current) {
-      resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
     }
   }, [policyText]);
 
