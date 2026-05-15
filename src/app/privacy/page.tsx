@@ -35,7 +35,7 @@ export default function PrivacyPage() {
             
             <section>
               <h2 className="text-xl font-bold text-slate-900 mb-3">4. Contact Us</h2>
-              <p>If you have questions about this Privacy Policy, please contact us at jess.rroberson@gmail.com.</p>
+              <p>If you have questions about this Privacy Policy, please reach out via our contact form.</p>
             </section>
           </div>
         </div>
