@@ -63,11 +63,6 @@ export default function PolicyGenerator() {
     e.preventDefault();
     if (hasReachedLimit && !policyText) return;
 
-    if (!formData.businessName.trim()) {
-      setError("Please enter your business or clinic name.");
-      return;
-    }
-    
     setIsGenerating(true);
     setError(null);
     setPolicyText(null);
@@ -129,14 +124,18 @@ export default function PolicyGenerator() {
     doc.text(formData.policyType || "Clinic Policy", 20, 45);
     
     doc.setFontSize(11);
-    doc.text(`Policy prepared for: ${formData.businessName}`, 20, 52);
-    doc.text(`${formData.clinicType} - ${formData.state}`, 20, 59);
+    let currentY = 52;
+    if (formData.businessName) {
+      doc.text(`Policy prepared for: ${formData.businessName}`, 20, currentY);
+      currentY += 7;
+    }
+    doc.text(`${formData.clinicType} - ${formData.state}`, 20, currentY);
     
     // Body Text
     doc.setFontSize(10);
     doc.setTextColor(30, 41, 59); // slate-800
     const splitText = doc.splitTextToSize(policyText, 170);
-    doc.text(splitText, 20, 72);
+    doc.text(splitText, 20, currentY + 13);
     
     // Footer
     const pageCount = (doc as any).internal.getNumberOfPages();
@@ -156,9 +155,8 @@ export default function PolicyGenerator() {
         <h2 className="text-3xl font-bold text-slate-900 mb-8">Generate Policy</h2>
         <form onSubmit={handleGenerate} className="space-y-6">
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-slate-700">Work Email</label>
+            <label className="text-sm font-semibold text-slate-700">Work Email (Optional)</label>
             <input 
-              required 
               type="email"
               placeholder="name@clinic.com" 
               className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
@@ -167,9 +165,8 @@ export default function PolicyGenerator() {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-slate-700">Business / Clinic Name</label>
+            <label className="text-sm font-semibold text-slate-700">Business / Clinic Name (Optional)</label>
             <input 
-              required 
               placeholder="Example: VidaSalud Medical Wellness" 
               className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
               value={formData.businessName} 

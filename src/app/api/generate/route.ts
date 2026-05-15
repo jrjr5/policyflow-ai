@@ -35,16 +35,14 @@ export async function POST(req: Request) {
       );
     }
 
+    const businessPromptPart = businessName 
+      ? `for "${businessName}", a ${clinicType} in ${state}. IMPORTANT: Integrate the business name "${businessName}" naturally throughout the policy document where appropriate (e.g., in the Purpose, Policy Statement, and Responsibilities sections). Start the policy with: "Policy prepared for: ${businessName}" followed by the policy title.`
+      : `for a ${clinicType} in ${state}.`;
+
     const prompt = `
-      Create a professional, audit-ready clinic policy/SOP for "${businessName}", a ${clinicType} in ${state}.
+      Create a professional, audit-ready clinic policy/SOP ${businessPromptPart}
       The policy type is: ${policyType}.
       Additional context: ${notes || 'None provided'}.
-
-      IMPORTANT: Integrate the business name "${businessName}" naturally throughout the policy document where appropriate (e.g., in the Purpose, Policy Statement, and Responsibilities sections).
-      
-      Start the policy with the following line:
-      "Policy prepared for: ${businessName}"
-      Followed by the policy title and the sections.
 
       Structure the output as a single comprehensive policy document with sections for Purpose, Scope, Definitions, Policy Statement, Responsibilities, Procedure, Documentation Requirements, Compliance Considerations, and Review Schedule.
 
@@ -55,7 +53,7 @@ export async function POST(req: Request) {
         "policy": "1. PURPOSE\\nThis policy establishes..."
       }
 
-      Generate for user: ${email}
+      Generate for user: ${email || 'Anonymous'}
     `;
 
     const response = await openai.chat.completions.create({
