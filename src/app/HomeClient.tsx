@@ -20,6 +20,7 @@ import {
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import RecentActivity from '@/components/RecentActivity';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
 import FAQ from '@/components/FAQ';

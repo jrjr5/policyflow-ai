@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
+import RecentActivity from '@/components/RecentActivity';
 import PolicyGenerator from '@/components/PolicyGenerator';
 import FAQ from '@/components/FAQ';
 import EmailCapture from '@/components/EmailCapture';

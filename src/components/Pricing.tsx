@@ -1,12 +1,14 @@
 'use client';
 
 import { CheckCircle } from 'lucide-react';
+import RecentActivity from '@/components/RecentActivity';
 
 const MONTHLY_LINK = "https://buy.stripe.com/test_5kQ9AMaPw3toajS4M80VO00";
 const PACK_LINK = "https://buy.stripe.com/test_14AfZa7Dk0hc77GemI0VO01";
 
 export default function Pricing() {
   return (
+    <>
     <section id="pricing" className="py-24 px-6">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">Simple, transparent pricing.</h2>
@@ -74,5 +76,7 @@ export default function Pricing() {
         </div>
       </div>
     </section>
+    <RecentActivity />
+    </>
   );
 }
