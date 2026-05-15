@@ -36,7 +36,7 @@ export default function PillarLayout({
   industry,
   relatedLinks
 }: PillarLayoutProps) {
-  const jsonLd = {
+  const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": faqs.map(f => ({
@@ -49,11 +49,93 @@ export default function PillarLayout({
     }))
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://policyflow-ai.vercel.app"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Guides",
+        "item": "https://policyflow-ai.vercel.app/hipaa-compliance"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": title,
+        "item": `https://policyflow-ai.vercel.app/${title.toLowerCase().replace(/ /g, '-')}`
+      }
+    ]
+  };
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": headline,
+    "description": subheadline,
+    "image": "https://policyflow-ai.vercel.app/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "PolicyFlow AI"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "PolicyFlow AI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://policyflow-ai.vercel.app/logo.png"
+      }
+    },
+    "datePublished": "2026-05-15"
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How to Generate ${industry} Documentation`,
+    "description": `Master your clinic's documentation with these simple generation steps.`,
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Enter Clinic Details",
+        "text": "Select your industry vertical and location."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Identify Policy Needs",
+        "text": "Choose from our list of clinical SOPs and policies."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Generate Draft",
+        "text": "Our AI drafts the documentation based on latest clinical standards."
+      }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-slate-50">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <Navbar />
       

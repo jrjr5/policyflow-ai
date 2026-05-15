@@ -32,7 +32,7 @@ export default function UseCaseLayout({
   industry,
   category
 }: UseCaseLayoutProps) {
-  const jsonLd = {
+  const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": faqs.map(f => ({
@@ -45,19 +45,6 @@ export default function UseCaseLayout({
     }))
   };
 
-  const softwareSchema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "PolicyFlow AI",
-    "operatingSystem": "Web",
-    "applicationCategory": "BusinessApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  };
-
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -68,17 +55,72 @@ export default function UseCaseLayout({
         "name": "Home",
         "item": "https://policyflow-ai.vercel.app"
       },
-      {
+      category ? {
         "@type": "ListItem",
         "position": 2,
-        "name": category || "Compliance",
-        "item": `https://policyflow-ai.vercel.app/${category?.toLowerCase() || 'policies'}`
-      },
+        "name": category,
+        "item": `https://policyflow-ai.vercel.app/specialties/${category.toLowerCase().replace(/ /g, '-')}`
+      } : null,
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": category ? 3 : 2,
         "name": title,
-        "item": `https://policyflow-ai.vercel.app/${category?.toLowerCase() || 'policies'}/${title.toLowerCase().replace(/ /g, '-')}`
+        "item": `https://policyflow-ai.vercel.app/${title.toLowerCase().replace(/ /g, '-')}`
+      }
+    ].filter(Boolean)
+  };
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": headline,
+    "description": subheadline,
+    "image": "https://policyflow-ai.vercel.app/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "PolicyFlow AI"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "PolicyFlow AI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://policyflow-ai.vercel.app/logo.png"
+      }
+    },
+    "datePublished": "2026-05-15"
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How to Generate ${industry} Policies`,
+    "description": `Step-by-step guide to generating professional healthcare policies for ${industry}.`,
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Select Clinic Type",
+        "text": "Choose your specific healthcare facility type from the dropdown."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Select State",
+        "text": "Select the U.S. state where your clinic operates to ensure state-specific compliance."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Choose Policy Type",
+        "text": "Enter the name of the policy or SOP you need to generate."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Generate AI Draft",
+        "text": "Click generate and wait 60 seconds for the AI to draft your clinical documentation."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Review and Customize",
+        "text": "Review the generated draft and download it as a PDF or copy it to your clinic manual."
       }
     ]
   };
@@ -87,15 +129,19 @@ export default function UseCaseLayout({
     <main className="min-h-screen bg-slate-50">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <Navbar />
       

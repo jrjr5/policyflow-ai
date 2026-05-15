@@ -57,17 +57,27 @@ export default function TelehealthLandingPage() {
     }
   ];
 
-  const jsonLd = {
+  const howToSchema = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(f => ({
-      "@type": "Question",
-      "name": f.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": f.answer
-      }
-    }))
+    "@type": "HowTo",
+    "name": "How to Generate Telehealth SOPs",
+    "description": "Create audit-ready telehealth consent forms and protocols in 5 easy steps.",
+    "step": [
+      { "@type": "HowToStep", "name": "Specify Telehealth Vertical", "text": "Choose your virtual care niche." },
+      { "@type": "HowToStep", "name": "Select Jurisdiction", "text": "Pick the state where your patients are located." },
+      { "@type": "HowToStep", "name": "Select Protocol Type", "text": "Choose from Consent, Intake, or Emergency SOPs." },
+      { "@type": "HowToStep", "name": "Generate Draft", "text": "AI drafts your telehealth documentation." },
+      { "@type": "HowToStep", "name": "Download PDF", "text": "Export your professional SOP." }
+    ]
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://policyflow-ai.vercel.app" },
+      { "@type": "ListItem", "position": 2, "name": "Telehealth Generator", "item": "https://policyflow-ai.vercel.app/telehealth-policy-generator" }
+    ]
   };
 
   return (
@@ -75,6 +85,14 @@ export default function TelehealthLandingPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Navbar />
       

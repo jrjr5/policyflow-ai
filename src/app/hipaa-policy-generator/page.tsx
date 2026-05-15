@@ -57,17 +57,27 @@ export default function HIPAALandingPage() {
     }
   ];
 
-  const jsonLd = {
+  const howToSchema = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(f => ({
-      "@type": "Question",
-      "name": f.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": f.answer
-      }
-    }))
+    "@type": "HowTo",
+    "name": "How to Generate HIPAA Policies",
+    "description": "Generate audit-ready HIPAA privacy and security policies in 5 simple steps.",
+    "step": [
+      { "@type": "HowToStep", "name": "Select Clinic Type", "text": "Choose your healthcare niche." },
+      { "@type": "HowToStep", "name": "Choose State", "text": "Select your state for local compliance." },
+      { "@type": "HowToStep", "name": "Choose Policy Type", "text": "Specify HIPAA Privacy or Security." },
+      { "@type": "HowToStep", "name": "Generate Draft", "text": "AI drafts your policy in 60 seconds." },
+      { "@type": "HowToStep", "name": "Review & Export", "text": "Download your audit-ready PDF." }
+    ]
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://policyflow-ai.vercel.app" },
+      { "@type": "ListItem", "position": 2, "name": "HIPAA Generator", "item": "https://policyflow-ai.vercel.app/hipaa-policy-generator" }
+    ]
   };
 
   return (
@@ -75,6 +85,14 @@ export default function HIPAALandingPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Navbar />
       

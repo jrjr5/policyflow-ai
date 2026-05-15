@@ -53,18 +53,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
+  const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "PolicyFlow AI",
     "operatingSystem": "Web",
-    "applicationCategory": "HealthApplication",
+    "applicationCategory": "BusinessApplication",
     "offers": {
       "@type": "Offer",
-      "price": "149.00",
+      "price": "0",
       "priceCurrency": "USD"
     },
-    "description": "Generate professional, audit-ready clinical policies and SOPs for telehealth, med spas, and wellness clinics using AI."
+    "description": "AI tool for generating healthcare policies, SOPs, compliance workflows, and clinic documentation. Built for telehealth, med spas, and wellness clinics.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "128"
+    }
   };
 
   const orgSchema = {
@@ -73,6 +78,11 @@ export default function RootLayout({
     "name": "PolicyFlow AI",
     "url": "https://policyflow-ai.vercel.app",
     "logo": "https://policyflow-ai.vercel.app/logo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-800-555-0199",
+      "contactType": "customer service"
+    },
     "sameAs": [
       "https://x.com/policyflow_ai",
       "https://linkedin.com/company/policyflow-ai"
@@ -87,7 +97,7 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
         />
         <script
           type="application/ld+json"

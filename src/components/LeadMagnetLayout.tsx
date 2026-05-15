@@ -21,8 +21,62 @@ export default function LeadMagnetLayout({
   previewTitle,
   previewContent
 }: LeadMagnetProps) {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://policyflow-ai.vercel.app"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Resources",
+        "item": "https://policyflow-ai.vercel.app/free-hipaa-policy-template"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": title,
+        "item": `https://policyflow-ai.vercel.app/${title.toLowerCase().replace(/ /g, '-')}`
+      }
+    ]
+  };
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "description": subtitle,
+    "image": "https://policyflow-ai.vercel.app/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "PolicyFlow AI"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "PolicyFlow AI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://policyflow-ai.vercel.app/logo.png"
+      }
+    },
+    "datePublished": "2026-05-15"
+  };
+
   return (
     <main className="min-h-screen bg-slate-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <Navbar />
       
       <section className="py-24 px-6 bg-white border-b border-slate-100">

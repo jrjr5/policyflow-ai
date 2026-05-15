@@ -88,8 +88,43 @@ export default function HomeClient() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.answer
+      }
+    }))
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Generate Healthcare SOPs with PolicyFlow AI",
+    "description": "Create professional clinic documentation in minutes.",
+    "step": [
+      { "@type": "HowToStep", "name": "Choose Clinical Niche", "text": "Select your industry (Telehealth, Med Spa, etc.)." },
+      { "@type": "HowToStep", "name": "Select State", "text": "Pick your U.S. state for compliance logic." },
+      { "@type": "HowToStep", "name": "Enter Policy Name", "text": "Specify the document you need." },
+      { "@type": "HowToStep", "name": "AI Generation", "text": "Wait 60 seconds for the draft." },
+      { "@type": "HowToStep", "name": "Download PDF", "text": "Export your audit-ready manual." }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-slate-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <Navbar onStart={handleStart} onHomeClick={() => setStep('landing')} />
 
       {step === 'landing' && (
