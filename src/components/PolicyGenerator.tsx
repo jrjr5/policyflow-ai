@@ -10,6 +10,7 @@ import {
   Activity
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
+import { US_STATES } from '@/lib/states-data';
 
 const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_5kQ9AMaPw3toajS4M80VO00";
 
@@ -156,11 +157,9 @@ export default function PolicyGenerator() {
               <label className="text-sm font-semibold text-slate-700">State</label>
               <select required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" value={formData.state} onChange={(e) => setFormData({...formData, state: e.target.value})}>
                 <option value="">Select state...</option>
-                <option value="California">California</option>
-                <option value="Florida">Florida</option>
-                <option value="Texas">Texas</option>
-                <option value="New York">New York</option>
-                <option value="Arizona">Arizona</option>
+                {US_STATES.map((state) => (
+                  <option key={state} value={state}>{state}</option>
+                ))}
                 <option value="Other">Other (USA)</option>
               </select>
             </div>
