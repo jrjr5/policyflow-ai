@@ -13,13 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://policyflow-ai.vercel.app'),
   title: {
     default: "PolicyFlow AI - Audit-Ready Clinic Policies in Minutes",
     template: "%s | PolicyFlow AI"
   },
   description: "Generate professional policies and SOPs for telehealth, wellness, and med spa clinics using AI. Audit-ready HIPAA, Telehealth, and clinical compliance templates.",
-  keywords: ["HIPAA policy generator", "telehealth SOP generator", "med spa policy templates", "clinic compliance policies", "healthcare SOP AI"],
+  keywords: ["HIPAA policy generator", "telehealth SOP generator", "med spa policy templates", "clinic compliance policies", "healthcare SOP AI", "clinic documentation templates"],
   authors: [{ name: "PolicyFlow AI Team" }],
+  alternates: {
+    canonical: './',
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -27,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "PolicyFlow AI",
     images: [
       {
-        url: "https://policyflow-ai.vercel.app/og-image.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "PolicyFlow AI - Clinical Policy Generator",
@@ -49,11 +53,31 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PolicyFlow AI",
+    "operatingSystem": "Web",
+    "applicationCategory": "HealthApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "149.00",
+      "priceCurrency": "USD"
+    },
+    "description": "Generate professional, audit-ready clinical policies and SOPs for telehealth, med spas, and wellness clinics using AI."
+  };
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

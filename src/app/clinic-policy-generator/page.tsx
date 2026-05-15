@@ -4,12 +4,15 @@ import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
 import FAQ from '@/components/FAQ';
-import { Layout, ClipboardCheck, Users, ArrowRight } from 'lucide-react';
+import { Layout, ClipboardCheck, Users, ArrowRight, BookOpen, Search } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Clinic Policy Generator | Professional SOPs for Healthcare Practices',
   description: 'Generate customized operational and compliance policies for any healthcare clinic. AI-powered SOPs for medical, wellness, and aesthetic practices.',
+  alternates: {
+    canonical: '/clinic-policy-generator',
+  },
   openGraph: {
     title: 'Clinic Policy Generator | PolicyFlow AI',
     description: 'Custom operational and compliance policies for healthcare practices. AI-powered SOPs for medical and wellness clinics.',
@@ -39,11 +42,40 @@ export default function GeneralClinicLandingPage() {
     {
       question: "Does the AI handle clinical emergency protocols?",
       answer: "Yes, our AI can generate drafts for common clinical emergencies, such as anaphylaxis protocols, medical emergency response, and natural disaster recovery plans for healthcare clinics."
+    },
+    {
+      question: "Can I generate HR policies with this tool?",
+      answer: "While our primary focus is clinical operations and compliance (HIPAA, SOPs), the generator can produce basic HR policies related to clinical conduct, dress codes, and professional standards."
+    },
+    {
+      question: "How do I ensure my staff actually follows these SOPs?",
+      answer: "Documentation is only the first step. You should conduct regular training sessions, perform mock audits, and include SOP adherence in your annual employee performance reviews."
+    },
+    {
+      question: "Is there a general clinic compliance checklist available?",
+      answer: "Yes, we offer a free clinic compliance checklist that covers the essential documentation every modern clinic needs to have on file."
     }
   ];
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.answer
+      }
+    }))
+  };
+
   return (
     <main className="min-h-screen bg-slate-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       
       <section className="py-20 px-6 bg-white border-b border-slate-100 text-center">
@@ -51,71 +83,95 @@ export default function GeneralClinicLandingPage() {
           <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-sm font-bold mb-6 uppercase tracking-wider">
             <Layout className="w-4 h-4" /> Comprehensive Clinic Operations
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
-            Professional Policy Documentation for Every Healthcare Practice.
+          <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
+            Audit-Ready Policy Documentation for Your Entire Practice.
           </h1>
-          <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
             Operational excellence starts with clear documentation. PolicyFlow AI generates customized SOPs for billing, patient intake, emergency response, and clinical workflows in seconds.
           </p>
-          <div className="flex justify-center">
-            <a href="#generator" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center gap-2">
-              Generate Your Clinic Policy <ArrowRight className="w-5 h-5" />
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="#generator" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
+              Generate 1 Free Policy <ArrowRight className="w-5 h-5" />
             </a>
+            <Link href="/free-clinic-compliance-checklist" className="bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all">
+              Compliance Checklist
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Standardize Your Operations</h2>
+      <section className="py-24 px-6 bg-slate-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Standardize Your Operations</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">Don't let administrative overhead slow down your clinical care. AI-powered documentation keeps your team aligned and compliant.</p>
+          </div>
           <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm">
-              <ClipboardCheck className="text-blue-600 w-10 h-10 mb-4" />
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Audit Protection</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Be ready for any regulatory inspection. Our policies are grounded in clinical standards and state-specific healthcare regulations.
+            <div className="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm">
+              <ClipboardCheck className="text-blue-600 w-12 h-12 mb-6" />
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Audit Protection</h3>
+              <p className="text-slate-600 leading-relaxed text-lg">
+                Be ready for any regulatory inspection or payer audit. Our policies are grounded in clinical standards and state-specific healthcare regulations.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm">
-              <Users className="text-blue-600 w-10 h-10 mb-4" />
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Staff Clarity</h3>
-              <p className="text-slate-600 leading-relaxed">
-                Reduce onboarding time and operational errors by providing your team with clear, easy-to-follow Standard Operating Procedures.
+            <div className="bg-white p-10 rounded-3xl border border-slate-100 shadow-sm">
+              <Users className="text-blue-600 w-12 h-12 mb-6" />
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Staff Clarity</h3>
+              <p className="text-slate-600 leading-relaxed text-lg">
+                Reduce onboarding time and operational errors by providing your team with clear, easy-to-follow Standard Operating Procedures for every task.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 px-6 bg-slate-900 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">Professional Document Preview</h2>
-          <div className="bg-white text-slate-900 p-10 rounded-2xl shadow-2xl text-left max-w-2xl mx-auto border-t-8 border-blue-600">
-            <h3 className="text-xl font-bold border-b pb-4 mb-6">SOP: Patient Intake & Verification</h3>
-            <div className="space-y-4 text-sm leading-relaxed">
-              <p><strong>1. Purpose:</strong> To ensure accurate collection of patient demographic and insurance information...</p>
-              <p><strong>2. Protocol:</strong> Front desk staff must verify two forms of identification for all new patients. Digital intake forms must be reviewed for completeness before the provider encounter...</p>
-              <p><strong>3. Documentation:</strong> All patient identity verification must be recorded in the EMR within 24 hours...</p>
+      <section className="py-24 px-6 bg-white overflow-hidden">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+             <h2 className="text-3xl font-bold text-slate-900 mb-4">Professional Document Preview</h2>
+             <p className="text-slate-600 italic">High-quality, clinical-grade documentation output.</p>
+          </div>
+          <div className="bg-white text-slate-900 p-10 md:p-16 rounded-3xl shadow-2xl text-left max-w-3xl mx-auto border border-slate-100 border-t-8 border-blue-600">
+            <div className="flex justify-between items-center mb-10 border-b pb-6">
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">SOP: Patient Intake & Verification</h3>
+                <p className="text-sm text-slate-500 font-medium uppercase tracking-widest mt-1">Operational Protocol</p>
+              </div>
+              <BookOpen className="text-blue-600 w-8 h-8" />
+            </div>
+            <div className="space-y-8 text-slate-800 leading-relaxed">
+              <div>
+                <p className="font-bold text-blue-600 uppercase text-xs tracking-wider mb-2">1. Purpose</p>
+                <p>To ensure the accurate and consistent collection of patient demographic and insurance information while maintaining regulatory compliance and data integrity.</p>
+              </div>
+              <div>
+                <p className="font-bold text-blue-600 uppercase text-xs tracking-wider mb-2">2. Verification Protocol</p>
+                <p>Front desk staff must verify two forms of government-issued identification for all new clinical encounters. Digital intake forms must be reviewed and timestamped in the EMR prior to provider handoff...</p>
+              </div>
+              <div className="pt-4 border-t border-slate-100 flex items-center gap-2 text-slate-400 text-xs italic">
+                <Search className="w-3 h-3" />
+                <span>Generated by PolicyFlow AI Compliance Engine</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <section id="generator" className="py-24 px-6 bg-slate-50 border-y border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-12">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Start Generating Policy</h2>
-            <p className="text-slate-600">Select your practice type to get started.</p>
+            <p className="text-slate-600 italic">“Build a consistent practice with professional SOPs.”</p>
           </div>
           <PolicyGenerator />
         </div>
       </section>
 
-      <FAQ items={faqs} />
+      <FAQ items={faqs} title="Clinic Documentation FAQ" />
 
       <Pricing />
 
-      <section className="py-12 text-center">
+      <section className="py-12 text-center bg-white border-t border-slate-100">
         <Link href="/" className="text-blue-600 font-bold hover:underline">← Back to PolicyFlow AI Home</Link>
       </section>
 

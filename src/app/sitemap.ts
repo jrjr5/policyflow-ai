@@ -13,6 +13,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/medspa-sop-generator',
     '/weight-loss-clinic-sop-generator',
     '/clinic-policy-generator',
+    '/free-hipaa-policy-template',
+    '/free-telehealth-sop-template',
+    '/free-clinic-compliance-checklist',
+    '/launch',
+    '/example-hipaa-policy',
+    '/example-telehealth-sop',
+    '/example-medspa-consent-policy',
+    '/example-medication-refill-policy',
+    '/telehealth-clinic-policies',
+    '/weight-loss-clinic-compliance',
+    '/clinic-employee-handbook-generator',
+    '/healthcare-sop-generator'
   ];
 
   return routes.map((route) => ({
