@@ -12,9 +12,33 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
+import FAQ from '@/components/FAQ';
 
 export default function HomeClient() {
   const [step, setStep] = useState<'landing' | 'generator'>('landing');
+
+  const faqs = [
+    {
+      question: "Are AI-generated policies audit-ready?",
+      answer: "Yes, our AI is trained specifically on healthcare clinical standards and state-specific regulations. While we always recommend a final review by your medical director or legal counsel, the drafts provided are designed to meet the rigorous requirements of clinical audits."
+    },
+    {
+      question: "How long does it take to generate a policy?",
+      answer: "Most policies are generated in under 60 seconds. You simply provide your clinic type, state, and the specific policy name, and the AI handles the rest."
+    },
+    {
+      question: "Can I customize the generated policies?",
+      answer: "Absolutely. Once a policy is generated, you can copy the text into your own word processor or download it as a PDF for further customization and branding."
+    },
+    {
+      question: "Does PolicyFlow AI store my clinic's private data?",
+      answer: "We do not store the specific operational details you input into the generator beyond the session required to generate the text. We prioritize data privacy and do not sell your business information."
+    },
+    {
+      question: "What types of clinics do you support?",
+      answer: "We specialize in modern clinical practices including Telehealth, Med Spas, Wellness Clinics, IV Hydration, and Weight Loss centers."
+    }
+  ];
 
   const handleStart = () => {
     setStep('generator');
@@ -83,6 +107,8 @@ export default function HomeClient() {
               </div>
             </div>
           </section>
+
+          <FAQ items={faqs} />
 
           <Pricing />
         </div>

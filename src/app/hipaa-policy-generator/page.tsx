@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
+import FAQ from '@/components/FAQ';
 import { Shield, Lock, FileCheck, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -18,6 +19,29 @@ export const metadata: Metadata = {
 };
 
 export default function HIPAALandingPage() {
+  const faqs = [
+    {
+      question: "What HIPAA policies are required for a new clinic?",
+      answer: "At a minimum, every clinic needs a HIPAA Privacy Policy, a HIPAA Security Policy, and a Breach Notification Policy. Depending on your operations, you may also need Business Associate Agreements (BAAs) and specific protocols for remote workforce management."
+    },
+    {
+      question: "Does this generator handle state-specific HIPAA laws?",
+      answer: "Yes. While HIPAA is a federal regulation, many states (like California with CMIA or Texas with HB 300) have stricter privacy requirements. Our AI incorporates these state-level nuances based on the state you select."
+    },
+    {
+      question: "How often should HIPAA policies be updated?",
+      answer: "HIPAA policies should be reviewed annually or whenever there is a significant change in your clinic's operations, such as adopting a new EMR or switching to a new telehealth platform."
+    },
+    {
+      question: "What is the penalty for not having written HIPAA policies?",
+      answer: "Failure to have documented policies is considered 'willful neglect' by the OCR. Fines can range from several thousand dollars to millions, depending on the severity and duration of the non-compliance."
+    },
+    {
+      question: "Can I use these policies for a Business Associate Agreement?",
+      answer: "Yes, our generator can help draft the clinical side of security expectations, though we recommend using a standardized BAA template for the legal contract between parties."
+    }
+  ];
+
   return (
     <main className="min-h-screen bg-slate-50">
       <Navbar />
@@ -93,6 +117,8 @@ export default function HIPAALandingPage() {
           <PolicyGenerator />
         </div>
       </section>
+
+      <FAQ items={faqs} />
 
       <Pricing />
 

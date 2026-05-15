@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
+import FAQ from '@/components/FAQ';
 import { Scale, HeartPulse, FileText, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -18,6 +19,29 @@ export const metadata: Metadata = {
 };
 
 export default function WeightLossLandingPage() {
+  const faqs = [
+    {
+      question: "Are there specific SOPs for Semaglutide/Tirzepatide?",
+      answer: "Yes. Due to the clinical profile and titration requirements of GLP-1 medications, clinics should have specific SOPs covering patient screening, gastrointestinal side effect management, dose escalation schedules, and lab monitoring (including HbA1c and thyroid checks)."
+    },
+    {
+      question: "How do I handle medical oversight for a weight loss clinic?",
+      answer: "Weight loss clinics prescribing medical treatments must have clear protocols for provider-led assessments. Our SOPs help define the roles of MDs, NPs, and PAs in the treatment lifecycle."
+    },
+    {
+      question: "What labs are required for medical weight loss monitoring?",
+      answer: "While specific requirements vary by provider, standard protocols often include baseline CMP, Lipid Panel, TSH, and HbA1c. Follow-up monitoring intervals should be clearly documented in your clinical SOPs."
+    },
+    {
+      question: "How should weight loss medications be stored?",
+      answer: "Many weight loss medications require refrigeration. Your SOPs must include a 'Cold Chain Management' section that outlines temperature logging and emergency protocols for power failures."
+    },
+    {
+      question: "Do I need a specific weight loss consent form?",
+      answer: "Yes. Patients must be informed of the risks specific to weight loss medications, including potential side effects, long-term expectations, and the need for lifestyle modifications."
+    }
+  ];
+
   return (
     <main className="min-h-screen bg-slate-50">
       <Navbar />
@@ -86,6 +110,8 @@ export default function WeightLossLandingPage() {
           <PolicyGenerator />
         </div>
       </section>
+
+      <FAQ items={faqs} />
 
       <Pricing />
 

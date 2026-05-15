@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
+import FAQ from '@/components/FAQ';
 import { Video, Globe, CheckCircle, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -18,6 +19,29 @@ export const metadata: Metadata = {
 };
 
 export default function TelehealthLandingPage() {
+  const faqs = [
+    {
+      question: "Do I need a separate consent form for telehealth?",
+      answer: "Yes. Most state medical boards and payers (including CMS) require a specific telehealth informed consent that explains the limitations of virtual care, the risk of technical failure, and the patient's right to request an in-person encounter."
+    },
+    {
+      question: "Can I prescribe controlled substances via telehealth?",
+      answer: "Prescribing regulations for controlled substances (like those under the Ryan Haight Act) are complex and evolving. Our generator can help draft protocols for remote prescribing, but you must ensure compliance with current DEA and state-level emergency rules."
+    },
+    {
+      question: "What are the HIPAA requirements for telehealth platforms?",
+      answer: "You must use a platform that is HIPAA-compliant and willing to sign a Business Associate Agreement (BAA). Our SOPs include sections on platform selection and data security for virtual visits."
+    },
+    {
+      question: "How do I handle out-of-state patients?",
+      answer: "Generally, a provider must be licensed in the state where the patient is physically located at the time of the visit. Our generator takes into account the 'location of the patient' rules which vary by state jurisdiction."
+    },
+    {
+      question: "What is a 'Good Faith Exam' in telehealth?",
+      answer: "Many states require an initial 'Good Faith Examination' before certain treatments can be prescribed. Our SOPs help define how these exams can be conducted via synchronous video to meet regulatory standards."
+    }
+  ];
+
   return (
     <main className="min-h-screen bg-slate-50">
       <Navbar />
@@ -87,6 +111,8 @@ export default function TelehealthLandingPage() {
           <PolicyGenerator />
         </div>
       </section>
+
+      <FAQ items={faqs} />
 
       <Pricing />
 

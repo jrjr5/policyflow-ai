@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
+import FAQ from '@/components/FAQ';
 import { Layout, ClipboardCheck, Users, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -18,6 +19,29 @@ export const metadata: Metadata = {
 };
 
 export default function GeneralClinicLandingPage() {
+  const faqs = [
+    {
+      question: "Why does my clinic need written SOPs?",
+      answer: "Standard Operating Procedures (SOPs) provide clinical and operational consistency, reduce the risk of errors, assist in onboarding new staff, and are often required by insurance payers and regulatory bodies during audits."
+    },
+    {
+      question: "What is the difference between a policy and an SOP?",
+      answer: "A policy is a high-level rule or principle (e.g., 'We protect patient privacy'), while an SOP is a detailed, step-by-step instruction on how to execute that policy (e.g., 'The steps to verify patient identity at the front desk')."
+    },
+    {
+      question: "Can these policies be used for accreditation (e.g., AAAHC or Joint Commission)?",
+      answer: "While our generator provides a strong foundation grounded in clinical standards, accreditation often requires highly specific evidence of implementation. You can use our drafts as a starting point and then tailor them to meet specific accreditation benchmarks."
+    },
+    {
+      question: "How should I store and distribute these policies?",
+      answer: "Policies should be stored in a central location accessible to all staff, such as a digital shared drive or a physical policy manual. Each staff member should sign an acknowledgment form confirming they have read and understood the protocols."
+    },
+    {
+      question: "Does the AI handle clinical emergency protocols?",
+      answer: "Yes, our AI can generate drafts for common clinical emergencies, such as anaphylaxis protocols, medical emergency response, and natural disaster recovery plans for healthcare clinics."
+    }
+  ];
+
   return (
     <main className="min-h-screen bg-slate-50">
       <Navbar />
@@ -86,6 +110,8 @@ export default function GeneralClinicLandingPage() {
           <PolicyGenerator />
         </div>
       </section>
+
+      <FAQ items={faqs} />
 
       <Pricing />
 

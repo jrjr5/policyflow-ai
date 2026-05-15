@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Pricing from '@/components/Pricing';
 import PolicyGenerator from '@/components/PolicyGenerator';
+import FAQ from '@/components/FAQ';
 import { Sparkles, Activity, ShieldCheck, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -18,6 +19,29 @@ export const metadata: Metadata = {
 };
 
 export default function MedSpaLandingPage() {
+  const faqs = [
+    {
+      question: "Do Med Spas need medical director oversight policies?",
+      answer: "Yes. In most states, Med Spas are considered medical practices and require a medical director. You must have written SOPs defining the medical director's responsibilities, supervision of mid-level practitioners, and protocol approval processes."
+    },
+    {
+      question: "What should be included in a Botox/Filler SOP?",
+      answer: "A comprehensive aesthetic SOP should cover patient selection criteria, reconstitution protocols, injection techniques, anatomical danger zones, storage requirements (cold chain), and adverse event management (like vascular occlusion)."
+    },
+    {
+      question: "Are Good Faith Exams (GFEs) required for aesthetic treatments?",
+      answer: "Most states require a GFE by a qualified provider (MD, DO, NP, or PA) before a nurse or aesthetician can perform a medical treatment like neurotoxin injections. Our generator helps draft SOPs for these exams."
+    },
+    {
+      question: "How do I document complications in a Med Spa?",
+      answer: "You should have a standardized adverse event reporting policy. This includes immediate clinical response, patient follow-up, medical director notification, and documentation in the patient's EMR."
+    },
+    {
+      question: "What are the rules for IV hydration SOPs?",
+      answer: "IV Hydration clinics require protocols for aseptic technique, ingredient compounding (if applicable), emergency management of fluid overload or vasovagal responses, and proper waste disposal."
+    }
+  ];
+
   return (
     <main className="min-h-screen bg-slate-50">
       <Navbar />
@@ -83,6 +107,8 @@ export default function MedSpaLandingPage() {
           <PolicyGenerator />
         </div>
       </section>
+
+      <FAQ items={faqs} />
 
       <Pricing />
 
