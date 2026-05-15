@@ -16,6 +16,7 @@ const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_5kQ9AMaPw3toajS4M80VO00
 
 export default function PolicyGenerator() {
   const [formData, setFormData] = useState({
+    email: '',
     clinicType: '',
     state: '',
     policyType: '',
@@ -24,24 +25,29 @@ export default function PolicyGenerator() {
   const [policyText, setPolicyText] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [generationsCount, setGenerationsCount] = useState(0);
+  const [hasGenerated, setHasGenerated] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
 
-  // Load generation count from localStorage
+  // Load generation status from localStorage
   useEffect(() => {
-    const savedCount = localStorage.getItem('policy_generations_count');
-    if (savedCount) {
-      setGenerationsCount(parseInt(savedCount, 10));
+    const status = localStorage.getItem('hasGeneratedFreePolicy');
+    if (status === 'true') {
+      setHasGenerated(true);
+    }
+    const savedEmail = localStorage.getItem('userEmail');
+    if (savedEmail) {
+      setFormData(prev => ({ ...prev, email: savedEmail }));
     }
   }, []);
 
-  const incrementGenerations = () => {
-    const newCount = generationsCount + 1;
-    setGenerationsCount(newCount);
-    localStorage.setItem('policy_generations_count', newCount.toString());
+  const markAsGenerated = () => {
+    setHasGenerated(true);
+    localStorage.setItem('hasGeneratedFreePolicy', 'true');
+    localStorage.setItem('generatedAt', new Date().toISOString());
+    localStorage.setItem('userEmail', formData.email);
   };
 
-  const hasReachedLimit = generationsCount >= 1;
+  const hasReachedLimit = hasGenerated;
 
   // Auto-scroll when policyText is updated
   useEffect(() => {
@@ -80,7 +86,7 @@ export default function PolicyGenerator() {
       }
 
       setPolicyText(data.policy);
-      incrementGenerations();
+      markAsGenerated();
     } catch (err: any) {
       console.error('Frontend Error:', err);
       setError(err.message || 'An unexpected error occurred.');
@@ -142,6 +148,17 @@ export default function PolicyGenerator() {
       <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-100 mb-8">
         <h2 className="text-3xl font-bold text-slate-900 mb-8">Generate Policy</h2>
         <form onSubmit={handleGenerate} className="space-y-6">
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-700">Work Email</label>
+            <input 
+              required 
+              type="email"
+              placeholder="name@clinic.com" 
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
+              value={formData.email} 
+              onChange={(e) => setFormData({...formData, email: e.target.value})} 
+            />
+          </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-slate-700">Clinic Type</label>
@@ -177,8 +194,8 @@ export default function PolicyGenerator() {
           {hasReachedLimit && !policyText ? (
             <div className="space-y-4">
               <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl text-center">
-                <p className="text-amber-800 font-bold mb-1">Free preview limit reached.</p>
-                <p className="text-amber-700 text-sm">Upgrade to continue generating policies.</p>
+                <p className="text-amber-800 font-bold mb-1">Free policy preview already used.</p>
+                <p className="text-amber-700 text-sm">Upgrade to PolicyFlow AI Professional to continue generating policies.</p>
               </div>
               <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-200">
                 Upgrade to Professional <ArrowRight className="w-5 h-5" />

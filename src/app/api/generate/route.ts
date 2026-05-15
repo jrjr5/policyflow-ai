@@ -1,13 +1,32 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { headers } from 'next/headers';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Simple in-memory rate limiting (Note: This is per-instance on Vercel and resets on cold start)
+// For a production app, use Vercel KV or a database.
+const rateLimit = new Map<string, number>();
+const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+
 export async function POST(req: Request) {
   try {
-    const { clinicType, state, policyType, notes } = await req.json();
+    const { email, clinicType, state, policyType, notes } = await req.json();
+
+    // Server-side rate limiting by IP
+    const headersList = headers();
+    const ip = headersList.get('x-forwarded-for') || 'unknown';
+    const now = Date.now();
+    const lastGenerated = rateLimit.get(ip);
+
+    if (lastGenerated && (now - lastGenerated < THIRTY_DAYS_MS)) {
+      return NextResponse.json(
+        { error: 'Free policy preview already used. Upgrade to PolicyFlow AI Professional to continue generating policies.' },
+        { status: 429 }
+      );
+    }
 
     if (!process.env.OPENAI_API_KEY) {
       return NextResponse.json(
@@ -29,6 +48,8 @@ export async function POST(req: Request) {
       {
         "policy": "1. PURPOSE\\nThis policy establishes..."
       }
+
+      Generate for user: ${email}
     `;
 
     const response = await openai.chat.completions.create({
@@ -55,6 +76,8 @@ export async function POST(req: Request) {
     
     // Normalize response to ensure { "policy": "..." }
     if (parsed.policy) {
+      // Record generation for rate limiting
+      rateLimit.set(ip, Date.now());
       return NextResponse.json({ policy: parsed.policy });
     } else {
       // Fallback if AI returned different fields
