@@ -40,13 +40,18 @@ export default function PolicyFlowAI() {
   });
   const [policy, setPolicy] = useState<typeof POLICY_TEMPLATE | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const policyRef = useRef<HTMLDivElement>(null);
 
-  const handleStart = () => setStep('generator');
+  const handleStart = () => {
+    setStep('generator');
+    setError(null);
+  };
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsGenerating(true);
+    setError(null);
     
     try {
       const response = await fetch('/api/generate', {
@@ -59,7 +64,8 @@ export default function PolicyFlowAI() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to generate policy');
+        const errorMessage = errorData.error || 'Failed to generate policy';
+        throw new Error(errorMessage);
       }
 
       const generatedPolicy = await response.json();
@@ -67,7 +73,7 @@ export default function PolicyFlowAI() {
       setStep('result');
     } catch (error: any) {
       console.error('Error:', error);
-      alert(error.message || 'An error occurred while generating the policy.');
+      setError(error.message || 'An error occurred while generating the policy.');
     } finally {
       setIsGenerating(false);
     }
@@ -369,6 +375,12 @@ export default function PolicyFlowAI() {
                   onChange={(e) => setFormData({...formData, notes: e.target.value})}
                 ></textarea>
               </div>
+              
+              {error && (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm font-medium">
+                  {error}
+                </div>
+              )}
               
               <button 
                 type="submit"

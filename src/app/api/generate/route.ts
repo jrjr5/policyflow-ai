@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     `;
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4.1-mini',
       messages: [
         {
           role: 'system',
@@ -52,15 +52,24 @@ export async function POST(req: Request) {
 
     const content = response.choices[0].message.content;
     if (!content) {
-      throw new Error('Failed to generate content');
+      throw new Error('OpenAI returned an empty response.');
     }
 
     return NextResponse.json(JSON.parse(content));
   } catch (error: any) {
     console.error('Error generating policy:', error);
+    
+    // Extract more detailed error information if available
+    const errorMessage = error?.message || 'An unexpected error occurred while generating the policy.';
+    const errorCode = error?.code || error?.status || 'UNKNOWN_ERROR';
+    
     return NextResponse.json(
-      { error: 'Failed to generate policy' },
-      { status: 500 }
+      { 
+        error: errorMessage,
+        code: errorCode,
+        details: error?.response?.data || null
+      },
+      { status: error?.status || 500 }
     );
   }
 }
