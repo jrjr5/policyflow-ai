@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     const { email, clinicType, state, policyType, notes } = await req.json();
 
     // Server-side rate limiting by IP
-    const headersList = headers();
+    const headersList = await headers();
     const ip = headersList.get('x-forwarded-for') || 'unknown';
     const now = Date.now();
     const lastGenerated = rateLimit.get(ip);
