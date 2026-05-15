@@ -152,41 +152,31 @@ export default function PolicyGenerator() {
   return (
     <div className="w-full">
       <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-100 mb-8">
-        <h2 className="text-3xl font-bold text-slate-900 mb-8">Generate Policy</h2>
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white">
+            <Activity className="w-6 h-6" />
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900">Start Your Free Policy Draft</h2>
+        </div>
         <form onSubmit={handleGenerate} className="space-y-6">
-          <div className="space-y-2">
-            <label className="text-sm font-semibold text-slate-700">Work Email (Optional)</label>
-            <input 
-              type="email"
-              placeholder="name@clinic.com" 
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
-              value={formData.email} 
-              onChange={(e) => setFormData({...formData, email: e.target.value})} 
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm font-semibold text-slate-700">Business / Clinic Name (Optional)</label>
-            <input 
-              placeholder="Your Business Name" 
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
-              value={formData.businessName} 
-              onChange={(e) => setFormData({...formData, businessName: e.target.value})} 
-            />
-          </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-slate-700">Clinic Type</label>
-              <select required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" value={formData.clinicType} onChange={(e) => setFormData({...formData, clinicType: e.target.value})}>
-                <option value="">Select type...</option>
+              <select required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 transition-all" value={formData.clinicType} onChange={(e) => setFormData({...formData, clinicType: e.target.value})}>
+                <option value="">Select facility type...</option>
                 <option value="Telehealth">Telehealth</option>
                 <option value="Wellness Clinic">Wellness Clinic</option>
                 <option value="Weight Loss Clinic">Weight Loss Clinic</option>
                 <option value="Med Spa">Med Spa</option>
+                <option value="IV Therapy">IV Therapy</option>
+                <option value="Psychiatry">Psychiatry</option>
+                <option value="Urgent Care">Urgent Care</option>
+                <option value="Chiropractic">Chiropractic</option>
               </select>
             </div>
             <div className="space-y-2">
               <label className="text-sm font-semibold text-slate-700">State</label>
-              <select required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" value={formData.state} onChange={(e) => setFormData({...formData, state: e.target.value})}>
+              <select required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 transition-all" value={formData.state} onChange={(e) => setFormData({...formData, state: e.target.value})}>
                 <option value="">Select state...</option>
                 {US_STATES.map((state) => (
                   <option key={state} value={state}>{state}</option>
@@ -196,28 +186,63 @@ export default function PolicyGenerator() {
             </div>
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-slate-700">Policy/SOP Type</label>
-            <input required placeholder="e.g. HIPAA Compliance" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" value={formData.policyType} onChange={(e) => setFormData({...formData, policyType: e.target.value})} />
+            <label className="text-sm font-semibold text-slate-700">Policy / SOP Type</label>
+            <input required placeholder="e.g. HIPAA Privacy Policy, Telehealth Consent SOP" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 transition-all" value={formData.policyType} onChange={(e) => setFormData({...formData, policyType: e.target.value})} />
           </div>
-          <div className="space-y-2">
-            <label className="text-sm font-semibold text-slate-700">Additional Notes (Optional)</label>
-            <textarea placeholder="Any specific requirements?" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 min-h-[120px]" value={formData.notes} onChange={(e) => setFormData({...formData, notes: e.target.value})}></textarea>
+          
+          <div className="pt-4 border-t border-slate-50">
+            <button 
+              type="button" 
+              className="text-sm font-bold text-blue-600 flex items-center gap-2 hover:text-blue-700 transition-colors"
+              onClick={() => {
+                const el = document.getElementById('extra-fields');
+                if (el) el.classList.toggle('hidden');
+              }}
+            >
+              <Plus className="w-4 h-4" /> Add Clinic Name & Custom Notes (Optional)
+            </button>
+            <div id="extra-fields" className="hidden mt-6 space-y-6 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-slate-700">Business / Clinic Name</label>
+                <input 
+                  placeholder="Your Business Name" 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
+                  value={formData.businessName} 
+                  onChange={(e) => setFormData({...formData, businessName: e.target.value})} 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-slate-700">Work Email</label>
+                <input 
+                  type="email"
+                  placeholder="name@clinic.com" 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" 
+                  value={formData.email} 
+                  onChange={(e) => setFormData({...formData, email: e.target.value})} 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-slate-700">Additional Instructions</label>
+                <textarea placeholder="e.g. Include specific cross-state rules or platform names..." className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 min-h-[100px]" value={formData.notes} onChange={(e) => setFormData({...formData, notes: e.target.value})}></textarea>
+              </div>
+            </div>
           </div>
+
           {error && <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm font-bold">Error: {error}</div>}
           
           {hasReachedLimit && !policyText ? (
             <div className="space-y-4">
               <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl text-center">
-                <p className="text-amber-800 font-bold mb-1">Free policy preview already used.</p>
-                <p className="text-amber-700 text-sm">Upgrade to PolicyFlow AI Professional to continue generating policies.</p>
+                <p className="text-amber-800 font-bold mb-1">Free policy preview limit reached.</p>
+                <p className="text-amber-700 text-sm">Upgrade to PolicyFlow AI Professional to continue generating unlimited policies.</p>
               </div>
-              <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-200">
-                Upgrade to Professional <ArrowRight className="w-5 h-5" />
+              <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" className="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-blue-200">
+                Upgrade to Professional <ArrowRight className="w-6 h-6" />
               </a>
             </div>
           ) : (
-            <button type="submit" disabled={isGenerating} className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-3">
-              {isGenerating ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Plus className="w-5 h-5" /> Generate Policy</>}
+            <button type="submit" disabled={isGenerating} className="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-blue-100 group transition-all">
+              {isGenerating ? <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" /> : <><Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" /> Generate Policy Now</>}
             </button>
           )}
         </form>

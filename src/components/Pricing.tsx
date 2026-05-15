@@ -12,9 +12,9 @@ export default function Pricing() {
     <section id="pricing" className="py-24 px-6 bg-white border-t border-slate-100">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-sm font-black text-blue-600 uppercase tracking-widest mb-4">Pricing Plans</h2>
-        <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">Built for Healthcare Businesses of All Sizes.</h3>
+        <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">Save hours of clinic administrative work every month.</h3>
         <p className="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Standardize your clinic operations with professional operational templates and healthcare-focused AI generation.
+          Choose the plan that fits your clinical documentation needs. Compare against hiring expensive consultants or spending dozens of hours manually writing policies.
         </p>
         
         <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-6 py-3 rounded-full text-sm font-bold mb-16 shadow-sm border border-blue-100">

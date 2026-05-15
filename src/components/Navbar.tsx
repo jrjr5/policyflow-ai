@@ -21,12 +21,12 @@ export default function Navbar({ onStart, onHomeClick }: NavbarProps) {
           <Link href="/hipaa-compliance" className="text-slate-600 hover:text-blue-600 font-bold uppercase tracking-widest hidden md:block">HIPAA Guide</Link>
           <Link href="/#pricing" className="text-slate-600 hover:text-blue-600 font-bold uppercase tracking-widest">Pricing</Link>
           {onStart ? (
-            <button onClick={onStart} className="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-              Get Started
+            <button onClick={onStart} className="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">
+              Generate 1 Free Policy
             </button>
           ) : (
-            <Link href="/#generator" className="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-              Get Started
+            <Link href="/#generator" className="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">
+              Generate 1 Free Policy
             </Link>
           )}
         </div>

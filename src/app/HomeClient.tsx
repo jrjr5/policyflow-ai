@@ -197,23 +197,24 @@ export default function HomeClient() {
                 <span>The #1 AI Clinic Documentation Software</span>
               </div>
               <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-8 tracking-tight leading-[1.05]">
-                Professional Clinic Documentation Powered by AI.
+                Generate HIPAA Policies, Telehealth SOPs, and Clinic Compliance Templates in Minutes Using AI
               </h1>
               <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-4xl mx-auto leading-relaxed">
-                PolicyFlow AI helps healthcare businesses generate professional operational templates and compliance workflows in minutes. Designed for telehealth, med spa, and wellness clinics.
+                Built for telehealth clinics, med spas, wellness clinics, weight loss clinics, and healthcare businesses that need professional operational documentation fast.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button onClick={handleStart} className="w-full sm:w-auto bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-2xl hover:bg-blue-700 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-blue-200">
                   Generate 1 Free Policy <ArrowRight className="w-6 h-6" />
                 </button>
                 <a href="#samples" className="w-full sm:w-auto bg-white text-slate-700 border border-slate-200 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-slate-50 transition-all text-center">
-                  View Sample Policies
+                  View Real Policy Examples
                 </a>
               </div>
               <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm font-bold text-slate-400">
-                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> HIPAA Policy Generator</div>
-                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Telehealth SOP Generator</div>
-                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Clinic Compliance Templates</div>
+                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> No setup required</div>
+                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Professional healthcare templates</div>
+                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Built for healthcare operations</div>
+                 <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-green-500" /> Save hours of manual documentation work</div>
               </div>
             </div>
           </section>
@@ -306,6 +307,11 @@ export default function HomeClient() {
                   </div>
                 ))}
               </div>
+              <div className="mt-16 text-center">
+                <button onClick={handleStart} className="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200 inline-flex items-center gap-3">
+                  Generate Your Free Policy <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </section>
 
@@ -313,11 +319,29 @@ export default function HomeClient() {
 
           <WhyUs />
 
+          <div className="py-16 bg-white text-center">
+            <button onClick={handleStart} className="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200 inline-flex items-center gap-3">
+              Generate Compliance Workflow <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
+
           <WhoItsFor />
+
+          <div className="py-16 bg-slate-50 text-center">
+            <button onClick={handleStart} className="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200 inline-flex items-center gap-3">
+              Start Free <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
 
           <Benefits />
 
           <FAQ items={faqs} title="PolicyFlow AI FAQs" />
+
+          <div className="py-16 bg-white border-b border-slate-100 text-center">
+            <button onClick={handleStart} className="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200 inline-flex items-center gap-3">
+              Create SOP Now <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
 
           {/* AUTHORITY PILLARS */}
           <section className="py-24 px-6 bg-white">
@@ -364,6 +388,16 @@ export default function HomeClient() {
       )}
 
       <Footer />
+
+      {/* STICKY MOBILE CTA */}
+      <div className="md:hidden fixed bottom-6 left-6 right-6 z-40">
+        <button 
+          onClick={handleStart} 
+          className="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl shadow-2xl shadow-blue-500/50 flex items-center justify-center gap-3 animate-in slide-in-from-bottom-10 duration-500"
+        >
+          Generate Free Policy <ArrowRight className="w-6 h-6" />
+        </button>
+      </div>
     </main>
   );
 }
