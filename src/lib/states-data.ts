@@ -188,7 +188,7 @@ export const SPECIALTIES = [
 
 export const INDUSTRY_PAGES = [
   {
-    slug: 'dentistry-policies',
+    slug: 'dentistry-disabled',
     industrySlug: 'dentistry-clinics',
     type: 'policies',
     title: 'Dentistry Policies & SOPs',
