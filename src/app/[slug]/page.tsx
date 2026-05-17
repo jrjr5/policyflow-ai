@@ -4,7 +4,28 @@ import { generatePseoSlugs, parsePseoSlug } from '@/lib/p-seo';
 import UseCaseLayout from '@/components/UseCaseLayout';
 import { notFound } from 'next/navigation';
 
-export async function generateStaticParams() {
+export async function export async function generateStaticParams() {
+  const existingSlugs = INDUSTRY_PAGES
+    .filter((page) => page?.slug && typeof page.slug === "string")
+    .map((page) => ({
+      slug: String(page.slug).trim(),
+    }));
+
+  const pseoSlugs = generatePseoSlugs()
+    .filter((slug) => slug && typeof slug === "string")
+    .map((slug) => ({
+      slug: String(slug).trim(),
+    }));
+
+  const exampleSlugs = POLICY_EXAMPLES
+    .filter((example) => example?.slug && typeof example.slug === "string")
+    .map((example) => ({
+      slug: String(example.slug).trim(),
+    }));
+
+  return [...existingSlugs, ...pseoSlugs, ...exampleSlugs]
+    .filter((item) => item.slug.length > 0);
+} {
   const existingSlugs = INDUSTRY_PAGES.map((page) => ({ slug: page.slug }));
   // We generate a subset of the massive list for the build step to keep it fast
   // The rest will be generated on-demand (ISR) if we don't use 'force-static'
