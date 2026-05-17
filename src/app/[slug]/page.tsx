@@ -4,7 +4,7 @@ import { generatePseoSlugs, parsePseoSlug } from '@/lib/p-seo';
 import UseCaseLayout from '@/components/UseCaseLayout';
 import { notFound } from 'next/navigation';
 
-export async function export async function generateStaticParams() {
+export async function generateStaticParams() {
   const existingSlugs = INDUSTRY_PAGES
     .filter((page) => page?.slug && typeof page.slug === "string")
     .map((page) => ({
