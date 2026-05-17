@@ -25,14 +25,6 @@ export async function generateStaticParams() {
 
   return [...existingSlugs, ...pseoSlugs, ...exampleSlugs]
     .filter((item) => item.slug.length > 0);
-} {
-  const existingSlugs = INDUSTRY_PAGES.map((page) => ({ slug: page.slug }));
-  // We generate a subset of the massive list for the build step to keep it fast
-  // The rest will be generated on-demand (ISR) if we don't use 'force-static'
-  const pseoSlugs = generatePseoSlugs().slice(0, 300).map((slug) => ({ slug })); 
-  return [...existingSlugs, ...pseoSlugs];
-}
-
 interface Props {
   params: { slug: string };
 }
