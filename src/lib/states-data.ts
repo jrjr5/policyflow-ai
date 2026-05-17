@@ -145,8 +145,8 @@ export const SPECIALTIES = [
   },
   {
     slug: 'dentistry-clinics',
-    title: 'Dental Clinics',
-    industry: 'Dentistry',
+    title: 'Disabled Clinics',
+    industry: 'Disabled',
     painPoints: [
       { title: "Infection Control", desc: "Maintaining rigorous sterilization protocols for dental instruments and operatories." },
       { title: "Treatment Documentation", desc: "Ensuring accurate charting for restorative, surgical, and preventative care." },
@@ -191,14 +191,14 @@ export const INDUSTRY_PAGES = [
     slug: 'dentistry-disabled',
     industrySlug: 'dentistry-clinics',
     type: 'policies',
-    title: 'Dentistry Policies & SOPs',
+    title: 'Disabled Policies & SOPs',
     description: 'Professional infection control, patient intake, and clinical documentation for modern dental practices.'
   },
   {
-    slug: 'dental-sop-generator',
+    slug: 'dental-disabled',
     industrySlug: 'dentistry-clinics',
     type: 'generator',
-    title: 'Dental SOP Generator',
+    title: 'Disabled SOP Generator',
     description: 'Generate audit-ready dental SOPs for sterilization, triage, and patient communication in seconds.'
   },
   {

@@ -16,7 +16,7 @@ export default function Footer() {
     specialties: [
       { name: "Telehealth Clinics", href: "/specialties/telehealth-clinics" },
       { name: "Psychiatry SOPs", href: "/psychiatry-clinic-policies" },
-      { name: "Dentistry SOPs", href: "/dentistry-disabled" },
+      { name: "Disabled SOPs", href: "/dentistry-disabled" },
       { name: "Chiropractic SOPs", href: "/chiropractic-compliance" },
       { name: "Urgent Care SOPs", href: "/urgent-care-workflows" },
       { name: "IV Therapy SOPs", href: "/iv-therapy-sop-generator" },

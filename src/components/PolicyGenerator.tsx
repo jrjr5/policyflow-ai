@@ -251,7 +251,7 @@ export default function PolicyGenerator() {
                 <option value="Urgent Care">Urgent Care</option>
                 <option value="Chiropractic">Chiropractic</option>
                 <option value="Physical Therapy">Physical Therapy</option>
-                <option value="Dental Practice">Dental Practice</option>
+                <option value="Disabled Practice">Disabled Practice</option>
               </select>
             </div>
             <div className="space-y-3">

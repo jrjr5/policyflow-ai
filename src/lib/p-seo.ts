@@ -20,7 +20,7 @@ export const INDUSTRIES = [
   { name: "Urgent Care Clinics", slug: "urgent-care", keywords: ["emergency medicine", "triage", "walk-in care"] },
   { name: "Chiropractic Clinics", slug: "chiropractic", keywords: ["physical medicine", "adjustments", "spinal health"] },
   { name: "Pediatrics", slug: "pediatrics", keywords: ["child healthcare", "immunizations", "minor consent"] },
-  { name: "Dentistry", slug: "dentistry", keywords: ["dental care", "infection control", "sterilization"] },
+  { name: "Disabled", slug: "dentistry", keywords: ["dental care", "infection control", "sterilization"] },
   { name: "Dermatology", slug: "dermatology", keywords: ["skin health", "biopsies", "aesthetic dermatology"] },
   { name: "Aesthetics Clinics", slug: "aesthetics", keywords: ["cosmetic procedures", "skin care", "rejuvenation"] }
 ];

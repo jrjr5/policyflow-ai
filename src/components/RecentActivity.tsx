@@ -19,7 +19,7 @@ const ACTIVITIES: ActivityItem[] = [
   { id: 4, state: 'Wisconsin', clinicType: 'Primary Care', policyType: 'Employee Handbook', timeAgo: '18 minutes ago' },
   { id: 5, state: 'Arizona', clinicType: 'Weight Loss Clinic', policyType: 'Weight Loss Clinic SOP', timeAgo: '24 minutes ago' },
   { id: 6, state: 'New York', clinicType: 'Mental Health', policyType: 'Patient Communication Workflow', timeAgo: '31 minutes ago' },
-  { id: 7, state: 'Illinois', clinicType: 'Dental Clinic', policyType: 'No-Show Policy', timeAgo: '42 minutes ago' },
+  { id: 7, state: 'Illinois', clinicType: 'Disabled Clinic', policyType: 'No-Show Policy', timeAgo: '42 minutes ago' },
   { id: 8, state: 'Georgia', clinicType: 'Infusion Clinic', policyType: 'IV Therapy SOP', timeAgo: '54 minutes ago' },
   { id: 9, state: 'Washington', clinicType: 'Multi-Specialty', policyType: 'Clinic Documentation Policy', timeAgo: '1 hour ago' },
   { id: 10, state: 'Nevada', clinicType: 'Med Spa', policyType: 'Med Spa Sanitation SOP', timeAgo: '1 hour ago' },
