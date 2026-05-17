@@ -188,14 +188,14 @@ export const SPECIALTIES = [
 
 export const INDUSTRY_PAGES = [
   {
-    slug: 'dentistry-disabled',
+    
     industrySlug: 'dentistry-clinics',
     type: 'policies',
     title: 'Disabled Policies & SOPs',
     description: 'Professional infection control, patient intake, and clinical documentation for modern dental practices.'
   },
   {
-    slug: 'dental-disabled',
+    
     industrySlug: 'dentistry-clinics',
     type: 'generator',
     title: 'Disabled SOP Generator',
