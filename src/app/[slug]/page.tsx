@@ -1,37 +1,24 @@
-import { Metadata } from 'next';
-import { INDUSTRY_PAGES, SPECIALTIES } from '@/lib/states-data';
-import { generatePseoSlugs, parsePseoSlug } from '@/lib/p-seo';
-import UseCaseLayout from '@/components/UseCaseLayout';
-import { notFound } from 'next/navigation';
-
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import UseCaseLayout from "@/components/UseCaseLayout";
+import { INDUSTRY_PAGES, SPECIALTIES } from "@/lib/states-data";
+import { parsePseoSlug } from "@/lib/p-seo";
 export async function generateStaticParams() {
   const existingSlugs = INDUSTRY_PAGES
     .filter((page) => page?.slug && typeof page.slug === "string")
     .map((page) => ({
       slug: String(page.slug).trim(),
     }));
-
-  const pseoSlugs = generatePseoSlugs()
-    .filter((slug) => slug && typeof slug === "string")
-    .map((slug) => ({
-      slug: String(slug).trim(),
-    }));
-
-  const exampleSlugs = POLICY_EXAMPLES
-    .filter((example) => example?.slug && typeof example.slug === "string")
-    .map((example) => ({
-      slug: String(example.slug).trim(),
-    }));
-
-  return [...existingSlugs, ...pseoSlugs, ...exampleSlugs]
-    .filter((item) => item.slug.length > 0);
+return existingSlugs.filter(
+  (item) => item.slug.length > 0
+);
+}
 interface Props {
   params: { slug: string };
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const page = INDUSTRY_PAGES.find(p => p.slug === params.slug);
-  
+  const page = INDUSTRY_PAGES.find((p) => p.slug === params.slug);
+
   if (page) {
     return {
       title: `${page.title} | PolicyFlow AI`,
@@ -41,32 +28,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: page.title,
         description: page.description,
         url: `https://policyflow-ai.vercel.app/${params.slug}`,
-        type: 'website',
+        type: "website",
       },
     };
   }
 
-  const pseo = parsePseoSlug(params.slug);
-  if (pseo.state || pseo.industry || pseo.policy) {
-    const title = `${pseo.state || ''} ${pseo.industry?.name || ''} ${pseo.policy?.name || 'Compliance Policies'} | PolicyFlow AI`;
-    const desc = `Professional ${pseo.industry?.name || 'healthcare'} policies and SOPs for ${pseo.state || 'your clinic'}. Audit-ready templates for clinical operations and compliance.`;
-    
-    return {
-      title,
-      description: desc,
-      alternates: { canonical: `/${params.slug}` },
-      openGraph: {
-        title,
-        description: desc,
-        url: `https://policyflow-ai.vercel.app/${params.slug}`,
-        type: 'article',
-      },
-    };
-  }
-
-  return {};
+  return {
+    title: "PolicyFlow AI",
+    description: "AI-powered healthcare policy and SOP generator.",
+  };
 }
-
 export default function DynamicPage({ params }: Props) {
   const page = INDUSTRY_PAGES.find(p => p.slug === params.slug);
   
