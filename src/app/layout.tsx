@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     description: "Generate professional policies and SOPs for telehealth, wellness, and med spa clinics using AI.",
   },
   verification: {
-    google: "_jDX6j00NZ_asZYUFd835etHvdpYEvQ6k8Cd4w4f_zo",
+    google: "t2l3OpZDIx3J3DwGi4d_E3D8W3jifde7eNf4R4LVJp8",
   },
 };
 
