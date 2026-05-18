@@ -17,7 +17,7 @@ import { jsPDF } from 'jspdf';
 import { US_STATES } from '@/lib/states-data';
 
 const UNLIMITED_LINK = "https://buy.stripe.com/test_5kQ9AMaPw3toajS4M80VO00";
-const STARTER_LINK = "https://buy.stripe.com/test_14AfZa7Dk0hc77GemI0VO01";
+const STARTER_LINK = "https://buy.stripe.com/00w8wIg9Ogf3eGWduRe3e02";
 
 export default function PolicyGenerator() {
   const [formData, setFormData] = useState({
