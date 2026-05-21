@@ -271,7 +271,45 @@ export const INDUSTRY_PAGES = [
     title: 'IV Therapy SOP Generator',
     description: 'Generate hydration workflows, infusion protocols, and patient observation SOPs.'
   }
-];
+{
+  slug: 'texas-telehealth-policy-generator',
+  industrySlug: 'telehealth-clinics',
+  type: 'generator',
+  title: 'Texas Telehealth Policy Generator',
+  description: 'Generate Texas telehealth SOPs, HIPAA policies, and healthcare compliance templates instantly using AI.'
+},
+
+{
+  slug: 'florida-medspa-hipaa-policies',
+  industrySlug: 'medical-spas',
+  type: 'policies',
+  title: 'Florida MedSpa HIPAA Policies',
+  description: 'Create Florida medspa HIPAA policies, consent forms, and compliance templates using AI.'
+},
+
+{
+  slug: 'california-clinic-compliance-manual',
+  industrySlug: 'medical-clinics',
+  type: 'compliance',
+  title: 'California Clinic Compliance Manual',
+  description: 'Generate California clinic compliance manuals, healthcare SOPs, and HIPAA workflows instantly.'
+},
+
+{
+  slug: 'washington-behavioral-health-sops',
+  industrySlug: 'behavioral-health',
+  type: 'policies',
+  title: 'Washington Behavioral Health SOPs',
+  description: 'Create Washington behavioral health SOPs, intake workflows, and compliance templates using AI.'
+},
+
+{
+  slug: 'illinois-weight-loss-clinic-policies',
+  industrySlug: 'weight-loss-clinics',
+  type: 'policies',
+  title: 'Illinois Weight Loss Clinic Policies',
+  description: 'Generate Illinois weight loss clinic SOPs, GLP-1 compliance templates, and patient workflows instantly.'
+},];
 
 export function slugify(text: string) {
   return text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
