@@ -270,7 +270,7 @@ export const INDUSTRY_PAGES = [
     type: 'generator',
     title: 'IV Therapy SOP Generator',
     description: 'Generate hydration workflows, infusion protocols, and patient observation SOPs.'
-  }
+  },
 {
   slug: 'texas-telehealth-policy-generator',
   industrySlug: 'telehealth-clinics',
