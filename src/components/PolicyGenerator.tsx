@@ -433,6 +433,57 @@ export default function PolicyGenerator() {
                <div className="text-sm font-bold text-slate-600">
                   Join <span className="text-blue-600">500+ clinics</span> using PolicyFlow AI
                </div>
+               {<div className="max-w-4xl mx-auto mt-24 px-6">
+  <h2 className="text-4xl font-black text-center mb-12">
+    Frequently Asked Questions
+  </h2>
+
+  <div className="space-y-6">
+
+    <div className="border border-slate-200 rounded-2xl p-6">
+      <h3 className="font-bold text-xl mb-2">
+        What does PolicyFlow AI generate?
+      </h3>
+      <p className="text-slate-600">
+        PolicyFlow AI generates healthcare SOPs, HIPAA policies,
+        clinic compliance manuals, intake workflows, and operational
+        documentation for healthcare businesses.
+      </p>
+    </div>
+
+    <div className="border border-slate-200 rounded-2xl p-6">
+      <h3 className="font-bold text-xl mb-2">
+        Can I edit the generated policies?
+      </h3>
+      <p className="text-slate-600">
+        Yes. All generated policies are editable and designed to help
+        clinics save time creating operational documentation.
+      </p>
+    </div>
+
+    <div className="border border-slate-200 rounded-2xl p-6">
+      <h3 className="font-bold text-xl mb-2">
+        Who is this for?
+      </h3>
+      <p className="text-slate-600">
+        PolicyFlow AI is built for telehealth clinics, med spas,
+        behavioral health clinics, weight loss clinics, private
+        practices, and healthcare startups.
+      </p>
+    </div>
+
+    <div className="border border-slate-200 rounded-2xl p-6">
+      <h3 className="font-bold text-xl mb-2">
+        How fast can I generate policies?
+      </h3>
+      <p className="text-slate-600">
+        Most healthcare SOPs and compliance templates generate in
+        under 60 seconds.
+      </p>
+    </div>
+
+  </div>
+</div>}
             </div>
           </div>
         </div>
