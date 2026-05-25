@@ -145,10 +145,10 @@ export const SPECIALTIES = [
   },
   {
     slug: 'dentistry-clinics',
-    title: 'Disabled Clinics',
-    industry: 'Disabled',
+    title: 'Dental Clinics',
+industry: 'Dentistry',
     painPoints: [
-      { title: "Infection Control", desc: "Maintaining rigorous sterilization protocols for dental instruments and operatories." },
+     { title: "Infection Control", desc: "Maintaining rigorous sterilization protocols for instruments and operatories." },
       { title: "Treatment Documentation", desc: "Ensuring accurate charting for restorative, surgical, and preventative care." },
       { title: "Scheduling Efficiency", desc: "Optimizing chair time and reducing no-shows in a high-volume practice." }
     ],
