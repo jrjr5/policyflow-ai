@@ -324,7 +324,8 @@ export const INDUSTRY_PAGES = [
   type: 'policies',
   title: 'Illinois Weight Loss Clinic Policies',
   description: 'Generate Illinois weight loss clinic SOPs, GLP-1 compliance templates, and patient workflows instantly.' 
-  {
+  },
+{
   slug: 'california-telehealth-policy-generator',
   industrySlug: 'telehealth-clinics',
   type: 'generator',
