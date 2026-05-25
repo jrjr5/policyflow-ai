@@ -94,7 +94,21 @@ export default function DynamicPage({ params }: Props) {
   }
 
   const pseo = parsePseoSlug(params.slug);
-  if (!pseo.state && !pseo.industry && !pseo.policy) notFound();
+  if (!pseo.state && !pseo.industry && !pseo.policy) {
+  return (
+    <UseCaseLayout
+      title="Healthcare Policy Generator"
+      category="Healthcare"
+      industry="Healthcare Practice"
+      headline="Healthcare Policy Generator"
+      subheadline="Generate healthcare SOPs, HIPAA policies, compliance templates, and operational documentation using AI."
+      painPoints={[]}
+      solutions={[]}
+      examples={[]}
+      faqs={[]}
+    />
+  );
+}
 
   const title = `${pseo.state || ''} ${pseo.industry?.name || ''} ${pseo.policy?.name || 'Compliance Policies'}`;
   
