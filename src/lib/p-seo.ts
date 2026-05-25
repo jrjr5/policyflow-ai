@@ -96,10 +96,10 @@ export function generatePseoSlugs() {
 export function parsePseoSlug(slug: string) {
   const parts = (slug || '').split('-');
   
-  let state = STATES.find(st => slug.includes(slugify(st)));
-  let industry = INDUSTRIES.find(ind => slug.includes(ind.slug));
-  let policy = POLICY_TYPES.find(pol => slug.includes(pol.slug));
-  let isFree = slug.startsWith('free-');
+  let state = STATES.find(st => (slug || '').includes(slugify(st)));
+let industry = INDUSTRIES.find(ind => (slug || '').includes(ind.slug || ''));
+let policy = POLICY_TYPES.find(pol => (slug || '').includes(pol.slug || ''));
+  let isFree = (slug || '').startsWith('free-');
   
   return {
     state,
