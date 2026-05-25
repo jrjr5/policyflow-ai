@@ -188,19 +188,34 @@ export const SPECIALTIES = [
 
 export const INDUSTRY_PAGES = [
   {
-    
-    industrySlug: 'dentistry-clinics',
-    type: 'policies',
-    title: 'Disabled Policies & SOPs',
-    description: 'Professional infection control, patient intake, and clinical documentation for modern dental practices.'
-  },
-  {
-    
-    industrySlug: 'dentistry-clinics',
-    type: 'generator',
-    title: 'Disabled SOP Generator',
-    description: 'Generate audit-ready dental SOPs for sterilization, triage, and patient communication in seconds.'
-  },
+  slug: 'texas-telehealth-policy-generator',
+  industrySlug: 'telehealth-clinics',
+  type: 'generator',
+  title: 'Texas Telehealth Policy Generator',
+  description: 'Generate Texas telehealth SOPs, HIPAA templates, and clinic workflows using AI.'
+},
+
+{
+  slug: 'florida-medspa-hipaa-policies',
+  industrySlug: 'medical-spas',
+  type: 'policies',
+  title: 'Florida MedSpa HIPAA Policies',
+  description: 'Create Florida medspa HIPAA policies, consent forms, and compliance templates using AI.'
+},
+{
+  slug: 'dental-policies-sops',
+  industrySlug: 'dentistry-clinics',
+  type: 'policies',
+  title: 'Dental Policies & SOPs',
+  description: 'Professional infection control, patient intake, and clinical documentation for modern dental practices.'
+},
+{
+  slug: 'dental-sop-generator',
+  industrySlug: 'dentistry-clinics',
+  type: 'generator',
+  title: 'Dental SOP Generator',
+  description: 'Generate audit-ready dental SOPs for sterilization, triage, and patient communication in seconds.'
+},
   {
     slug: 'psychiatry-clinic-policies',
     industrySlug: 'psychiatry-clinics',
@@ -308,8 +323,148 @@ export const INDUSTRY_PAGES = [
   industrySlug: 'weight-loss-clinics',
   type: 'policies',
   title: 'Illinois Weight Loss Clinic Policies',
-  description: 'Generate Illinois weight loss clinic SOPs, GLP-1 compliance templates, and patient workflows instantly.'
-},];
+  description: 'Generate Illinois weight loss clinic SOPs, GLP-1 compliance templates, and patient workflows instantly.' 
+  {
+  slug: 'california-telehealth-policy-generator',
+  industrySlug: 'telehealth-clinics',
+  type: 'generator',
+  title: 'California Telehealth Policy Generator',
+  description: 'Generate California telehealth SOPs, HIPAA policies, and clinic compliance workflows using AI.'
+},
+{
+  slug: 'florida-telehealth-sop-generator',
+  industrySlug: 'telehealth-clinics',
+  type: 'generator',
+  title: 'Florida Telehealth SOP Generator',
+  description: 'Create Florida telehealth SOPs, HIPAA workflows, virtual care policies, and compliance templates using AI.'
+},
+{
+  slug: 'new-york-telehealth-policies',
+  industrySlug: 'telehealth-clinics',
+  type: 'policies',
+  title: 'New York Telehealth Policies',
+  description: 'Generate New York telehealth policies, HIPAA documentation, consent workflows, and virtual care SOPs using AI.'
+},
+{
+  slug: 'washington-telehealth-compliance',
+  industrySlug: 'telehealth-clinics',
+  type: 'compliance',
+  title: 'Washington Telehealth Compliance Templates',
+  description: 'Create Washington telehealth compliance templates, clinic SOPs, and HIPAA-ready workflows using AI.'
+},
+{
+  slug: 'illinois-telehealth-policy-templates',
+  industrySlug: 'telehealth-clinics',
+  type: 'policies',
+  title: 'Illinois Telehealth Policy Templates',
+  description: 'Generate Illinois telehealth policies, virtual visit SOPs, HIPAA workflows, and clinic documentation using AI.'
+},
+{
+  slug: 'texas-medspa-compliance-manual',
+  industrySlug: 'medical-spas',
+  type: 'compliance',
+  title: 'Texas MedSpa Compliance Manual',
+  description: 'Create Texas medspa compliance manuals, HIPAA policies, consent forms, and treatment SOPs using AI.'
+},
+{
+  slug: 'california-medspa-sop-generator',
+  industrySlug: 'medical-spas',
+  type: 'generator',
+  title: 'California MedSpa SOP Generator',
+  description: 'Generate California medspa SOPs, treatment workflows, HIPAA policies, and compliance documentation using AI.'
+},
+{
+  slug: 'arizona-medspa-hipaa-policies',
+  industrySlug: 'medical-spas',
+  type: 'policies',
+  title: 'Arizona MedSpa HIPAA Policies',
+  description: 'Create Arizona medspa HIPAA policies, patient consent templates, compliance workflows, and SOPs using AI.'
+},
+{
+  slug: 'nevada-medspa-consent-forms',
+  industrySlug: 'medical-spas',
+  type: 'policies',
+  title: 'Nevada MedSpa Consent Forms',
+  description: 'Generate Nevada medspa consent forms, treatment policies, HIPAA templates, and operational SOPs using AI.'
+},
+{
+  slug: 'georgia-medspa-policy-generator',
+  industrySlug: 'medical-spas',
+  type: 'generator',
+  title: 'Georgia MedSpa Policy Generator',
+  description: 'Create Georgia medspa policies, compliance SOPs, intake workflows, and HIPAA documentation using AI.'
+},
+{
+  slug: 'texas-weight-loss-clinic-policies',
+  industrySlug: 'weight-loss-clinics',
+  type: 'policies',
+  title: 'Texas Weight Loss Clinic Policies',
+  description: 'Generate Texas weight loss clinic policies, GLP-1 SOPs, patient workflows, and compliance templates using AI.'
+},
+{
+  slug: 'florida-glp1-sop-generator',
+  industrySlug: 'weight-loss-clinics',
+  type: 'generator',
+  title: 'Florida GLP-1 SOP Generator',
+  description: 'Create Florida GLP-1 clinic SOPs, weight loss workflows, medication documentation, and compliance templates using AI.'
+},
+{
+  slug: 'california-semaglutide-clinic-policies',
+  industrySlug: 'weight-loss-clinics',
+  type: 'policies',
+  title: 'California Semaglutide Clinic Policies',
+  description: 'Generate California semaglutide clinic policies, GLP-1 SOPs, HIPAA workflows, and patient documentation using AI.'
+},
+{
+  slug: 'wisconsin-weight-loss-compliance',
+  industrySlug: 'weight-loss-clinics',
+  type: 'compliance',
+  title: 'Wisconsin Weight Loss Clinic Compliance',
+  description: 'Create Wisconsin weight loss clinic SOPs, GLP-1 documentation, HIPAA policies, and compliance templates using AI.'
+},
+{
+  slug: 'illinois-glp1-clinic-templates',
+  industrySlug: 'weight-loss-clinics',
+  type: 'policies',
+  title: 'Illinois GLP-1 Clinic Templates',
+  description: 'Generate Illinois GLP-1 clinic policies, weight loss SOPs, patient intake workflows, and compliance templates using AI.'
+},
+{
+  slug: 'texas-mental-health-compliance',
+  industrySlug: 'behavioral-health',
+  type: 'compliance',
+  title: 'Texas Mental Health Compliance Templates',
+  description: 'Create Texas mental health clinic SOPs, intake workflows, HIPAA policies, and compliance documentation using AI.'
+},
+{
+  slug: 'california-psychiatry-policies',
+  industrySlug: 'psychiatry-clinics',
+  type: 'policies',
+  title: 'California Psychiatry Policies',
+  description: 'Generate California psychiatry clinic HIPAA policies, intake workflows, crisis protocols, and compliance SOPs using AI.'
+},
+{
+  slug: 'florida-behavioral-health-sops',
+  industrySlug: 'behavioral-health',
+  type: 'policies',
+  title: 'Florida Behavioral Health SOPs',
+  description: 'Create Florida behavioral health SOPs, patient intake documentation, HIPAA workflows, and compliance templates using AI.'
+},
+{
+  slug: 'washington-therapy-clinic-policies',
+  industrySlug: 'behavioral-health',
+  type: 'policies',
+  title: 'Washington Therapy Clinic Policies',
+  description: 'Generate Washington therapy clinic policies, intake workflows, telehealth SOPs, and HIPAA documentation using AI.'
+},
+{
+  slug: 'new-york-psychiatry-compliance-manual',
+  industrySlug: 'psychiatry-clinics',
+  type: 'compliance',
+  title: 'New York Psychiatry Compliance Manual',
+  description: 'Create New York psychiatry compliance manuals, HIPAA policies, telepsychiatry SOPs, and intake workflows using AI.'
+},
+];
 
 export function slugify(text: string) {
   return text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
