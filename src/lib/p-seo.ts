@@ -94,7 +94,7 @@ export function generatePseoSlugs() {
 }
 
 export function parsePseoSlug(slug: string) {
-  const parts = slug.split('-');
+  const parts = (slug || '').split('-');
   
   let state = STATES.find(st => slug.includes(slugify(st)));
   let industry = INDUSTRIES.find(ind => slug.includes(ind.slug));
