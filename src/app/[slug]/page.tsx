@@ -42,7 +42,14 @@ export default function DynamicPage({ params }: Props) {
   const page = INDUSTRY_PAGES.find(p => p.slug === params.slug);
   
   if (page) {
-    const specialty = SPECIALTIES.find(s => s.slug === page.industrySlug);
+    const specialty =
+  SPECIALTIES.find((s) => s.slug === page.industrySlug) || {
+    slug: page.industrySlug || 'healthcare',
+    title: page.title || 'Healthcare Compliance',
+    industry: 'Healthcare',
+    painPoints: [],
+    faqs: [],
+  };
     if (!specialty) notFound();
 
     const painPoints = specialty.painPoints || [
