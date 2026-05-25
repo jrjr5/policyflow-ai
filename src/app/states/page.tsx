@@ -36,7 +36,7 @@ export default function StatesDirectoryPage() {
                   {NICHES.map((niche) => (
                     <Link 
                       key={niche.id}
-                      href={`/states/${slugify(state)}-${niche.slugSuffix}`}
+                      href={`/${slugify(state)}-${niche.slugSuffix}`}
                       className="block text-sm text-slate-500 hover:text-blue-600 transition-colors"
                     >
                       {niche.title}
