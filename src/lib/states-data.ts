@@ -197,7 +197,7 @@ export const INDUSTRY_PAGES = [
 
 {
   slug: 'florida-medspa-hipaa-policies',
-  industrySlug: 'medical-spas',
+  industrySlug: 'medspa-clinics',
   type: 'policies',
   title: 'Florida MedSpa HIPAA Policies',
   description: 'Create Florida medspa HIPAA policies, consent forms, and compliance templates using AI.'
@@ -296,7 +296,7 @@ export const INDUSTRY_PAGES = [
 
 {
   slug: 'florida-medspa-hipaa-policies',
-  industrySlug: 'medical-spas',
+  industrySlug: 'medspa-clinics',
   type: 'policies',
   title: 'Florida MedSpa HIPAA Policies',
   description: 'Create Florida medspa HIPAA policies, consent forms, and compliance templates using AI.'
