@@ -1,17 +1,16 @@
 import { MetadataRoute } from 'next';
-import { US_STATES, NICHES, POLICY_TYPES, SPECIALTIES, INDUSTRY_PAGES, slugify } from '@/lib/states-data';
+import { INDUSTRY_PAGES, slugify, US_STATES, NICHES } from '@/lib/states-data';
 import { generatePseoSlugs } from '@/lib/p-seo';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://policyflow-ai.vercel.app';
-  
-  const pseoRoutes = generatePseoSlugs().slice(0, 1000).map(slug => `/${slug}`);
 
   const staticRoutes = [
     '',
     '/privacy',
     '/terms',
     '/contact',
+    '/states',
     '/hipaa-policy-generator',
     '/telehealth-policy-generator',
     '/medspa-sop-generator',
@@ -20,44 +19,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/free-hipaa-policy-template',
     '/free-telehealth-sop-template',
     '/free-clinic-compliance-checklist',
-    '/launch',
-    '/states',
-    '/example-hipaa-policy',
-    '/example-telehealth-sop',
-    '/example-medspa-consent-policy',
-    '/example-medication-refill-policy',
-    '/telehealth-clinic-policies',
-    '/weight-loss-clinic-compliance',
-    '/clinic-employee-handbook-generator',
-    '/healthcare-sop-generator',
-    '/hipaa-compliance',
-    '/telehealth-sops',
-    '/medspa-compliance',
-    '/clinic-compliance-policies',
-    '/healthcare-workflows',
-    '/clinic-documentation',
-    '/weight-loss-clinic-policies',
-    '/healthcare-sop-templates',
-    ...INDUSTRY_PAGES.map(p => `/${p.slug}`),
-    ...pseoRoutes
   ];
 
-  const stateRoutes: string[] = [];
-  US_STATES.forEach(state => {
-    NICHES.forEach(niche => {
-      stateRoutes.push(`/states/${slugify(state)}-${niche.slugSuffix}`);
-    });
-  });
+  const industryRoutes = INDUSTRY_PAGES.map((page) => `/${page.slug}`);
 
-  const policyRoutes = POLICY_TYPES.map(p => `/policies/${p.slug}`);
-  const specialtyRoutes = SPECIALTIES.map(s => `/specialties/${s.slug}`);
+  const pseoRoutes = generatePseoSlugs().map((slug) => `/${slug}`);
 
-  const allRoutes = [...staticRoutes, ...stateRoutes, ...policyRoutes, ...specialtyRoutes];
+  const stateDirectoryRoutes = US_STATES.flatMap((state) =>
+    NICHES.map((niche) => `/${slugify(state)}-${niche.slugSuffix}`)
+  );
+
+  const allRoutes = Array.from(
+    new Set([
+      ...staticRoutes,
+      ...industryRoutes,
+      ...pseoRoutes,
+      ...stateDirectoryRoutes,
+    ])
+  );
 
   return allRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
+    changeFrequency: 'weekly' as const,
     priority: route === '' ? 1 : 0.8,
   }));
 }
